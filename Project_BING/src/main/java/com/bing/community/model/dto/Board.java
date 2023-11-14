@@ -4,7 +4,7 @@ public class Board {
 	private int board_id;
 	private int community_id;
 	private int num;
-	private int viewCnt;
+	private int view_cnt;
 	private String header;
 	private String title;
 	private String writer;
@@ -12,14 +12,13 @@ public class Board {
 	private String reg_date;
 	private String is_modified;
 	private int location_id;
-
-	public Board(int board_id, int community_id, int num, int viewCnt, String header, String title, String writer,
+	public Board(int board_id, int community_id, int num, int view_cnt, String header, String title, String writer,
 			String content, String reg_date, String is_modified, int location_id) {
 		super();
 		this.board_id = board_id;
 		this.community_id = community_id;
 		this.num = num;
-		this.viewCnt = viewCnt;
+		this.view_cnt = view_cnt;
 		this.header = header;
 		this.title = title;
 		this.writer = writer;
@@ -28,93 +27,70 @@ public class Board {
 		this.is_modified = is_modified;
 		this.location_id = location_id;
 	}
-
 	public int getBoard_id() {
 		return board_id;
 	}
-
 	public void setBoard_id(int board_id) {
 		this.board_id = board_id;
 	}
-
 	public int getCommunity_id() {
 		return community_id;
 	}
-
 	public void setCommunity_id(int community_id) {
 		this.community_id = community_id;
 	}
-
 	public int getNum() {
 		return num;
 	}
-
 	public void setNum(int num) {
 		this.num = num;
 	}
-
-	public int getViewCnt() {
-		return viewCnt;
+	public int getView_cnt() {
+		return view_cnt;
 	}
-
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
+	public void setView_cnt(int view_cnt) {
+		this.view_cnt = view_cnt;
 	}
-
 	public String getHeader() {
 		return header;
 	}
-
 	public void setHeader(String header) {
 		this.header = header;
 	}
-
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 	public String getWriter() {
 		return writer;
 	}
-
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public String getReg_date() {
 		return reg_date;
 	}
-
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-
 	public String getIs_modified() {
 		return is_modified;
 	}
-
 	public void setIs_modified(String is_modified) {
 		this.is_modified = is_modified;
 	}
-
 	public int getLocation_id() {
 		return location_id;
 	}
-
 	public void setLocation_id(int location_id) {
 		this.location_id = location_id;
 	}
-
 }

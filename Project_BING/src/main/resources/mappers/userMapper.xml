@@ -9,10 +9,10 @@
 	</select>
 
 	<!-- 유저 1명 조회 -->
-	<select id="selectOne" resultType="User" parameterType="int">
+	<select id="selectOne" resultType="User" parameterType="string">
 		SELECT *
 		FROM user
-		WHERE id = #{id}
+		WHERE email = #{email}
 	</select>
 
 	<!-- 회원가입 -->
