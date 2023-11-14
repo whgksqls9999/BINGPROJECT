@@ -5,6 +5,9 @@ public class Favorite {
 	private int location_id;
 	private int favorite_id;
 
+	public Favorite() {
+	}
+
 	public Favorite(String user_email, int location_id, int favorite_id) {
 		super();
 		this.user_email = user_email;

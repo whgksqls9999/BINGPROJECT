@@ -2,6 +2,7 @@ package com.bing.community.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -16,7 +17,7 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors	.basePackage("com.bing.community.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.bing.community.controller"))
 				.paths(PathSelectors.ant("/**/**"))
 				.build()
 				.apiInfo(apiInfo());
@@ -29,4 +30,8 @@ public class SwaggerConfig {
 				.version("0.1")
 				.build();
 	}
+	@Bean
+    public InternalResourceViewResolver defaultViewResolver() {
+        return new InternalResourceViewResolver();
+    }
 }

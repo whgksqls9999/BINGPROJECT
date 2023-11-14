@@ -8,6 +8,9 @@ public class Reply {
 	private String reg_date;
 	private String is_modified;
 
+	public Reply() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getReply_id() {
 		return reply_id;
 	}

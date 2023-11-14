@@ -16,6 +16,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 
 	@Override
 	public List<Favorite> getFavoriteList(String userId) {
+		System.out.println(userId);
 		return favoriteDao.selectAll(userId);
 	}
 

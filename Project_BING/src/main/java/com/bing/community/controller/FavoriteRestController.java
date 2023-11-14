@@ -33,14 +33,13 @@ public class FavoriteRestController {
 	 * @return
 	 */
 	@GetMapping("/users/{id}")
-	public ResponseEntity<?> getUserFavorites(@PathVariable("id") String id){
-		System.out.println(id);
+	public ResponseEntity<?> getUserFavorites(@PathVariable String id) throws Exception{
 		List<Favorite> list = favoriteService.getFavoriteList(id);
 		if (list == null || list.size() == 0) {
+			System.out.println(list);
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
 		
-		System.out.println(list);
 		return new ResponseEntity<List<Favorite>>(list, HttpStatus.OK);
 	}
 	
@@ -51,6 +50,7 @@ public class FavoriteRestController {
 	 */
 	@GetMapping("/favorites/{id}")
 	public ResponseEntity<?> getFavorite(@PathVariable int id){
+		System.out.println(id);
 		Favorite favor = favoriteService.getFavorite(id);
 		
 		if (favor == null) {
@@ -73,6 +73,11 @@ public class FavoriteRestController {
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * 찜 정보를 수정한다.
+	 * @param favorite
+	 * @return
+	 */
 	@PutMapping("/")
 	public ResponseEntity<?> modeifyFavorite(@RequestBody Favorite favorite){
 		int result = favoriteService.modifyFavorite(favorite);
@@ -82,7 +87,11 @@ public class FavoriteRestController {
 		}
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
-	
+	/**
+	 * 찜 정보를 삭제한다.
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> removeFavorite(@PathVariable int id){
 		int result = favoriteService.removeFavorite(id);
@@ -92,5 +101,4 @@ public class FavoriteRestController {
 		}
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
-	
 }

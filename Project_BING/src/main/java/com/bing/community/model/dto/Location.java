@@ -6,6 +6,9 @@ public class Location {
 	private String longitude;
 	private String latitude;
 
+	public Location() {
+		// TODO Auto-generated constructor stub
+	}
 	public Location(int location_id, String location_name, String longitude, String latitude) {
 		super();
 		this.location_id = location_id;
