@@ -5,6 +5,10 @@ public class Community {
 	private String community_name;
 	private String admin_id;
 	private String community_description;
+	
+	public Community() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Community(int community_id, String community_name, String admin_id, String community_description) {
 		super();

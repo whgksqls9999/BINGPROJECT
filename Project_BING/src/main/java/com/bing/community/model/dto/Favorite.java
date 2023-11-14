@@ -4,6 +4,10 @@ public class Favorite {
 	private String user_email;
 	private int location_id;
 	private int favorite_id;
+	
+	public Favorite() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Favorite(String user_email, int location_id, int favorite_id) {
 		super();

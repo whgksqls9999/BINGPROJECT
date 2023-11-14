@@ -12,7 +12,7 @@
 	<select id="selectOne" parameterType="int" resultType="Location">
 		SELECT *
 		FROM location
-		WHERE id = #{id}
+		WHERE location_id = #{location_id}
 	</select>
 
 	<!-- 장소 등록하기 -->
@@ -34,7 +34,7 @@
 	<!-- 등록했던 장소 삭제하기 -->
 	<delete id="deleteLocation" parameterType="Location">
 		DELETE FROM location
-		WHERE id = #{id}
+		WHERE location_id = #{location_id}
 	</delete>
 
 </mapper>

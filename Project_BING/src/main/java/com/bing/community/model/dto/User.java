@@ -9,6 +9,10 @@ public class User {
 	private String nickname;
 	private int height;
 	private int weight;
+	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public User(int id, String email, String pw, String name, String gender, String nickname, int height,
 			int weight) {

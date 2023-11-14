@@ -12,6 +12,10 @@ public class Board {
 	private String reg_date;
 	private String is_modified;
 	private int location_id;
+	
+	public Board() {}
+	
+	
 	public Board(int board_id, int community_id, int num, int view_cnt, String header, String title, String writer,
 			String content, String reg_date, String is_modified, int location_id) {
 		super();
@@ -27,6 +31,8 @@ public class Board {
 		this.is_modified = is_modified;
 		this.location_id = location_id;
 	}
+	
+	
 	public int getBoard_id() {
 		return board_id;
 	}
