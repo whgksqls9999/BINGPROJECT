@@ -17,7 +17,7 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors	.basePackage("com.bing.community.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.bing.community.controller"))
 				.paths(PathSelectors.ant("/**/**"))
 				.build()
 				.apiInfo(apiInfo());
@@ -34,5 +34,4 @@ public class SwaggerConfig {
     public InternalResourceViewResolver defaultViewResolver() {
         return new InternalResourceViewResolver();
     }
-	
 }

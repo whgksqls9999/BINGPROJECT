@@ -5,7 +5,7 @@
 <mapper namespace="com.bing.community.model.dao.FavoriteDao">
 	<select id="selectAll"  parameterType="string" resultType="Favorite">
 		SELECT * FROM favorite
-		WHERE user_email = #{id}
+		WHERE user_email = #{ssafy}
 	</select>
 	
 	<select id="selectOne" parameterType="integer" resultType="Favorite">

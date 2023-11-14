@@ -9,6 +9,9 @@ public class Favorite {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Favorite() {
+	}
+
 	public Favorite(String user_email, int location_id, int favorite_id) {
 		super();
 		this.user_email = user_email;

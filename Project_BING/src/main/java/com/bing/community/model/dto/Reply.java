@@ -26,6 +26,9 @@ public class Reply {
 
 
 
+	public Reply() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getReply_id() {
 		return reply_id;
 	}
