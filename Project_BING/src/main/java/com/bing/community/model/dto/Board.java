@@ -13,10 +13,9 @@ public class Board {
 	private String is_modified;
 	private int location_id;
 
-	public Board() {
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	public Board() {}
+	
 	public Board(int board_id, int community_id, int num, int view_cnt, String header, String title, String writer,
 			String content, String reg_date, String is_modified, int location_id) {
 		super();

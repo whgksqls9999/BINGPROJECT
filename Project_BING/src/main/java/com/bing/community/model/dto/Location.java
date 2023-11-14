@@ -5,6 +5,10 @@ public class Location {
 	private String location_name;
 	private String longitude;
 	private String latitude;
+	
+	public Location() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Location() {
 		// TODO Auto-generated constructor stub
