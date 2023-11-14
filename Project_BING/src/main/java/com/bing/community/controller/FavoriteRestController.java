@@ -74,7 +74,7 @@ public class FavoriteRestController {
 	}
 	
 	@PutMapping("/")
-	public ResponseEntity<?> modeifyFavorite(@RequestBody Favorite favorite){
+	public ResponseEntity<?> modifyFavorite(@RequestBody Favorite favorite){
 		int result = favoriteService.modifyFavorite(favorite);
 		
 		if (result > 0) {

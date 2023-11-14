@@ -11,7 +11,7 @@
 	<!-- 게시글 하나 조회하기 -->
 	<select id="selectOne" parameterType="int" resultType="Board">
 		SELECT *
-		FROM board WHERE id = #{id}
+		FROM board WHERE board_id = #{id}
 	</select>
 
 	<!-- 게시글 등록 -->
@@ -37,13 +37,13 @@
 		UPDATE board
 		SET viewCnt
 		= viewCnt+1
-		WHERE id = #{id}
+		WHERE board_id = #{board_id}
 	</update>
 
 	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard" parameterType="int">
 		DELETE FROM board
-		WHERE id = #{id}
+		WHERE board_id = #{board_id}
 	</delete>
 
 
