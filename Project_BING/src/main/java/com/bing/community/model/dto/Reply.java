@@ -7,12 +7,10 @@ public class Reply {
 	private String content;
 	private String reg_date;
 	private String is_modified;
-	
+
 	public Reply() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public Reply(int reply_id, int board_id, String writer, String content, String reg_date, String is_modified) {
 		super();
@@ -24,11 +22,6 @@ public class Reply {
 		this.is_modified = is_modified;
 	}
 
-
-
-	public Reply() {
-		// TODO Auto-generated constructor stub
-	}
 	public int getReply_id() {
 		return reply_id;
 	}
@@ -76,6 +69,5 @@ public class Reply {
 	public void setIs_modified(String is_modified) {
 		this.is_modified = is_modified;
 	}
-
 
 }

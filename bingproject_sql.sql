@@ -1,5 +1,6 @@
 DROP SCHEMA IF EXISTS BINGPROJECT;
 CREATE SCHEMA BINGPROJECT;
+
 use BINGPROJECT;
 
 -- USE ssafy_board;
@@ -24,8 +25,6 @@ CREATE TABLE community(
     FOREIGN KEY (admin_id) REFERENCES user(email)
 );
 
-select * from user;
-
 create table location(
     location_id INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     location_name VARCHAR(100) NOT NULL,
@@ -40,13 +39,13 @@ CREATE TABLE board(
     header VARCHAR(10) NOT NULL, -- 말머리
     title VARCHAR(100) NOT NULL,
     writer VARCHAR(100) NOT NULL,
-    content VARCHAR(300) NOT NULL,
+    content TEXT NOT NULL,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    location_id INT(10),
-    view_cnt INT(10) DEFAULT 0,
-    FOREIGN KEY(community_id) REFERENCES community(community_id),
-    FOREIGN KEY(location_id) REFERENCES location(location_id)
+    view_cnt INT(10) DEFAULT 0, 
+	location_id INT(10),  -- 말머리(headr)가 장소 추천일때만 존재
+    FOREIGN KEY(community_id) REFERENCES community(community_id)
+    -- FOREIGN KEY(location_id) REFERENCES location(location_id) location_id 값을 등록 안해도 작성이 돼야하는데 외래키로 둬서 그런가 이게 안됨,,, 임시 주석
 );
 
 CREATE TABLE favorite(
@@ -62,25 +61,41 @@ CREATE TABLE reply (
     board_id INT(10) NOT NULL,
     writer VARCHAR(100) NOT NULL,
     content TEXT NOT NULL,
-    reg_date DATE NOT NULL,
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (board_id) REFERENCES board(board_id)
 );
 
+-- User 데이터
 INSERT INTO user
 VALUES ('ssafy', '1234', 111, 11, '김싸피', '남', '닉네임'),
 ('admin','1234',111,11,'관리자','남','닉네임2');
+
+-- Location 데이터
 INSERT INTO location
-VALUES (1, '김밥천국', 0,0);
+VALUES (0, 'none', 0, 0);
+
+INSERT INTO location (location_name, longitude, latitude)
+VALUES ('김밥천국', 0,0);
+
+-- Favorite 데이터
 INSERT INTO favorite
 VALUES (1, 'ssafy', 1);
+
+-- Community 데이터
 INSERT INTO community
 VALUES (1,1,'admin',1);
-INSERT INTO board
-VALUES (1, 1, 1,'a','b','c','d',0,0,1,1);
 
-SELECT * FROM favorite
-WHERE user_email = 'ssafy';
+-- Board 데이터
+INSERT INTO board (community_id, num, header, title, writer, content)
+VALUES (1, 1,'자유','제목1','ssafy','내용1'),
+(1, 2,'자유','제목2','ssafy','내용2'),
+(1, 3,'자유','제목3','ssafy','내용3');
+
+-- Reply 데이터
+INSERT INTO reply (board_id, writer, content, reg_date, is_modified)
+VALUES (1, 'admin', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
 select * from favorite;
 SELECT * FROM board;
 SELECT * FROM user;
