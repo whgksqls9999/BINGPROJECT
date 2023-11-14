@@ -18,8 +18,8 @@
 	<!-- 장소 등록하기 -->
 	<insert id="insertLocation" parameterType="Location">
 		INSERT INTO
-		location(location_name, longitude, latitude)
-		VALUES(#{location_name}, #{longitude}, #{latitude})
+		location(location_id, location_name, longitude, latitude)
+		VALUES(#{location_id}, #{location_name}, #{longitude}, #{latitude})
 	</insert>
 
 	<!-- 등록했던 장소 수정하기 -->

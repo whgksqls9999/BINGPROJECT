@@ -21,81 +21,87 @@ import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/favorite")
-@Api(tags="찜 컨트롤러")
+@Api(tags = "찜 컨트롤러")
 public class FavoriteRestController {
-	
+
 	@Autowired
 	private FavoriteService favoriteService;
-	
-	/**	
+
+	/**
 	 * 해당 유저가 찜한 목록을 불러온다.
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	@GetMapping("/users/{id}")
-	public ResponseEntity<?> getUserFavorites(@PathVariable String id) throws Exception{
-		List<Favorite> list = favoriteService.getFavoriteList(id);
+	@GetMapping("/user/{userEmail}")
+	public ResponseEntity<?> getUserFavorites(@PathVariable String userEmail) {
+		List<Favorite> list = favoriteService.getFavoriteList(userEmail);
+		
 		if (list == null || list.size() == 0) {
-			System.out.println(list);
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
-		
+
 		return new ResponseEntity<List<Favorite>>(list, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 모든 유저의 찜 정보 중, 특정 찜 정보를 불러온다.
+	 * 
 	 * @param favoriteId
 	 * @return
 	 */
-	@GetMapping("/favorites/{id}")
-	public ResponseEntity<?> getFavorite(@PathVariable int id){
-		System.out.println(id);
-		Favorite favor = favoriteService.getFavorite(id);
+	@GetMapping("/favorite/{favoriteId}")
+	public ResponseEntity<?> getFavorite(@PathVariable int favoriteId) {
+		Favorite favor = favoriteService.getFavorite(favoriteId);
 		
 		if (favor == null) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<Favorite>(favor,HttpStatus.OK);
+		return new ResponseEntity<Favorite>(favor, HttpStatus.OK);
 	}
+
 	/**
 	 * 찜 정보를 등록한다.
+	 * 
 	 * @param favorite
 	 * @return
 	 */
 	@PostMapping("/")
-	public ResponseEntity<?> registFavorite(@RequestBody Favorite favorite){
+	public ResponseEntity<?> registFavorite(@RequestBody Favorite favorite) {
 		int result = favoriteService.registFavorite(favorite);
-		
+
 		if (result > 0) {
 			return new ResponseEntity<Favorite>(favorite, HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	/**
 	 * 찜 정보를 수정한다.
+	 * 
 	 * @param favorite
 	 * @return
 	 */
 	@PutMapping("/")
-	public ResponseEntity<?> modifyFavorite(@RequestBody Favorite favorite){
+	public ResponseEntity<?> modifyFavorite(@RequestBody Favorite favorite) {
 		int result = favoriteService.modifyFavorite(favorite);
-		
+
 		if (result > 0) {
 			return new ResponseEntity<Favorite>(favorite, HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
+
 	/**
 	 * 찜 정보를 삭제한다.
+	 * 
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> removeFavorite(@PathVariable int id){
-		int result = favoriteService.removeFavorite(id);
-		
+	@DeleteMapping("/{favoriteId}")
+	public ResponseEntity<?> removeFavorite(@PathVariable int favoriteId) {
+		int result = favoriteService.removeFavorite(favoriteId);
+
 		if (result > 0) {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}

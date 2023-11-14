@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,6 @@ import com.bing.community.model.dto.Board;
 import com.bing.community.model.service.BoardService;
 
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/board")
@@ -57,7 +57,8 @@ public class BoardRestController {
 	}
 
 	@PutMapping("/modify/{board_id}")
-	public ResponseEntity<?> modifyBoard(@PathVariable int board_id, Board board) {
+	public ResponseEntity<?> modifyBoard(@RequestBody Board board, @PathVariable int board_id) {
+		board.setBoard_id(board_id);
 		int result = boardService.modifyBoard(board);
 		if (result > 0) {
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
