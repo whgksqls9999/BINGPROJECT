@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bing.community.model.dao.LacationDao">
+	<!-- 모든 장소 조회 -->
+	<select id="selectAll" resultType="Location">
+		SELECT * FROM location
+	</select>
+
+	<!-- 장소 하나 조회할것 -->
+	<select id="selectOne" parameterType="int" resultType="Location">
+		SELECT *
+		FROM location
+		WHERE id = #{id}
+	</select>
+
+	<!-- 장소 등록하기 -->
+	<insert id="insertLocation" parameterType="Location">
+		INSERT INTO
+		location(location_id, location_name, longitude, latitude)
+		VALUES(#{location_id}, #{location_name}, #{longitude}, #{latitude})
+	</insert>
+
+	<!-- 등록했던 장소 수정하기 -->
+	<update id="updateLocation" parameterType="Location">
+		UPDATE location
+		SET
+		location_name = #{location_name}, longitude = #{longitude},
+		latitude =
+		#{latitude}
+	</update>
+
+	<!-- 등록했던 장소 삭제하기 -->
+	<delete id="deleteLocation" parameterType="Location">
+		DELETE FROM location
+		WHERE id = #{id}
+	</delete>
+
+</mapper>
