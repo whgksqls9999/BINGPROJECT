@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bing.community.model.dao.LocationDao;
 import com.bing.community.model.dto.Location;
+import com.bing.community.model.dto.SearchCondition;
 
 @Service
 public class LocationServiceImpl implements LocationService{
@@ -37,6 +38,11 @@ public class LocationServiceImpl implements LocationService{
 	@Override
 	public int removeLocation(int location_id) {
 		return locationDao.deleteLocation(location_id);
+	}
+
+	@Override
+	public List<Location> searchLocation(SearchCondition con) {
+		return locationDao.searchLocation(con);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bing.community.model.dao.BoardDao;
 import com.bing.community.model.dto.Board;
+import com.bing.community.model.dto.SearchCondition;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -38,5 +39,10 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int removeBoard(int id) {
 		return boardDao.deleteBoard(id);
+	}
+
+	@Override
+	public List<Board> searchBoard(SearchCondition con) {
+		return boardDao.searchBoard(con);
 	}
 }

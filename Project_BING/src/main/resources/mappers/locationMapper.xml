@@ -36,5 +36,14 @@
 		DELETE FROM location
 		WHERE location_id = #{location_id}
 	</delete>
-
+	
+	<!-- 장소 검색하기 -->
+	<select id="searchLocation" parameterType="SearchCondition" resultType="Location">
+		SELECT * FROM location
+		<if test="key == 'location_name'">
+		WHERE ${key} LIKE CONCAT('%',#{word},'%')
+		</if>
+	
+	
+	</select>
 </mapper>

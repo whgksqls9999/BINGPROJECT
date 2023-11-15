@@ -3,6 +3,7 @@ package com.bing.community.model.dao;
 import java.util.List;
 
 import com.bing.community.model.dto.Location;
+import com.bing.community.model.dto.SearchCondition;
 
 public interface LocationDao {
 
@@ -20,4 +21,7 @@ public interface LocationDao {
 	
 	// 장소 삭제
 	int deleteLocation(int location_id);
+	
+	//장소 검색
+	List<Location> searchLocation(SearchCondition con);
 }

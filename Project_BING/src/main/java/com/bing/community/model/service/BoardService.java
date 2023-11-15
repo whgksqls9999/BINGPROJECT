@@ -3,6 +3,7 @@ package com.bing.community.model.service;
 import java.util.List;
 
 import com.bing.community.model.dto.Board;
+import com.bing.community.model.dto.SearchCondition;
 
 public interface BoardService {
 	// 모든 게시글 조회
@@ -19,4 +20,7 @@ public interface BoardService {
 	
 	// 게시글 삭제
 	int removeBoard(int id);
+	
+	//게시글 검색
+	List<Board> searchBoard(SearchCondition con);
 }
