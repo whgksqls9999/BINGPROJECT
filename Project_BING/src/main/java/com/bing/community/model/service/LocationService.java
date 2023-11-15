@@ -10,7 +10,7 @@ public interface LocationService {
 	List<Location> getLocationList();
 	
 	// 장소 하나 조회
-	Location getLocation(int id);
+	Location getLocation(int location_id);
 	
 	// 장소 등록
 	Location registLocation(Location location);
@@ -19,5 +19,5 @@ public interface LocationService {
 	Location modifyLocation(Location location);
 	
 	// 장소 삭제
-	Location removeLocation(int id);
+	int removeLocation(int location_id);
 }

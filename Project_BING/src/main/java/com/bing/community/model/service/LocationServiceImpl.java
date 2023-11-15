@@ -35,8 +35,8 @@ public class LocationServiceImpl implements LocationService{
 	}
 
 	@Override
-	public Location removeLocation(int id) {
-		return locationDao.deleteLocation(id);
+	public int removeLocation(int location_id) {
+		return locationDao.deleteLocation(location_id);
 	}
 
 }
