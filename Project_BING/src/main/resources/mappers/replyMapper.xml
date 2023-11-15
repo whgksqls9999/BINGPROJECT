@@ -19,16 +19,14 @@
 	<insert id="insertReply" parameterType="Reply">
 		INSERT INTO
 		reply(board_id, writer, content, reg_date, is_modified)
-		VALUES(#{board_id}, #{writer}, #{content}, #{reg_dat},
-		#{is_modified})
+		VALUES(#{board_id}, #{writer}, #{content}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 	</insert>
 
 	<!-- 댓글 수정 -->
 	<update id="updateReply" parameterType="Reply">
 		UPDATE reply
-		SET content =
-		#{content}
-		WHERE reply_id = #{id}
+		SET content = #{content}, is_modified = CURRENT_TIMESTAMP
+		WHERE reply_id = #{reply_id}
 	</update>
 
 	<!-- 댓글 삭제 -->
@@ -36,8 +34,4 @@
 		DELETE FROM reply
 		WHERE reply_id = #{id}
 	</delete>
-
-
-
-
 </mapper>

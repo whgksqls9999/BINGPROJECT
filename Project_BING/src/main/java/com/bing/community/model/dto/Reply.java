@@ -12,16 +12,6 @@ public class Reply {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reply(int reply_id, int board_id, String writer, String content, String reg_date, String is_modified) {
-		super();
-		this.reply_id = reply_id;
-		this.board_id = board_id;
-		this.writer = writer;
-		this.content = content;
-		this.reg_date = reg_date;
-		this.is_modified = is_modified;
-	}
-
 	public int getReply_id() {
 		return reply_id;
 	}
@@ -70,4 +60,13 @@ public class Reply {
 		this.is_modified = is_modified;
 	}
 
+	public Reply(int reply_id, int board_id, String writer, String content, String reg_date, String is_modified) {
+		super();
+		this.reply_id = reply_id;
+		this.board_id = board_id;
+		this.writer = writer;
+		this.content = content;
+		this.reg_date = reg_date;
+		this.is_modified = is_modified;
+	}
 }

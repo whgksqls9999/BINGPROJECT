@@ -14,40 +14,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bing.community.model.dto.Board;
-import com.bing.community.model.service.BoardService;
-
-import io.swagger.annotations.Api;
+import com.bing.community.model.dto.Reply;
+import com.bing.community.model.service.ReplyService;
 
 @RestController
-@RequestMapping("/board")
-@Api(tags = "게시판 컨트롤러")
-public class BoardRestController {
-
+@RequestMapping("/reply")
+public class ReplyRestController {
+	
 	@Autowired
-	private BoardService boardService;
-
-	//게시판 전체 조회
+	ReplyService replyService;
+	
 	@GetMapping("/")
-	public List<Board> boardList() {
-		return boardService.getBoardList();
+	public List<Reply> replyList() {
+		return replyService.getReplyList();
 	}
 
-	//게시글 하나 가져오기
-	@GetMapping("/{board_id}")
-	public ResponseEntity<?> getBoard(@PathVariable int board_id) {
-		Board get = boardService.getBoard(board_id);
+	@GetMapping("/{reply_id}")
+	public ResponseEntity<?> getReply(@PathVariable int reply_id) {
+		Reply get = replyService.getReply(reply_id);
 		if (get == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<Board>(get, HttpStatus.OK);
+			return new ResponseEntity<Reply>(get, HttpStatus.OK);
 		}
 	}
 
-	//게시글 넣기
-	@PostMapping("/insert")
-	public ResponseEntity<?> signUp(Board board) {
-		int result = boardService.registBoard(board);
+	@PostMapping("/")
+	public ResponseEntity<?> signUp(Reply reply) {
+		int result = replyService.registReply(reply);
 		if (result > 0) {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		} else {
@@ -55,20 +49,20 @@ public class BoardRestController {
 		}
 	}
 
-	@PutMapping("/modify/{board_id}")
-	public ResponseEntity<?> modifyBoard(@RequestBody Board board, @PathVariable int board_id) {
-		board.setBoard_id(board_id);
-		int result = boardService.modifyBoard(board);
+	@PutMapping("/{reply_id}")
+	public ResponseEntity<?> modifyReply(@RequestBody Reply reply, @PathVariable int reply_id) {
+		reply.setReply_id(reply_id);
+		int result = replyService.modifyReply(reply);
 		if (result > 0) {
-			return new ResponseEntity<Board>(board, HttpStatus.OK);
+			return new ResponseEntity<Reply>(reply, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	@DeleteMapping("/delete/{board_id}")
-	public ResponseEntity<?> deleteBoard(@PathVariable int board_id) {
-		int result = boardService.removeBoard(board_id);
+	@DeleteMapping("/{reply_id}")
+	public ResponseEntity<?> deleteReply(@PathVariable int reply_id) {
+		int result = replyService.removeReply(reply_id);
 		if (result > 0) {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		} else {
@@ -76,5 +70,5 @@ public class BoardRestController {
 		}
 	}
 
+	
 }
-// class끝

@@ -19,5 +19,5 @@ public interface UserService {
 	int modifyUser(User user);
 	
 	// 유저 삭제
-	int removeUser(int id);
+	int removeUser(String email);
 }
