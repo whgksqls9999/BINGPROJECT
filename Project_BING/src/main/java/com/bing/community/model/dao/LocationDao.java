@@ -10,7 +10,7 @@ public interface LocationDao {
 	List<Location> selectAll();
 	
 	// 장소 하나 조회
-	Location selectOne(int id);
+	Location selectOne(int location_id);
 	
 	// 장소 등록
 	Location insertLocation(Location location);
@@ -19,5 +19,5 @@ public interface LocationDao {
 	Location updateLocation(Location location);
 	
 	// 장소 삭제
-	Location deleteLocation(int id);
+	int deleteLocation(int location_id);
 }

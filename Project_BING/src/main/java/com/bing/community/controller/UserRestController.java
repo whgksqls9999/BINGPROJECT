@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //package com.bing.community.controller;
 //
 //import java.util.List;
@@ -71,3 +72,15 @@
 //	
 //	
 //}
+=======
+package com.bing.community.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/user")
+public class UserRestController {
+
+}
+>>>>>>> 121f4bf (locationDao,service,serviceImpl수정, location,communityRestController작성, communityMapper작성)
