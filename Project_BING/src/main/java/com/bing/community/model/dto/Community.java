@@ -10,8 +10,6 @@ public class Community {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Community() {}
-
 	public Community(int community_id, String community_name, String admin_id, String community_description) {
 		super();
 		this.community_id = community_id;
