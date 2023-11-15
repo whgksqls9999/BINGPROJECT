@@ -18,8 +18,8 @@
 
 	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO user(id, email, pw, name, gender, nickname, height, weight)
-		VALUES(#{id}, #{email}, #{pw}, #{name}, #{gender},
+		INSERT INTO user(email, pw, name, gender, nickname, height, weight)
+		VALUES(#{email}, #{pw}, #{name}, #{gender},
 		#{nickname}, #{height}, #{weight})
 	</insert>
 
@@ -29,12 +29,12 @@
 		SET pw = #{pw},
 		name = #{name}, gender = #{gender}, nickname = #{nickname},
 		height = #{height}, weight = #{weight}
-		WHERE id = #{id}
+		WHERE email = #{email}
 	</update>
 
 	<!-- 회원 탈퇴 -->
-	<delete id="deleteUser" parameterType="int">
+	<delete id="deleteUser" parameterType="string">
 		DELETE FROM user
-		WHERE id = #{id}
+		WHERE email = #{email}
 	</delete>
 </mapper>

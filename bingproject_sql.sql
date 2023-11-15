@@ -3,8 +3,6 @@ CREATE SCHEMA BINGPROJECT;
 
 use BINGPROJECT;
 
--- USE ssafy_board;
--- select * from board;reg_date
 
 create table user (
     -- id VARCHAR(100) AUTO_INCREMENT PRIMARY KEY,

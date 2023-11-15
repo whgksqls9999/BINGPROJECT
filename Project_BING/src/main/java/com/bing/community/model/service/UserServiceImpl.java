@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int removeUser(int id) {
-		return userDao.deleteUser(id);
+	public int removeUser(String email) {
+		return userDao.deleteUser(email);
 	}
 	
 }

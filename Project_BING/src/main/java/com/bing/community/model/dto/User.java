@@ -8,10 +8,6 @@ public class User {
 	private String name;
 	private String gender;
 	private String nickname;
-
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
 	public User(String email, String pw, int height, int weight, String name, String gender, String nickname) {
 		super();
 		this.email = email;
@@ -21,6 +17,10 @@ public class User {
 		this.name = name;
 		this.gender = gender;
 		this.nickname = nickname;
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getEmail() {
@@ -78,4 +78,5 @@ public class User {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	
 }
