@@ -48,26 +48,27 @@ public class CommunityRestController {
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
-
 	}
+
 	@PutMapping("/modify/{community_id}")
-	public ResponseEntity<?> modifyCommunity(@PathVariable int community_id, Community community){
+	public ResponseEntity<?> modifyCommunity(@PathVariable int community_id, Community community) {
 		community.setCommunity_id(community_id);
 		int result = cService.modifyCommunity(community);
-		if(result>0) {
+		if (result > 0) {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
-		}
-		else {
+		} else {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+	// 커뮤니티 삭제할 일은 없지만, 삭제하려면 커뮤니티에 속한 모든 게시글을 삭제한 후 해당 커뮤니티를 삭제해야 한다.
+	// board 테이블의 community_id가 community 테이블의 외래키와 연결되어 있기 때문.
 	@DeleteMapping("/delete/{community_id}")
-	public ResponseEntity<?> removeCommunity(@PathVariable int community_id){
+	public ResponseEntity<?> removeCommunity(@PathVariable int community_id) {
 		int result = cService.removeCommunity(community_id);
-		if(result>0) {
+		if (result > 0) {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 	}

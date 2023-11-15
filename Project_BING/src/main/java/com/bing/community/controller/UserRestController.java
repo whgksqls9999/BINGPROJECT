@@ -78,7 +78,7 @@ public class UserRestController {
 		if (dbUser == null || !(dbUser.getPw().equals(user.getPw()))) {
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 		} else {
-			session.setAttribute("loginUser", user.getNickname());
+			session.setAttribute("loginUser", user);
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		}
 	}

@@ -1,5 +1,5 @@
 <template>
-  <div>게시글 리스트 등등</div>
+  <div>커뮤니티 선택</div>
 </template>
 
 <script setup></script>
