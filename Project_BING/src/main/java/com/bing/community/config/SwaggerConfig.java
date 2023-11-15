@@ -17,7 +17,7 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors	.basePackage("com.bing.community.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.bing.community.controller"))
 				.paths(PathSelectors.ant("/**/**"))
 				.build()
 				.apiInfo(apiInfo());
@@ -25,14 +25,13 @@ public class SwaggerConfig {
 	
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("SSAFY 10기 BOARD REST API")
+				.title("BING PROJECT LET'S GO")
 				.description("엄청나게 대단한 게시판을 위한 레스트풀한 서버 입니다.")
 				.version("0.1")
 				.build();
 	}
-	@Bean
-    public InternalResourceViewResolver defaultViewResolver() {
-        return new InternalResourceViewResolver();
-    }
-	
+//	@Bean
+//    public InternalResourceViewResolver defaultViewResolver() {
+//        return new InternalResourceViewResolver();
+//    }
 }

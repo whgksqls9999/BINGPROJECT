@@ -5,15 +5,12 @@ public class Community {
 	private String community_name;
 	private String admin_id;
 	private String community_description;
-<<<<<<< HEAD
-	
+
 	public Community() {
 		// TODO Auto-generated constructor stub
 	}
-=======
 
 	public Community() {}
->>>>>>> 121f4bf (locationDao,service,serviceImpl수정, location,communityRestController작성, communityMapper작성)
 
 	public Community(int community_id, String community_name, String admin_id, String community_description) {
 		super();

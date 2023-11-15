@@ -19,5 +19,5 @@ public interface UserDao {
 	int updateUser(User user);
 	
 	// 유저 삭제(탈퇴)
-	int deleteUser(int id);
+	int deleteUser(String email);
 }
