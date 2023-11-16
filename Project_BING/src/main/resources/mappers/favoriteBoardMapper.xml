@@ -14,6 +14,7 @@
         resultType="FavoriteBoard">
         SELECT * FROM board as b
         INNER JOIN favorite_board as fb ON b.board_id = fb.board_id
+        WHERE fb.writername = #{writername}
     </select>
     
     <!-- 게시글 찜 등록하기 -->
