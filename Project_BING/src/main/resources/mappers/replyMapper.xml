@@ -8,6 +8,11 @@
 		SELECT * FROM reply
 	</select>
 
+	<!-- 특정 게시글에 달린 댓글 목록 조회 -->
+	<select id="selectBoardReply" parameterType="integer" resultType="Reply">
+		SELECT * FROM reply
+		WHERE board_id = #{board_id};
+	</select>
 	<!-- 댓글 하나 조회 -->
 	<select id="selectOne" resultType="Reply" parameterType="int">
 		SELECT *

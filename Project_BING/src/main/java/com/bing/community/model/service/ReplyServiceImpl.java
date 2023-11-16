@@ -50,5 +50,11 @@ public class ReplyServiceImpl implements ReplyService{
 		return replyDao.deleteReply(id);
 	}
 
+	// 특정 게시글에 달린 댓글 목록 조회
+	@Override
+	public List<Reply> getBoardReply(int board_id) {
+		return replyDao.selectBoardReply(board_id);
+	}
+
 
 }

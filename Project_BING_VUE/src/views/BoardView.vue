@@ -8,11 +8,10 @@
 <script setup>
 import { RouterView, RouterLink, useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore.js";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, watch } from "vue";
 
 const route = useRoute();
-const idParam = route.params.board_id;
-console.log(idParam);
+const idParam = route.params.community_id;
 
 const boardStore = useBoardStore();
 const commBoardList = computed(() => {

@@ -105,7 +105,10 @@ CREATE TABLE reply (
 );
 -- Reply 데이터
 INSERT INTO reply (board_id, writer, content, reg_date, is_modified)
-VALUES (1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+VALUES (1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, '닉네임2', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, '닉네임2', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 SELECT * FROM reply;
 
 -- SELECT b.writer, b.content, b.reg_date  FROM board as b INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
