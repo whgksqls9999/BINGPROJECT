@@ -101,6 +101,7 @@ VALUES (1, 1,'자유','제목1','닉네임','내용1'),
 (2, 2,'자유','제목5','닉네임','내용5'),
 (2, 3,'자유','제목6','닉네임','내용6');
 
+
 -- Favorite 데이터
 -- INSERT INTO favorite (favorite_type, user_email, location_id, board_id)
 -- VALUES ('location', 'ssafy', 1, null),

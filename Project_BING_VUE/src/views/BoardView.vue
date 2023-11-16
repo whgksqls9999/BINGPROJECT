@@ -9,10 +9,10 @@
 import { RouterView, useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore.js";
 import { onMounted, computed } from "vue";
-
 const route = useRoute();
 const idParam = route.params.board_id;
 console.log(idParam);
+
 
 const boardStore = useBoardStore();
 const commBoardList = computed(() => {

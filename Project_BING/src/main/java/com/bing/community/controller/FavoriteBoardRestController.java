@@ -33,6 +33,7 @@ public class FavoriteBoardRestController {
 		List<FavoriteBoard> list = favBoardService.pickUserBoard(writername);
 		if (list != null || list.size() != 0) {
 			System.out.println(list);
+      
 			return new ResponseEntity<List<FavoriteBoard>>(list, HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

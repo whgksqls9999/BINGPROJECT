@@ -6,6 +6,7 @@
   <RouterLink :to="{ name: 'board', params: { board_id: '2' } }"
     >스킨스쿠버</RouterLink
   >
+
 </template>
 
 <script setup></script>

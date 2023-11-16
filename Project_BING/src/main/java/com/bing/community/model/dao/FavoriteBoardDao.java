@@ -8,6 +8,7 @@ public interface FavoriteBoardDao {
 
 	//사용자 찜 목록 다 가져오기
 	List<FavoriteBoard> pickUserBoard(String writer_name);
+
 	
 	//게시글 찜하기
 	int insertFavoriteBoard(FavoriteBoard favBoard);
