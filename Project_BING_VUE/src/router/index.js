@@ -5,9 +5,8 @@ import BoardView from '@/views/BoardView.vue';
 import MyPageView from '@/views/MyPageView.vue';
 import BoardDetail from '@/components/board/BoardDetail.vue';
 import MyBoards from '@/components/myPage/MyBoards.vue';
-import MyFavor from '@/components/myPage/MyFavor.vue';
+import MyFavorite from '@/components/myPage/MyFavorite.vue';
 import MyInfo from '@/components/myPage/MyInfo.vue';
-import MyReplys from '@/components/myPage/MyReplys.vue';
 
 
 const router = createRouter({
@@ -51,20 +50,17 @@ const router = createRouter({
           component: MyInfo,
         },
         {
-          path: "/favor",
-          name: "myFavor",
-          component: MyFavor,
+          path: "/favorite",
+          name: "myFavorite",
+          component: MyFavorite,
         },
+        
         {
           path: "/boards",
           name: "myBoards",
           component: MyBoards,
         },
-        {
-          path: "/boards",
-          name: "myReplys",
-          component: MyReplys,
-        },
+        
       ]
     }   
   ],

@@ -19,8 +19,11 @@ import com.bing.community.model.service.FavoriteBoardService;
 import com.bing.community.model.service.FavoriteLocationService;
 import com.bing.community.model.service.ReplyService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/mypage")
+@Api(tags="마이페이지 컨트롤러")
 public class MyPageRestController {
 	@Autowired
 	private BoardService boardService;
@@ -60,7 +63,7 @@ public class MyPageRestController {
 	}
 
 	// 사용자가 찜한 장소 가져오기
-	@GetMapping("picfavlocation/{user_email}")
+	@GetMapping("pickfavlocation/{user_email}")
 	public ResponseEntity<?> pickUserFavLocation(@PathVariable String user_email) {
 		List<FavoriteLocation> list = favlocationService.pickUserLocation(user_email);
 
@@ -72,7 +75,7 @@ public class MyPageRestController {
 	}
 
 	// 사용자가 찜한 게시글 가져오기
-	@GetMapping("picfavboard/{user_email}")
+	@GetMapping("pickfavboard/{user_email}")
 	public ResponseEntity<?> pickUserFavBoard(@PathVariable String user_email) {
 		List<FavoriteBoard> list = favboardService.pickUserBoard(user_email);
 
