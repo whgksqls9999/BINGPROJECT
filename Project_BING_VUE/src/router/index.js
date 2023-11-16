@@ -27,7 +27,7 @@ const router = createRouter({
       component: BoardView,
       children: [
         {
-          path: "/:id",
+          path: "/:board_id",
           name: "boardDetail",
           component: BoardDetail,
         },
