@@ -48,7 +48,7 @@ public class FavoriteBoardRestController {
 	}
 
 	// 장소 찜 삭제하기
-	@DeleteMapping("deletefavboard")
+	@DeleteMapping("/deletefavboard/{favorite_boardId}")
 	public ResponseEntity<?> removeFavoriteBoard(@PathVariable int favorite_boardId) {
 		int result = favBoardService.deleteFavoriteBoard(favorite_boardId);
 
