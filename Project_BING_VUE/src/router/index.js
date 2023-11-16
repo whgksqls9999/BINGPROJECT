@@ -22,12 +22,13 @@ const router = createRouter({
       component: CommunityView,
     },
     {
-      path: "/board/:community_id",
+      path: "/board/:board_id",
+
       name: "board",
       component: BoardView,
       children: [
         {
-          path: "/:board_id",
+          path: "/:id",
           name: "boardDetail",
           component: BoardDetail,
         },

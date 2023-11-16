@@ -36,7 +36,7 @@ export const useUserStore = defineStore("user", () => {
     loginUser.value = null;
   };
 
-  // 회원가입 요청 - 하는중,, 
+  // 회원가입 요청 - 하는중,,
   const registUser = (user) => {
     console.log(JSON.stringify(user));
     axios

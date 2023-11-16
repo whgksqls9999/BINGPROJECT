@@ -3,6 +3,7 @@ package com.bing.community.model.dto;
 public class Location {
 	private int location_id;
 	private String location_name;
+	private String address;
 	private String longitude;
 	private String latitude;
 
@@ -10,10 +11,11 @@ public class Location {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Location(int location_id, String location_name, String longitude, String latitude) {
+	public Location(int location_id, String location_name, String address, String longitude, String latitude) {
 		super();
 		this.location_id = location_id;
 		this.location_name = location_name;
+		this.address = address;
 		this.longitude = longitude;
 		this.latitude = latitude;
 	}
@@ -32,6 +34,14 @@ public class Location {
 
 	public void setLocation_name(String location_name) {
 		this.location_name = location_name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getLongitude() {
