@@ -21,19 +21,17 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/favboard")
-@Api(tags = "장소 찜 컨트롤러")
+@Api(tags = "게시글 찜 컨트롤러")
 public class FavoriteBoardRestController {
 
 	@Autowired
 	private FavoriteBoardService favBoardService;
 
-	// 사용자 장소 찜 목록 가져오기
+	// 사용자 게시글 찜 목록 가져오기
 	@GetMapping("/{writername}")
 	public ResponseEntity<?> pickUserFavLocation(@PathVariable String writername) {
 		List<FavoriteBoard> list = favBoardService.pickUserBoard(writername);
 		if (list != null || list.size() != 0) {
-			System.out.println(list);
-      
 			return new ResponseEntity<List<FavoriteBoard>>(list, HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

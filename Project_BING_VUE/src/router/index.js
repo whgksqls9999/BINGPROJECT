@@ -23,7 +23,6 @@ const router = createRouter({
     },
     {
       path: "/board/:board_id",
-
       name: "board",
       component: BoardView,
       children: [

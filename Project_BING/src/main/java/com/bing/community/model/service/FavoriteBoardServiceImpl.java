@@ -15,9 +15,8 @@ public class FavoriteBoardServiceImpl implements FavoriteBoardService{
 	FavoriteBoardDao favBoardDao;
 
 	@Override
-	public List<FavoriteBoard> pickUserBoard(String writer_name) {
-		return favBoardDao.pickUserBoard(writer_name);
-
+	public List<FavoriteBoard> pickUserBoard(String user_email) {
+		return favBoardDao.pickUserBoard(user_email);
 	}
 
 	@Override
