@@ -7,6 +7,7 @@ import BoardDetail from '@/components/board/BoardDetail.vue';
 import MyBoards from '@/components/myPage/MyBoards.vue';
 import MyFavor from '@/components/myPage/MyFavor.vue';
 import MyInfo from '@/components/myPage/MyInfo.vue';
+import MyReplys from '@/components/myPage/MyReplys.vue';
 
 
 const router = createRouter({
@@ -58,6 +59,11 @@ const router = createRouter({
           path: "/boards",
           name: "myBoards",
           component: MyBoards,
+        },
+        {
+          path: "/boards",
+          name: "myReplys",
+          component: MyReplys,
         },
       ]
     }   

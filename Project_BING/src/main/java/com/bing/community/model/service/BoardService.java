@@ -12,6 +12,9 @@ public interface BoardService {
 	// 게시글 하나 조회
 	Board getBoard(int id);
 	
+	//userid로 게시글 다 뽑아오기
+	List<Board> pickUserBoard(String email);
+	
 	// 게시글 등록
 	int registBoard(Board board);
 	

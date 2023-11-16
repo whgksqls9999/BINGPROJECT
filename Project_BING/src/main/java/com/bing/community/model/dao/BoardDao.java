@@ -13,6 +13,9 @@ public interface BoardDao {
 	// 게시글 하나 조회
 	Board selectOne(int id);
 
+	// userid로 게시글 목록 뽑아오기
+	List<Board> pickUserBoard(String writer);
+
 	// 게시글 등록
 	int insertBoard(Board board);
 

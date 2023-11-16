@@ -23,7 +23,7 @@ import com.bing.community.model.service.ReplyService;
 public class ReplyRestController {
 	
 	@Autowired
-	ReplyService replyService;
+	private ReplyService replyService;
 	
 	@GetMapping("/")
 	public List<Reply> replyList() {

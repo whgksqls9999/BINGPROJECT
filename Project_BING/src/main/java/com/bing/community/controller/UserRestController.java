@@ -23,7 +23,7 @@ import com.bing.community.model.service.UserService;
 @RequestMapping("/user")
 public class UserRestController {
   @Autowired
-	UserService userService;
+	private UserService userService;
 
 	@GetMapping("/")
 	public List<User> userList() {
