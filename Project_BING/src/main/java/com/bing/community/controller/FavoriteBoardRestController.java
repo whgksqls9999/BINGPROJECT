@@ -28,10 +28,11 @@ public class FavoriteBoardRestController {
 	private FavoriteBoardService favBoardService;
 
 	// 사용자 장소 찜 목록 가져오기
-	@GetMapping("/{user_email}")
-	public ResponseEntity<?> pickUserFavLocation(@PathVariable String user_email) {
-		List<FavoriteBoard> list = favBoardService.pickUserBoard(user_email);
+	@GetMapping("/{writername}")
+	public ResponseEntity<?> pickUserFavLocation(@PathVariable String writername) {
+		List<FavoriteBoard> list = favBoardService.pickUserBoard(writername);
 		if (list != null || list.size() != 0) {
+			System.out.println(list);
 			return new ResponseEntity<List<FavoriteBoard>>(list, HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

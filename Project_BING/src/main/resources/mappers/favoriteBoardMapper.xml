@@ -12,14 +12,15 @@
 	</select> -->
 	<select id="pickUserBoard" parameterType="String"
 		resultType="FavoriteBoard">
-		SELECT b.writer, b.content, b.reg_date FROM board as b
-		INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
+		SELECT * FROM board as b
+		INNER JOIN favorite_board as fb ON b.board_id = fb.board_id
 	</select>
+	
 	<!-- 게시글 찜 등록하기 -->
 	<insert id="insertFavoriteBoard" parameterType="FavoriteBoard">
 		INSERT INTO
-		favorite_board(favorite_boardId, board_id, writername, content, reg_date)
-		VALUES(#{favorite_boardId},#{board_id},#{writername}, #{content}, #{reg_date})
+		favorite_board(favorite_boardId, board_id, writername)
+		VALUES(#{favorite_boardId},#{board_id},#{writername})
 	</insert>
 
 	<!-- 게시글 찜 삭제하기 -->

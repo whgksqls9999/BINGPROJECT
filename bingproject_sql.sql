@@ -44,11 +44,13 @@ CREATE TABLE favorite_board (
     favorite_boardId INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     board_id INT(10) NOT NULL,
     writername VARCHAR(300) NOT NULL,
-    content TEXT NOT NULL,
-    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
-        FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE
+	FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE
 );
+
+-- favor_board 데이터
+INSERT INTO favorite_board 
+VALUES (1,1,'닉네임');
 
 CREATE TABLE favorite_location (
     favorite_locationId INT(10) AUTO_INCREMENT PRIMARY KEY,
@@ -69,7 +71,7 @@ CREATE TABLE reply (
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE
 );
 
-SELECT b.writer, b.content, b.reg_date  FROM board as b INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
+SELECT * FROM board as b INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
 
 -- User 데이터
 INSERT INTO user (email,pw,name,gender,nickname)
