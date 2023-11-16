@@ -8,9 +8,19 @@ export const useBoardStore = defineStore("board", () => {
   // 커뮤니티 게시글 가져오기
   const commBoardList = ref("");
   const getCommBoardList = (community_id) => {
-    axios
-      .get(`${REST_BOARD_API}/comm/${community_id}`)
-      .then((response) => (commBoardList.value = response.data));
+    axios({
+      url: `${REST_BOARD_API}/comm/${community_id}`,
+      mathod: 'GET'
+    })
+    .then((response) => {
+      commBoardList.value = response.data;
+    })
+    // axios
+    //   .get(`${REST_BOARD_API}/comm/${community_id}`)
+    //   .then((response) => {
+    //     commBoardList.value = response.data;
+    //     console.log(commBoardList.value);
+    //   })
   };
 
   return { commBoardList, getCommBoardList };
