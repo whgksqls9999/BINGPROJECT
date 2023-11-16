@@ -25,11 +25,25 @@ public class ReplyRestController {
 	@Autowired
 	private ReplyService replyService;
 	
+	// 댓글 전체 목록 가져오기
 	@GetMapping("/")
 	public List<Reply> replyList() {
 		return replyService.getReplyList();
 	}
 
+	// 특정 게시글에 달린 댓글 목록 가져오기
+	@GetMapping("/board/{board_id}")
+	public ResponseEntity<?> getBoardReply(@PathVariable int board_id) {
+		List<Reply> list = replyService.getBoardReply(board_id);
+		System.out.println(list);
+		if (list == null || list.size() == 0) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<List<Reply>>(list, HttpStatus.OK);
+		}
+	}
+	
+	// 댓글 하나 가져오기
 	@GetMapping("/{reply_id}")
 	public ResponseEntity<?> getReply(@PathVariable int reply_id) {
 		Reply get = replyService.getReply(reply_id);

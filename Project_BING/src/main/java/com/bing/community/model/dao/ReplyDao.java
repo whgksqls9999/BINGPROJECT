@@ -23,4 +23,7 @@ public interface ReplyDao {
 
 	// 댓글 삭제
 	int deleteReply(int id);
+	
+	// 특정 게시글에 달린 댓글 목록 조회
+	List<Reply> selectBoardReply(int board_id);
 }
