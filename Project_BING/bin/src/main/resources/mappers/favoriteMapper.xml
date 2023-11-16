@@ -5,7 +5,7 @@
 <mapper namespace="com.bing.community.model.dao.FavoriteDao">
 	<select id="selectAll"  parameterType="string" resultType="Favorite">
 		SELECT * FROM favorite
-		WHERE user_email = #{ssafy}
+		WHERE user_email = #{user_email}
 	</select>
 	
 	<select id="selectOne" parameterType="integer" resultType="Favorite">
@@ -14,13 +14,14 @@
 	</select>
 	
 	<insert id="insertFavorite" parameterType="Favorite">
-		INSERT INTO favorite
-		VALUES (#{favorite_id}, #{user_email}, #{location_id})		
+		INSERT INTO favorite (user_email, location_id, board_id)
+		VALUES (#{user_email}, #{location_id}, #{board_id})		
 	</insert>
 	
 	<update id="updateFavorite" parameterType="Favorite">
 		UPDATE favorite
-		SET user_email = #{user_email}, location_id = #{location_id}
+		SET user_email = #{user_email}, location_id = #{location_id}, board_id = #{board_id}
+		WHERE favorite_id = #{favorite_id}
 	</update>
 	
 	<delete id="deleteFavorite" parameterType="integer">

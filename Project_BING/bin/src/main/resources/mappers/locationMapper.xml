@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bing.community.model.dao.LacationDao">
+<mapper namespace="com.bing.community.model.dao.LocationDao">
 	<!-- 모든 장소 조회 -->
 	<select id="selectAll" resultType="Location">
 		SELECT * FROM location
@@ -18,8 +18,8 @@
 	<!-- 장소 등록하기 -->
 	<insert id="insertLocation" parameterType="Location">
 		INSERT INTO
-		location(location_id, location_name, longitude, latitude)
-		VALUES(#{location_id}, #{location_name}, #{longitude}, #{latitude})
+		location(location_name, longitude, latitude)
+		VALUES(#{location_name}, #{longitude}, #{latitude})
 	</insert>
 
 	<!-- 등록했던 장소 수정하기 -->
@@ -36,5 +36,14 @@
 		DELETE FROM location
 		WHERE location_id = #{location_id}
 	</delete>
-
+	
+	<!-- 장소 검색하기 -->
+	<select id="searchLocation" parameterType="SearchCondition" resultType="Location">
+		SELECT * FROM location
+		<if test="key == 'location_name'">
+		WHERE ${key} LIKE CONCAT('%',#{word},'%')
+		</if>
+	
+	
+	</select>
 </mapper>

@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bing.community.model.dao.BoardDao;
+import com.bing.community.model.dao.UserDao;
 import com.bing.community.model.dto.Board;
+import com.bing.community.model.dto.SearchCondition;
 
 @Service
 public class BoardServiceImpl implements BoardService{
 	
 	@Autowired
 	BoardDao boardDao;
-	
+	@Autowired
+	UserDao userDao;
 	// 모든 게시글 조회
 	public List<Board> getBoardList(){
 		return boardDao.selectAll();
@@ -22,6 +25,12 @@ public class BoardServiceImpl implements BoardService{
 	// 게시글 하나 조회
 	public Board getBoard(int id) {
 		return boardDao.selectOne(id);
+	}
+	
+	//userid로 게시글 뽑아오기
+	@Override
+	public List<Board> pickUserBoard(String email) {
+		return boardDao.pickUserBoard(email);
 	}
 	
 	// 게시글 등록
@@ -39,4 +48,15 @@ public class BoardServiceImpl implements BoardService{
 	public int removeBoard(int id) {
 		return boardDao.deleteBoard(id);
 	}
+
+	@Override
+	public List<Board> searchBoard(SearchCondition con) {
+		return boardDao.searchBoard(con);
+	}
+
+	@Override
+	public List<Board> getCommBoard(int community_id) {
+		return boardDao.selectCommBoardList(community_id);
+	}
+
 }

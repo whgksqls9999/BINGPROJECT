@@ -12,6 +12,9 @@ public interface ReplyService {
 	// 댓글 하나 조회
 	Reply getReply(int id);
 	
+	//userid로 댓글 뽑아오기
+	List<Reply> pickUserReply(String writer);
+	
 	// 댓글 등록
 	int registReply(Reply reply);
 	
