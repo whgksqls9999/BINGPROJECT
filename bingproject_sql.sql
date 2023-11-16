@@ -47,9 +47,7 @@ CREATE TABLE favorite_board (
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
 	FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE
 );
-
--- favor_board 데이터
-INSERT INTO favorite_board 
+INSERT INTO favorite_board
 VALUES (1,1,'닉네임');
 
 CREATE TABLE favorite_location (
@@ -71,7 +69,7 @@ CREATE TABLE reply (
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE
 );
 
-SELECT * FROM board as b INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
+SELECT b.writer, b.content, b.reg_date  FROM board as b INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
 
 -- User 데이터
 INSERT INTO user (email,pw,name,gender,nickname)
@@ -100,7 +98,6 @@ VALUES (1, 1,'자유','제목1','닉네임','내용1'),
 (2, 1,'자유','제목4','닉네임2','내용4'),
 (2, 2,'자유','제목5','닉네임','내용5'),
 (2, 3,'자유','제목6','닉네임','내용6');
-
 
 -- Favorite 데이터
 -- INSERT INTO favorite (favorite_type, user_email, location_id, board_id)
