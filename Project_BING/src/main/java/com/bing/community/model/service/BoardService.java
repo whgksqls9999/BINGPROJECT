@@ -15,6 +15,9 @@ public interface BoardService {
 	//userid로 게시글 다 뽑아오기
 	List<Board> pickUserBoard(String email);
 	
+	// 커뮤니티에 등록된 게시글 가져오기
+	List<Board> getCommBoard(int community_id);
+
 	// 게시글 등록
 	int registBoard(Board board);
 	

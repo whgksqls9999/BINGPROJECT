@@ -50,7 +50,6 @@ public class UserRestController {
 
     @PostMapping("/")
     public ResponseEntity<?> signUp(@RequestBody User user) {
-        System.out.println(user);
         int result = userService.registUser(user);
         if (result > 0) {
             return new ResponseEntity<Integer>(result, HttpStatus.OK);

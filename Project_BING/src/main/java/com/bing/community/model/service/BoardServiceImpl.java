@@ -54,4 +54,9 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.searchBoard(con);
 	}
 
+	@Override
+	public List<Board> getCommBoard(int community_id) {
+		return boardDao.selectCommBoardList(community_id);
+	}
+
 }
