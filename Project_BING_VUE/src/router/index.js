@@ -4,7 +4,6 @@ import CommunityView from "@/views/CommunityView.vue";
 import BoardView from "@/views/BoardView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import BoardDetail from "@/components/board/BoardDetail.vue";
-import MyBoards from "@/components/myPage/MyBoards.vue";
 import MyFavor from "@/components/myPage/MyFavorLocation.vue";
 import MyInfo from "@/components/myPage/MyInfo.vue";
 import MyReplys from "@/components/myPage/MyReplys.vue";

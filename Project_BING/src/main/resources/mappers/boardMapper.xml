@@ -21,6 +21,12 @@
 		WHERE writer = #{writer}
 	</select>
 	
+	<!-- 커뮤니티 게시글 조회하기 -->
+	<select id="selectCommBoardList" parameterType="integer" resultType="Board">
+		SELECT * FROM board
+		WHERE community_id = #{community_id}
+	</select>
+	
 	<!-- 게시글 등록 -->
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO board

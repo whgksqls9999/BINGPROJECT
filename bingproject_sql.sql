@@ -104,18 +104,21 @@ VALUES ('프리다이빙','프리다이빙을 위한 커뮤니티'),
 INSERT INTO board (community_id, num, header, title, writer, content)
 VALUES (1, 1,'자유','제목1','닉네임','내용1'),
 (1, 2,'자유','제목2','닉네임','내용2'),
-(1, 3,'자유','제목3','닉네임','내용3');
+(1, 3,'자유','제목3','닉네임','내용3'),
+(2, 1,'자유','제목4','닉네임2','내용4'),
+(2, 2,'자유','제목5','닉네임','내용5'),
+(2, 3,'자유','제목6','닉네임','내용6');
 
 -- Favorite 데이터
-INSERT INTO favorite (favorite_type, user_email, location_id, board_id)
-VALUES ('location', 'ssafy', 1, null),
-('board','ssafy', null, 1);
+-- INSERT INTO favorite (favorite_type, user_email, location_id, board_id)
+-- VALUES ('location', 'ssafy', 1, null),
+-- ('board','ssafy', null, 1);
 
 -- Reply 데이터
 INSERT INTO reply (board_id, writer, content, reg_date, is_modified)
 VALUES (1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-select * from favorite;
+-- select * from favorite; 
 SELECT * FROM board;
 SELECT * FROM user;
 SELECT * FROM location;

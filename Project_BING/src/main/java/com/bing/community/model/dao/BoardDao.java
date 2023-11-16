@@ -15,6 +15,9 @@ public interface BoardDao {
 
 	// userid로 게시글 목록 뽑아오기
 	List<Board> pickUserBoard(String writer);
+	
+	// 커뮤니티에 등록된 게시글 목록 가져오기
+	List<Board> selectCommBoardList(int community_id);
 
 	// 게시글 등록
 	int insertBoard(Board board);

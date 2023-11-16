@@ -32,6 +32,20 @@ public class BoardRestController {
 	public List<Board> boardList() {
 		return boardService.getBoardList();
 	}
+	
+	// 커뮤니티 게시글 가져오기
+	@GetMapping("/comm/{community_id}")
+	public ResponseEntity<?> getCommBoardList(@PathVariable int community_id){
+		List<Board> list = boardService.getCommBoard(community_id);
+		
+		if (list.size() == 0 || list == null) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
+		}
+		
+		
+	}
 
 	//게시글 하나 가져오기
 	@GetMapping("/{board_id}")

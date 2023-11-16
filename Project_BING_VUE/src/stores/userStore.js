@@ -37,15 +37,15 @@ export const useUserStore = defineStore("user", () => {
   };
 
   // 회원가입 요청
-  const regist = (user) => {
-    console.log(user);
+  const registUser = (user) => {
+    console.log(JSON.stringify(user));
     axios
       .post(`${REST_USER_API}/`, null, {
         headers: { "Content-Type": "application/json" },
-        data: user,
+        data: JSON.stringify(user),
       })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
-  return { userLogin, loginUser, showForm, userLogout, changeForm, regist };
+  return { userLogin, loginUser, showForm, userLogout, changeForm, registUser };
 });
