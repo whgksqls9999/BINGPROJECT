@@ -20,7 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
-@RequestMapping("/favlocation")
+@RequestMapping("/favboard")
 @Api(tags = "장소 찜 컨트롤러")
 public class FavoriteBoardRestController {
 
