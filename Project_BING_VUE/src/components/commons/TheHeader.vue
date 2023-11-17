@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div>
-      <div class="weather">
-      <TheWeather/>
+    <div class="weather">
+      <TheWeather />
     </div>
     <RouterLink :to="{ name: 'main' }">메인</RouterLink>
     <RouterLink :to="{ name: 'community' }">커뮤니티</RouterLink>
@@ -48,8 +47,8 @@ const logout = () => {
 </script>
 
 <style scoped>
-.weather{
+.weather {
   font-size: 20px;
   font-weight: 700;
-  }
+}
 </style>

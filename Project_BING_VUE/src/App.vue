@@ -3,7 +3,7 @@
   <TheHeader />
   <RouterView />
   <!-- <Kakaotest /> -->
-  <Kakaotest2 />
+  <!-- <Kakaotest2 /> -->
   <!-- footer -->
 </template>
 

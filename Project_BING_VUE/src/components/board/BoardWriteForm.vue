@@ -1,0 +1,171 @@
+<template>
+  <div class="container">
+    <div class="title">
+      <label for="">제목</label>
+      <input type="text" />
+    </div>
+    <!-- 카테고리가 location이 아닐 때 -->
+    <div class="content" v-if="category != '장소추천'">
+      <label for="">내용</label>
+      <input type="text" />
+    </div>
+    <!-- 카테고리가 location일 때 -->
+    <div class="content-if-location" v-else>
+      <label for="">내용</label>
+      <input type="text" />
+      <div class="location-select" @click="doSelectLocation">
+        누르면 지도 나오게
+      </div>
+      <div class="map">
+        <BoardWriteMap v-if="isSelectLocation" />
+      </div>
+    </div>
+    <div class="form-footer">
+      <div class="category">
+        <span>카테고리</span>
+        <div class="categories">
+          <button @click="setCategory('소통')">소통</button>
+          <button @click="setCategory('장소추천')">장소 추천</button>
+          <button @click="setCategory('카풀')">카풀</button>
+          <button @click="setCategory('질문')">질문</button>
+        </div>
+      </div>
+      <button class="submit-btn">등록</button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import BoardWriteMap from "@/components/board/BoardWriteMap.vue";
+
+// 장소 선택란 클릭시 지도 뜨도록 설정
+const isSelectLocation = ref(false);
+const doSelectLocation = () => {
+  isSelectLocation.value = !isSelectLocation.value;
+};
+
+// 카테고리 설정
+const category = ref("소통");
+const setCategory = (sel) => {
+  category.value = sel;
+};
+</script>
+
+<style scoped>
+.map {
+  position: fixed;
+}
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30rem;
+  gap: 1rem;
+}
+
+input {
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 0.2rem grey;
+  width: 30rem;
+  padding: 0.3rem;
+}
+
+.title,
+.content,
+.content-if-location {
+  position: relative;
+}
+
+.title label,
+.content label,
+.content-if-location label {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.5rem;
+}
+.title input {
+  height: 3rem;
+}
+
+.content input,
+.content-if-location input {
+  height: 10rem;
+} */
+
+/* 장소 추천 글일 때 컨텐트 div 설정 */
+/* .content-if-location {
+  display: flex;
+  width: 100%;
+}
+.content-if-location label {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.5rem;
+}
+.content-if-location input {
+  width: 60%;
+}
+.location-select {
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 0.2rem grey;
+  width: 40%;
+  padding: 0.3rem;
+}
+
+.form-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category {
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 0.2rem grey;
+  height: 3rem;
+  width: 6rem;
+  transition: width 1s ease;
+  transition-delay: 100ms;
+  display: flex;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.category:hover {
+  width: 23rem;
+}
+
+.categories {
+  position: absolute;
+  width: 100%;
+  left: 8rem;
+}
+
+.categories button {
+  padding: 0.2rem;
+  width: 3rem;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+.submit-btn {
+  background-color: skyblue;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 0.2rem grey;
+  width: 4rem;
+  color: white;
+  transition: all 0.5s;
+} */
+</style>
