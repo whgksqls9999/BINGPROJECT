@@ -44,9 +44,9 @@ public class LocationRestController {
 
 	@PostMapping("/regist")
 	public ResponseEntity<?> registLocation(Location location) {
-		Location get = locationService.registLocation(location);
-		if (get != null) {
-			return new ResponseEntity<Location>(get, HttpStatus.OK);
+		int result = locationService.registLocation(location);
+		if (result > 0) {
+			return new ResponseEntity<Location>(location, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
@@ -54,9 +54,9 @@ public class LocationRestController {
 
 	@PutMapping("/modify/{location_id}")
 	public ResponseEntity<?> modifyLocation(Location location) {
-		Location get = locationService.modifyLocation(location);
-		if (get != null) {
-			return new ResponseEntity<Location>(get, HttpStatus.OK);
+		int result = locationService.modifyLocation(location);
+		if (result > 0) {
+			return new ResponseEntity<Location>(location, HttpStatus.OK);
 		}
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}

@@ -63,9 +63,9 @@ public class MyPageRestController {
 	}
 
 	// 사용자가 찜한 장소 가져오기
-	@GetMapping("pickfavlocation/{user_email}")
-	public ResponseEntity<?> pickUserFavLocation(@PathVariable String user_email) {
-		List<FavoriteLocation> list = favlocationService.pickUserLocation(user_email);
+	@GetMapping("pickfavlocation/{writername}")
+	public ResponseEntity<?> pickUserFavLocation(@PathVariable String writername) {
+		List<FavoriteLocation> list = favlocationService.pickUserLocation(writername);
 
 		if (list != null || list.size() != 0) {
 			return new ResponseEntity<List<FavoriteLocation>>(list, HttpStatus.OK);
@@ -75,9 +75,9 @@ public class MyPageRestController {
 	}
 
 	// 사용자가 찜한 게시글 가져오기
-	@GetMapping("pickfavboard/{user_email}")
-	public ResponseEntity<?> pickUserFavBoard(@PathVariable String user_email) {
-		List<FavoriteBoard> list = favboardService.pickUserBoard(user_email);
+	@GetMapping("pickfavboard/{writername}")
+	public ResponseEntity<?> pickUserFavBoard(@PathVariable String writername) {
+		List<FavoriteBoard> list = favboardService.pickUserBoard(writername);
 
 		if (list != null || list.size() != 0) {
 			return new ResponseEntity<List<FavoriteBoard>>(list, HttpStatus.OK);

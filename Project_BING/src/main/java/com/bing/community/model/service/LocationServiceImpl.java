@@ -26,12 +26,12 @@ public class LocationServiceImpl implements LocationService{
 	}
 
 	@Override
-	public Location registLocation(Location location) {
+	public int registLocation(Location location) {
 		return locationDao.insertLocation(location);
 	}
 
 	@Override
-	public Location modifyLocation(Location location) {
+	public int modifyLocation(Location location) {
 		return locationDao.updateLocation(location);
 	}
 

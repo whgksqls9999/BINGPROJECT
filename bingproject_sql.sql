@@ -18,14 +18,16 @@ VALUES ('ssafy', '1234', '김싸피', '남', '닉네임'),
 SELECT * FROM user;
 
 CREATE TABLE location (
-    location_id INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    location_name VARCHAR(100) NOT NULL,
-    longitude DECIMAL(10,7) NOT NULL,
-    latitude DECIMAL(10,7) NOT NULL
+    location_id INT(10) PRIMARY KEY NOT NULL,
+    place_name VARCHAR(100) NOT NULL,
+    address_name VARCHAR(100) NOT NULL
 );
 -- Location 데이터
-INSERT INTO location (location_name, longitude, latitude)
-VALUES ('김밥천국', 0,0);
+INSERT INTO location (location_id, place_name, address_name)
+VALUES (1, '장소 이름', '주소'),
+(2, '장소 이름2', '주소2'),
+(3, '장소 이름3', '주소3'),
+(4, '장소 이름4', '주소4');
 SELECT * FROM location;
 
 

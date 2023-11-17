@@ -14,10 +14,10 @@ public interface LocationDao {
 	Location selectOne(int location_id);
 	
 	// 장소 등록
-	Location insertLocation(Location location);
+	int insertLocation(Location location);
 	
 	// 장소 수정
-	Location updateLocation(Location location);
+	int updateLocation(Location location);
 	
 	// 장소 삭제
 	int deleteLocation(int location_id);
