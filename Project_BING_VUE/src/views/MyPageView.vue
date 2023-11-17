@@ -12,9 +12,8 @@
 </template>
 
 <script setup>
-
-import MyBoards from '@/components/myPage/MyBoards.vue';
-import { useMyPageStore } from '@/stores/myPageStore.js';
+import MyBoards from "@/components/myPage/MyBoards.vue";
+import { useMyPageStore } from "@/stores/myPageStore.js";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

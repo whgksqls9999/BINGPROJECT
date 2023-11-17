@@ -1,4 +1,5 @@
 <template>
+  <h2>커뮤니티 : {{ idParam }}</h2>
   <div class="container">
     <div class="title">
       <label for="">제목</label>
@@ -36,14 +37,13 @@
 </template>
 
 <script setup>
+import { useRoute } from "vue-router";
 import { ref } from "vue";
 import BoardWriteMap from "@/components/board/BoardWriteMap.vue";
 
-// 어떤 커뮤니티에 등록될 게시글인지 정보 가져오기
-const props = defineProps({
-  comm_id: "Number",
-});
-console.log(props.comm_id);
+// 어떤 커뮤니티에 등록될 게시글인지 커뮤니티 번호 가져오기
+const route = useRoute();
+const comm_id = route.params.community_id;
 
 // 게시글 제목, 내용 등등 채우기
 const title = ref("");

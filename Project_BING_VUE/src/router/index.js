@@ -37,11 +37,19 @@ const router = createRouter({
       path: "/board/write",
       name: "boardWrite",
       component: BoardWrite,
+      beforeEnter: (to, from) => {
+        if (loginCheck()) return true;
+        return false;
+      },
     },
     {
-      path: "/:nickname",
+      path: "/myPage/:nickname",
       name: "myPage",
       component: MyPageView,
+      beforeEnter: (to, from) => {
+        if (loginCheck()) return true;
+        return false;
+      },
       children: [
         {
           path: "info",
@@ -62,5 +70,14 @@ const router = createRouter({
     },
   ],
 });
+
+function loginCheck() {
+  let loginUser = sessionStorage.getItem("access-token");
+  if (loginUser == null) {
+    alert("로그인이 필요합니다.");
+    return false;
+  }
+  return true;
+}
 
 export default router;

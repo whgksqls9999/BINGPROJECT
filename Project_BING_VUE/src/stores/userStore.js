@@ -43,6 +43,8 @@ export const useUserStore = defineStore("user", () => {
   const userLogout = () => {
     sessionStorage.removeItem("access-token");
     loginUser.value = null;
+    alert("로그아웃 되었습니다.");
+    router.push({ name: "main" });
   };
 
   // 회원가입 요청 - 하는중,,
@@ -56,6 +58,12 @@ export const useUserStore = defineStore("user", () => {
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
+
+  // 로그인 체크
+  const doLoginCheck = () => {
+    return sessionStorage.getItem("access-token");
+  };
+
   return {
     userLogin,
     loginUser,
@@ -65,5 +73,6 @@ export const useUserStore = defineStore("user", () => {
     registUser,
     user,
     getUser,
+    doLoginCheck,
   };
 });
