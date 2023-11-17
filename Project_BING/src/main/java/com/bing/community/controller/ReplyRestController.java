@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bing.community.model.dto.Reply;
 import com.bing.community.model.service.ReplyService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/reply")
+@Api(tags = "댓글 컨트롤러")
 public class ReplyRestController {
 	
 	@Autowired

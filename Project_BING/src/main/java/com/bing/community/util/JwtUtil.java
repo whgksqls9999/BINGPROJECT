@@ -19,6 +19,8 @@ public class JwtUtil {
 	// 1. 토큰 생성
 	// key, value를 필요하다면 여러개 받게 하기
 	public String createToken(String key, String value) {
+		System.out.println(key);
+		System.out.println(value);
 		return Jwts.builder().setHeaderParam("alg", "HS256").setHeaderParam("typ", "JWT").claim(key, value)
 				.signWith(SignatureAlgorithm.HS256, SALT.getBytes()).compact();
 	}

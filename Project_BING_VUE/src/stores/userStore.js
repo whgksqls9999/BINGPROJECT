@@ -23,6 +23,7 @@ export const useUserStore = defineStore("user", () => {
   // 로그인 요청
   const loginUser = ref("");
   const userLogin = (id, pw) => {
+    console.log(id, pw);
     axios
       .post(`${REST_USER_API}/login`, { email: id, pw: pw })
       .then((response) => {
