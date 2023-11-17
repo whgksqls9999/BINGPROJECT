@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end; /* 추가: 세로 가운데 정렬 */
+  align-items: center; /* 추가: 세로 가운데 정렬 */
   background-color: transparent;
   /* padding: 10px; */
 }
@@ -35,7 +35,7 @@
 .footer-link {
   display: flex;
   gap: 2rem;
-  justify-content: flex-end;
+  justify-content: center;
   margin-left: 10px; /* 수정: 여유 마진을 왼쪽에 추가 */
 }
 a {
