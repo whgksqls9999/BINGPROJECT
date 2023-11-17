@@ -50,7 +50,7 @@ body {
   position: absolute;
   top: 3%;
   left: 50%;
-  background: #0af;
+  background: rgba(0, 107, 250, 0.7);
   width: 500px;
   height: 500px;
   margin-left: -250px;
