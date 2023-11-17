@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>게시글 상세</h3>
+    <h3>게시글 상세내용</h3>
     {{ idParam }}번 게시글
     <div>댓글</div>
     <div v-for="reply in boardReplyList">{{ reply }}</div>
@@ -25,11 +25,6 @@ onMounted(() => {
 onUpdated(() => {
   replyStore.getBoardReplyList(idParam.value);
 });
-
-// watch(route.path,() => {
-//     // replyStore.getBoardReplyList(idParam.value);
-//     console.log('hi');
-// })
 </script>
 
 <style scoped></style>

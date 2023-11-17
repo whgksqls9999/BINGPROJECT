@@ -6,9 +6,6 @@
   <RouterLink :to="{ name: 'board', params: { community_id: '2' } }"
     >스킨스쿠버</RouterLink
   >
-  <RouterLink :to="{ name: 'board', params: { community_id: '3' } }"
-    >해녀</RouterLink
-  >
 </template>
 
 <script setup></script>

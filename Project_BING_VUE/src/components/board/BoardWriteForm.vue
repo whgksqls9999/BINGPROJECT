@@ -2,17 +2,17 @@
   <div class="container">
     <div class="title">
       <label for="">제목</label>
-      <input type="text" />
+      <input type="text" v-model="title" />
     </div>
     <!-- 카테고리가 location이 아닐 때 -->
     <div class="content" v-if="category != '장소추천'">
       <label for="">내용</label>
-      <input type="text" />
+      <input type="text" v-model="content" />
     </div>
     <!-- 카테고리가 location일 때 -->
     <div class="content-if-location" v-else>
       <label for="">내용</label>
-      <input type="text" />
+      <input type="text" v-model="content" />
       <div class="location-select" @click="doSelectLocation">
         누르면 지도 나오게
       </div>
@@ -38,6 +38,17 @@
 <script setup>
 import { ref } from "vue";
 import BoardWriteMap from "@/components/board/BoardWriteMap.vue";
+
+// 어떤 커뮤니티에 등록될 게시글인지 정보 가져오기
+const props = defineProps({
+  comm_id: "Number",
+});
+console.log(props.comm_id);
+
+// 게시글 제목, 내용 등등 채우기
+const title = ref("");
+const content = ref("");
+const location = ref("");
 
 // 장소 선택란 클릭시 지도 뜨도록 설정
 const isSelectLocation = ref(false);
