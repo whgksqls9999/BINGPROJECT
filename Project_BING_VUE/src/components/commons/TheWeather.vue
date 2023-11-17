@@ -1,40 +1,26 @@
 <template>
-    <div>
-      <div>{{ tmp }}℃ | {{ sky }} | {{rain}} {{ pop }}%</div>
-    </div>
-  </template>
-  
-  <script setup>
+  <div>
+    <p>{{ tmp }}℃ | {{ sky }} | {{ rain }} {{ pop }}%</p>
+  </div>
+</template>
+
+<script setup>
 import { onMounted, ref } from "vue";
 import axios from "axios";
 const tmp = ref(null);
 const sky = ref(null);
 const pty = ref(null);
 const pop = ref(0);
-
 const rain = "💧";
-const getSkyIcon = () => {
-  switch (sky.value) {
-    case "1":
-      return "☀️";
-    case "3":
-      return "🌥️";
-    case "4":
-      return "☁️";
-    default:
-      return "";
-  }
-};
-
-  const findClosestTime = (currentTime, times) => {
+const findClosestTime = (currentTime, times) => {
   return times.reduce((prev, curr) => {
-    return Math.abs(curr - currentTime) < Math.abs(prev - currentTime) ? curr : prev;
+    return Math.abs(curr - currentTime) < Math.abs(prev - currentTime)
+      ? curr
+      : prev;
   });
 };
-
-  onMounted(() => {
+onMounted(() => {
   const API_URL = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst`;
-
   const today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth() + 1;
@@ -42,11 +28,18 @@ const getSkyIcon = () => {
   month = month < 10 ? "0" + month : month;
   day = day < 10 ? "0" + day : day;
   const todayStr = `${year}${month}${day}`;
-
-  const currentTime = today.getHours().toString().padStart(2, '0') + '00';
-
+  const currentTime = today.getHours().toString().padStart(2, "0") + "00";
   // 가장 가까운 시간 찾기
-  const closestTime = findClosestTime(currentTime, ['0200', '0500', '0800', '1100', '1400', '1700', '2000', '2300']);
+  const closestTime = findClosestTime(currentTime, [
+    "0200",
+    "0500",
+    "0800",
+    "1100",
+    "1400",
+    "1700",
+    "2000",
+    "2300",
+  ]);
   axios
     .get(API_URL, {
       params: {
@@ -61,10 +54,8 @@ const getSkyIcon = () => {
     })
     .then((response) => {
       console.log("API Response:", response);
-
       const responseData = response.data?.response?.body?.items?.item;
       console.log("API Data:", responseData);
-
       if (responseData) {
         responseData.forEach((item) => {
           if (item.category === "TMP") {
@@ -95,7 +86,10 @@ const getSkyIcon = () => {
       console.error("Error fetching weather data:", error);
     });
 });
-  </script>
-  
-  <style scoped></style>
-  
+</script>
+
+<style scoped>
+* {
+  color: white;
+}
+</style>
