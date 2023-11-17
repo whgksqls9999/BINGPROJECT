@@ -10,7 +10,7 @@
 
 <script setup>
 import MyBoards from '@/components/myPage/MyBoards.vue';
-import {useMyPageStore} from '@/stores/mypage.js';
+import {useMyPageStore} from '@/stores/myPageStore.js';
 
 
 </script>
