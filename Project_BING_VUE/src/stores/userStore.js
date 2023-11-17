@@ -6,6 +6,14 @@ import router from "@/router/index.js";
 export const useUserStore = defineStore("user", () => {
   const REST_USER_API = "http://localhost:1004/user";
 
+  // 유저 정보 가져오기
+  const user = ref({});
+  const getUser = (nickname) => {
+    axios
+      .get(`${REST_USER_API}/${nickname}`)
+      .then((response) => (user.value = response.data));
+  };
+
   // header 출력 폼 결정
   const showForm = ref("");
   const changeForm = (num) => {
@@ -15,6 +23,7 @@ export const useUserStore = defineStore("user", () => {
   // 로그인 요청
   const loginUser = ref("");
   const userLogin = (id, pw) => {
+    console.log(id, pw);
     axios
       .post(`${REST_USER_API}/login`, { email: id, pw: pw })
       .then((response) => {
@@ -47,5 +56,14 @@ export const useUserStore = defineStore("user", () => {
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
-  return { userLogin, loginUser, showForm, userLogout, changeForm, registUser };
+  return {
+    userLogin,
+    loginUser,
+    showForm,
+    userLogout,
+    changeForm,
+    registUser,
+    user,
+    getUser,
+  };
 });

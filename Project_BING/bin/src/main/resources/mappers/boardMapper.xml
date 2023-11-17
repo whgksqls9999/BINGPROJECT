@@ -14,6 +14,19 @@
 		FROM board WHERE board_id = #{id}
 	</select>
 
+	<!-- user게시글 조회하기 -->
+	<select id="pickUserBoard" parameterType="String"
+		resultType="Board">
+		SELECT * FROM board
+		WHERE writer = #{writer}
+	</select>
+	
+	<!-- 커뮤니티 게시글 조회하기 -->
+	<select id="selectCommBoardList" parameterType="integer" resultType="Board">
+		SELECT * FROM board
+		WHERE community_id = #{community_id}
+	</select>
+	
 	<!-- 게시글 등록 -->
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO board
@@ -51,11 +64,12 @@
 	</delete>
 
 	<!-- 게시글 검색 -->
-	<select id="searchBoard" parameterType="SearchCondition" resultType="Board">
+	<select id="searchBoard" parameterType="SearchCondition"
+		resultType="Board">
 		SELECT * FROM board
 		<if test="key != 'none'">
-		WHERE ${key} LIKE CONCAT ('%',#{word},'%')
+			WHERE ${key} LIKE CONCAT ('%',#{word},'%')
 		</if>
-		
+
 	</select>
 </mapper>

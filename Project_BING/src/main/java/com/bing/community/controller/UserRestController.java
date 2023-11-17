@@ -21,9 +21,11 @@ import com.bing.community.model.dto.User;
 import com.bing.community.model.service.UserService;
 import com.bing.community.util.JwtUtil;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("*")
+@Api(tags = "유저 컨트롤러")
 public class UserRestController {
 
     @Autowired
@@ -37,10 +39,22 @@ public class UserRestController {
     public List<User> userList() {
         return userService.getUserList();
     }
-
-    @GetMapping("/{user_email}")
-    public ResponseEntity<?> getUser(@PathVariable String user_email) {
-        User get = userService.getUser(user_email);
+    
+    // 이메일로 유저 불러오기
+    @GetMapping("/email/{email}")
+    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
+        User get = userService.getUserByEmail(email);
+        if (get == null) {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<User>(get, HttpStatus.OK);
+        }
+    }
+    
+    // 닉네임으로 유저 불러오기
+    @GetMapping("/nickname/{nickname}")
+    public ResponseEntity<?> getUserByNickname(@PathVariable String nickname) {
+        User get = userService.getUserByNickname(nickname);
         if (get == null) {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         } else {
@@ -88,7 +102,7 @@ public class UserRestController {
         HttpStatus status = null;
 
         // 유효한 사용자, 비밀번호 검사
-        User dbUser = userService.getUser(user.getEmail());
+        User dbUser = userService.getUserByEmail(user.getEmail());
         if (dbUser == null || !(dbUser.getPw().equals(user.getPw()))) {
             result.put("access-token", null);
             result.put("message", FAIL);

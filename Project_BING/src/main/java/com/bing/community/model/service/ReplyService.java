@@ -9,6 +9,9 @@ public interface ReplyService {
 	// 모든 리뷰 댓글
 	List<Reply> getReplyList();
 	
+	// 특정 게시글에 달린 댓글 리스트 조회
+	List<Reply> getBoardReply(int board_id);
+	
 	// 댓글 하나 조회
 	Reply getReply(int id);
 	

@@ -9,8 +9,15 @@
 		SELECT * FROM user
 	</select>
 
-	<!-- 유저 1명 조회 -->
-	<select id="selectOne" resultType="User" parameterType="string">
+	<!-- 닉네임으로 유저 조회 -->
+	<select id="selectOneByNickname" resultType="User" parameterType="string">
+		SELECT *
+		FROM user
+		WHERE nickname = #{nickname}
+	</select>
+	
+	<!-- 이메일로 유저 조회 -->
+	<select id="selectOneByEmail" resultType="User" parameterType="string">
 		SELECT *
 		FROM user
 		WHERE email = #{email}

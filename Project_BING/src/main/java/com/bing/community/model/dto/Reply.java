@@ -8,6 +8,12 @@ public class Reply {
 	private String reg_date;
 	private String is_modified;
 
+	@Override
+	public String toString() {
+		return "Reply [reply_id=" + reply_id + ", board_id=" + board_id + ", writer=" + writer + ", content=" + content
+				+ ", reg_date=" + reg_date + ", is_modified=" + is_modified + "]";
+	}
+
 	public Reply() {
 		// TODO Auto-generated constructor stub
 	}

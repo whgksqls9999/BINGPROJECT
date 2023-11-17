@@ -2,6 +2,7 @@
   <!--장소 게시글 한번에-->
   <div>
     <!--장소-->
+    {{ nicknameParam }}님의 정보입니다.
     <div>
       <h4 v-if="myFavLocations.length == 0">회원님이 찜한 장소가 없습니다.</h4>
       <!--찜한 장소 지도에 MARKER로 뜨겠지? 그거 받아오면 될 듯 아 그럼 또 DB 추가해야됨?-->
@@ -36,6 +37,11 @@
 <script setup>
 import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
+import { useRoute } from "vue-router";
+
+// 유저 닉네임 받아오기
+const route = useRoute();
+const nicknameParam = route.params.nickname;
 
 const store = useMyPageStore();
 //내가 찜한 장소 불러오기
@@ -49,8 +55,8 @@ const myFavBoards = computed(() => {
 });
 
 onMounted(() => {
-  store.myFavLocations();
-  store.myFavBoards();
+  // store.getMyFavLocations(); 이것을 살려야 한다 지도 API 必
+  store.getMyFavBoards(nicknameParam);
 });
 </script>
 

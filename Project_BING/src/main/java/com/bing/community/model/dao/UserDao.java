@@ -9,8 +9,11 @@ public interface UserDao {
 	// 모든 유저 조회
 	List<User> selectAll();
 	
-	// 유저 한명 조회
-	User selectOne(String email);
+	// 닉네임으로 유저 조회
+	User selectOneByNickname(String nickname);
+	
+	// 이메일로 유저 조회
+	User selectOneByEmail(String email);
 	
 	// 유저 등록(회원가입)
 	int insertUser(User user);

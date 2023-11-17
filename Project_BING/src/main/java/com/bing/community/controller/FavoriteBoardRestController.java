@@ -21,16 +21,16 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/favboard")
-@Api(tags = "장소 찜 컨트롤러")
+@Api(tags = "찜_게시글 컨트롤러")
 public class FavoriteBoardRestController {
 
 	@Autowired
 	private FavoriteBoardService favBoardService;
 
-	// 사용자 장소 찜 목록 가져오기
-	@GetMapping("/{user_email}")
-	public ResponseEntity<?> pickUserFavLocation(@PathVariable String user_email) {
-		List<FavoriteBoard> list = favBoardService.pickUserBoard(user_email);
+	// 사용자 게시글 찜 목록 가져오기
+	@GetMapping("/{writername}")
+	public ResponseEntity<?> pickUserFavLocation(@PathVariable String writername) {
+		List<FavoriteBoard> list = favBoardService.pickUserBoard(writername);
 		if (list != null || list.size() != 0) {
 			return new ResponseEntity<List<FavoriteBoard>>(list, HttpStatus.OK);
 		}
@@ -48,7 +48,7 @@ public class FavoriteBoardRestController {
 	}
 
 	// 장소 찜 삭제하기
-	@DeleteMapping("deletefavboard")
+	@DeleteMapping("/deletefavboard/{favorite_boardId}")
 	public ResponseEntity<?> removeFavoriteBoard(@PathVariable int favorite_boardId) {
 		int result = favBoardService.deleteFavoriteBoard(favorite_boardId);
 

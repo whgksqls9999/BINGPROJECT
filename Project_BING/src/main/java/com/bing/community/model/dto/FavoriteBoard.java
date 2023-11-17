@@ -7,18 +7,9 @@ public class FavoriteBoard {
 	private String writername;
 	private String content;
 	private String reg_date;
+	private String title;
 
 	public FavoriteBoard() {
-	}
-	
-
-	public FavoriteBoard(int favorite_boardId, int board_id, String content, String reg_date) {
-		super();
-		this.favorite_boardId = favorite_boardId;
-		this.board_id = board_id;
-		this.writername = writername;
-		this.content = content;
-		this.reg_date = reg_date;
 	}
 
 	public int getFavorite_boardId() {
@@ -37,6 +28,14 @@ public class FavoriteBoard {
 		this.board_id = board_id;
 	}
 
+	public String getWritername() {
+		return writername;
+	}
+
+	public void setWritername(String writername) {
+		this.writername = writername;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -53,17 +52,25 @@ public class FavoriteBoard {
 		this.reg_date = reg_date;
 	}
 
-
-	public String getWritername() {
-		return writername;
+	public String getTitle() {
+		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-	public void setWritername(String writername) {
+	public FavoriteBoard(int favorite_boardId, int board_id, String writername, String content, String reg_date,
+			String title) {
+		super();
+		this.favorite_boardId = favorite_boardId;
+		this.board_id = board_id;
 		this.writername = writername;
+		this.content = content;
+		this.reg_date = reg_date;
+		this.title = title;
 	}
+	
 
-	
-	
 	
 }

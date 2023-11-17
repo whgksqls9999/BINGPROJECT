@@ -9,8 +9,11 @@ public interface UserService {
 	// 모든 유저 조회
 	List<User> getUserList();
 	
-	// 유저 하나 조회
-	User getUser(String email);
+	// 닉네임으로 유저 조회
+	User getUserByNickname(String nickname);
+	
+	// 이메일로 유저 조회
+	User getUserByEmail(String email);
 	
 	// 유저 등록
 	int registUser(User user);
