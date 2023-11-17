@@ -4,7 +4,7 @@
     <RouterLink :to="{ name: 'community' }">커뮤니티</RouterLink>
     <button v-if="!loginUser" @click="changeForm(1)">Sign In</button>
     <button v-if="!loginUser" @click="changeForm(2)">Sign Up</button>
-    <RouterLink :to="{ name: 'myPage', params: { id: 'ssafy' } }"
+    <RouterLink :to="{ name: 'myPage', params: { nickname: '닉네임' } }"
       >마이 페이지</RouterLink
     >
     <button v-if="loginUser" @click="logout()">로그아웃</button>

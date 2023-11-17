@@ -13,7 +13,6 @@ export const useMyPageStore = defineStore("mypage", () => {
       url: `${REST_MYPAGE_API}/pickboard/${email}`,
       method: "GET",
     }).then((response) => {
-      console.log(response.data);
       const tmp = response.data;
       myBoards.value = tmp;
     });
@@ -26,7 +25,6 @@ export const useMyPageStore = defineStore("mypage", () => {
       url: `${REST_MYPAGE_API}/pickreply/${writer}`,
       method: "GET",
     }).then((response) => {
-      console.log(response.data);
       const tmp = response.data;
       myReplys.value = tmp;
     });

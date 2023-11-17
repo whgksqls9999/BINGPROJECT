@@ -55,7 +55,7 @@ CREATE TABLE board (
     view_cnt INT(10) DEFAULT 0, 
     location_id INT(10),
     FOREIGN KEY (community_id) REFERENCES community(community_id) ON DELETE CASCADE,
-    FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE
+    FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Board 데이터
 INSERT INTO board (community_id, num, header, title, writer, content)
@@ -75,7 +75,7 @@ CREATE TABLE favorite_board (
     board_id INT(10) NOT NULL,
     writername VARCHAR(300) NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
-	FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE
+	FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO favorite_board
 VALUES (1,1,'닉네임'),
@@ -90,7 +90,7 @@ CREATE TABLE favorite_location (
     writername VARCHAR(300) NOT NULL,
     location_id INT(10) NOT NULL,
     FOREIGN KEY (location_id) REFERENCES location(location_id) ON DELETE CASCADE,
-    FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE
+    FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE reply (
@@ -101,7 +101,7 @@ CREATE TABLE reply (
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
-    FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE
+    FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Reply 데이터
 INSERT INTO reply (board_id, writer, content, reg_date, is_modified)
