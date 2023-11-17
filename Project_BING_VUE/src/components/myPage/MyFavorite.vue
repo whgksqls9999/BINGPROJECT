@@ -49,8 +49,8 @@ const myFavBoards = computed(() => {
 });
 
 onMounted(() => {
-  store.myFavLocations();
-  store.myFavBoards();
+  store.getMyFavLocations();
+  store.getMyFavBoards();
 });
 </script>
 

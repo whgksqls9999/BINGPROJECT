@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import axios from "axios";
 
 const REST_MYPAGE_API = "http://localhost:1004/mypage";
 
@@ -32,12 +33,11 @@ export const useMyPageStore = defineStore("mypage", () => {
   };
   //내가 찜한 장소
   const myFavLocations = ref([]);
-  const getMyFavLocation = (user_email) => {
+  const getMyFavLocations = (user_email) => {
     axios({
       url: `${REST_MYPAGE_API}/pickfavlocation/${user_email}`,
       method: "GET",
     }).then((response) => {
-      console.log(response.data);
       const tmp = response.data;
       myFavLocations.value = tmp;
     });
@@ -45,7 +45,7 @@ export const useMyPageStore = defineStore("mypage", () => {
 
   //내가 찜한 게시글
   const myFavBoards = ref([]);
-  const getMyFavBoard = (user_email) => {
+  const getMyFavBoards = (user_email) => {
     axios({
       url: `${REST_MYPAGE_API}/pickfavboard/${user_email}`,
       method: "GET",
@@ -62,9 +62,9 @@ export const useMyPageStore = defineStore("mypage", () => {
     myBoards,
     getMyReplys,
     myReplys,
-    getMyFavLocation,
+    getMyFavLocations,
     myFavLocations,
-    getMyFavBoard,
+    getMyFavBoards,
     myFavBoards,
   };
 });
