@@ -10,4 +10,8 @@
 
 <script setup></script>
 
-<style scoped></style>
+<style scoped>
+body {
+  height: 100vh;
+}
+</style>

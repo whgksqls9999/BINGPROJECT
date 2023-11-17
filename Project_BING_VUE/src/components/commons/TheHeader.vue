@@ -58,11 +58,20 @@ a {
   text-decoration: none;
   color: white;
 }
+button {
+  font-size: 17px;
+  padding: 0;
+  border: none;
+  font-family: Poppins, "Noto Sans KR", sans-serif;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
 .header-container {
   height: 70px;
   display: flex;
   justify-content: space-between;
-  background-color: black;
+  background-color: transparent;
   padding: 0 10px;
 }
 .header-project-name {
