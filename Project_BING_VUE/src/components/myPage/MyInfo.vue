@@ -1,13 +1,9 @@
 <template>
-    <div>
-
-    </div>
+  <div>
+    <h2>내 정보</h2>
+  </div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>
