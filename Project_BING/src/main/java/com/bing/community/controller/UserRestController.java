@@ -38,9 +38,9 @@ public class UserRestController {
         return userService.getUserList();
     }
 
-    @GetMapping("/{user_email}")
-    public ResponseEntity<?> getUser(@PathVariable String user_email) {
-        User get = userService.getUser(user_email);
+    @GetMapping("/{nickname}")
+    public ResponseEntity<?> getUser(@PathVariable String nickname) {
+        User get = userService.getUser(nickname);
         if (get == null) {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
         } else {

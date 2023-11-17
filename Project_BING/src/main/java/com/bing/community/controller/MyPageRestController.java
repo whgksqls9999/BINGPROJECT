@@ -40,9 +40,9 @@ public class MyPageRestController {
 	// 개인정보 수정은 나중에 front에서 userUseStore가져와서 처리할 것
 
 	// 사용자가 작성한 게시글 가져오기
-	@GetMapping("pickboard/{email}")
-	public ResponseEntity<?> pickUserBoard(@PathVariable String email) {
-		List<Board> list = boardService.pickUserBoard(email);
+	@GetMapping("pickboard/{nickname}")
+	public ResponseEntity<?> pickUserBoard(@PathVariable String nickname) {
+		List<Board> list = boardService.pickUserBoard(nickname);
 
 		if (list != null || list.size() != 0) {
 			return new ResponseEntity<List<Board>>(list, HttpStatus.OK);

@@ -3,6 +3,7 @@
   <div>
     <!--게시글-->
     <div>
+      <h1>{{ nicknameParam }}님이 작성한 게시글</h1>
       <h5 v-if="myBoards.length == 0">작성한 게시글 목록이 없습니다.</h5>
       <table v-else>
         <thead>
@@ -54,6 +55,11 @@
 import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
 import { useRoute } from "vue-router";
+
+// 유저 닉네임 받아오기
+const route = useRoute();
+const nicknameParam = route.params.nickname;
+
 const store = useMyPageStore();
 const myBoards = computed(() => {
   return store.myBoards;
@@ -64,8 +70,8 @@ const myReplys = computed(() => {
 });
 
 onMounted(() => {
-  store.getMyBoards();
-  store.getMyReplys();
+  store.getMyBoards(nicknameParam);
+  store.getMyReplys(nicknameParam);
 });
 </script>
 

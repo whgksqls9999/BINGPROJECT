@@ -13,7 +13,7 @@
 	<select id="selectOne" resultType="User" parameterType="string">
 		SELECT *
 		FROM user
-		WHERE email = #{email}
+		WHERE nickname = #{nickname}
 	</select>
 
 	<!-- 회원가입 -->

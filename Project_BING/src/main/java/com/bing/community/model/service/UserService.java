@@ -10,7 +10,7 @@ public interface UserService {
 	List<User> getUserList();
 	
 	// 유저 하나 조회
-	User getUser(String email);
+	User getUser(String nickname);
 	
 	// 유저 등록
 	int registUser(User user);

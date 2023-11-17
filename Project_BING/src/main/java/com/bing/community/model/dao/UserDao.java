@@ -10,7 +10,7 @@ public interface UserDao {
 	List<User> selectAll();
 	
 	// 유저 한명 조회
-	User selectOne(String email);
+	User selectOne(String nickname);
 	
 	// 유저 등록(회원가입)
 	int insertUser(User user);

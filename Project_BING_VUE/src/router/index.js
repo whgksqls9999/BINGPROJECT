@@ -39,7 +39,7 @@ const router = createRouter({
       component: BoardWrite,
     },
     {
-      path: "/:id",
+      path: "/:nickname",
       name: "myPage",
       component: MyPageView,
       children: [
