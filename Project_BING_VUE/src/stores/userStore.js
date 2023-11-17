@@ -10,7 +10,7 @@ export const useUserStore = defineStore("user", () => {
   const user = ref({});
   const getUser = (nickname) => {
     axios
-      .get(`${REST_USER_API}/${nickname}`)
+      .get(`${REST_USER_API}/nickname/${nickname}`)
       .then((response) => (user.value = response.data));
   };
 
