@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bing.community.model.dto.Community;
 import com.bing.community.model.service.CommunityService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/community")
+@Api(tags = "커뮤니티 컨트롤러")
 public class CommunityRestController {
 
 	@Autowired

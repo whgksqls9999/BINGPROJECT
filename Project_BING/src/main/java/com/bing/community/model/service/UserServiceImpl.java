@@ -20,8 +20,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUser(String nickname) {
-		return userDao.selectOne(nickname);
+	public User getUserByNickname(String nickname) {
+		return userDao.selectOneByNickname(nickname);
+	}
+	
+	@Override
+	public User getUserByEmail(String email) {
+		return userDao.selectOneByEmail(email);
 	}
 
 	@Override

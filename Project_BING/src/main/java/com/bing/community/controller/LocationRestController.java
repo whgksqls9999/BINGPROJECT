@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bing.community.model.dto.Location;
 import com.bing.community.model.service.LocationService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/location")
+@Api(tags = "장소 컨트롤러")
 public class LocationRestController {
 
 	@Autowired

@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/favboard")
-@Api(tags = "게시글 찜 컨트롤러")
+@Api(tags = "찜_게시글 컨트롤러")
 public class FavoriteBoardRestController {
 
 	@Autowired
