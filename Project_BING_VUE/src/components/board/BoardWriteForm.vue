@@ -15,7 +15,11 @@
         <label for="">내용</label>
         <input type="text" v-model="content" />
         <div class="location-select" @click="doSelectLocation">
-          여기를 누르면 장소를 첨부할 지도를 표시한다.
+          <div v-if="!location"> 여기를 누르면 장소를 첨부할 지도를 표시한다.</div>
+          <div v-else>
+            <div>{{ location.place_name }}</div>
+            <div><button @click.stop="() => { location = '' }">장소 삭제</button></div>
+          </div>
         </div>
         <!-- <div class="map" > -->
         <!-- </div> -->
@@ -30,17 +34,50 @@
             <button @click="setCategory('질문')">질문</button>
           </div>
         </div>
-        <button class="submit-btn">등록</button>
+        <button class="submit-btn" @click="doRegistBoard">등록</button>
       </div>
-      <BoardWriteMap class="map" v-if="isSelectLocation" @close-window="doSelectLocation" />
+      <BoardWriteMap class="map" v-if="isSelectLocation" @close-window="doSelectLocation" @select-place="doSelectPlace" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { useBoardStore } from '@/stores/boardStore.js';
+import { useUserStore } from '@/stores/userStore';
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, computed, onMounted } from "vue";
 import BoardWriteMap from "@/components/board/BoardWriteMap.vue";
+// Store
+const boardStore = useBoardStore();
+const userStore = useUserStore();
+
+onMounted(() => {
+  boardStore.getCommBoardList(comm_id);
+  userStore.getUserByEmail(writer.email);
+})
+
+// 커뮤니티 정보
+const commBoardList = computed(() => boardStore.commBoardList);
+const num = commBoardList.value == undefined ? 1 : commBoardList.value[commBoardList.value.length - 1].num + 1;
+
+// 작성자 정보
+const user = computed(() => userStore.user);
+const writer = JSON.parse(atob(sessionStorage.getItem('access-token').split(".")[1]));
+
+// 게시글 등록하기
+const doRegistBoard = () => {
+  let board = {
+    'community_id': comm_id,
+    'num': num,
+    'header': category.value,
+    'title': title.value,
+    'content': content.value,
+    'writer': user.value.nickname,
+    'location_id': location.value.id,
+  }
+  boardStore.registBoard(board, comm_id);
+}
+
 
 // 어떤 커뮤니티에 등록될 게시글인지 커뮤니티 번호 가져오기
 const route = useRoute();
@@ -57,10 +94,20 @@ const doSelectLocation = () => {
   isSelectLocation.value = !isSelectLocation.value;
 };
 
+// 선택된 장소 정보 가져오기
+const doSelectPlace = (place) => {
+  console.log(place);
+  location.value = place;
+  isSelectLocation.value = !isSelectLocation.value;
+}
+
 // 카테고리 설정
 const category = ref("소통");
 const setCategory = (sel) => {
   category.value = sel;
+  if(sel !== '장소추천'){
+    location.value = '';
+  }
 };
 </script>
 
@@ -71,13 +118,14 @@ const setCategory = (sel) => {
   padding: 0;
 }
 
-.container{
+.container {
   margin-top: 70px;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .write-form {
   display: flex;
   flex-direction: column;
@@ -187,4 +235,5 @@ input {
   width: 4rem;
   color: white;
   transition: all 0.5s;
-}</style>
+}
+</style>
