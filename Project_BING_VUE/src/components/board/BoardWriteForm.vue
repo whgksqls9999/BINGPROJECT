@@ -1,37 +1,38 @@
 <template>
-  <h2>커뮤니티 : {{ idParam }}</h2>
   <div class="container">
-    <div class="title">
-      <label for="">제목</label>
-      <input type="text" v-model="title" />
-    </div>
-    <!-- 카테고리가 location이 아닐 때 -->
-    <div class="content" v-if="category != '장소추천'">
-      <label for="">내용</label>
-      <input type="text" v-model="content" />
-    </div>
-    <!-- 카테고리가 location일 때 -->
-    <div class="content-if-location" v-else>
-      <label for="">내용</label>
-      <input type="text" v-model="content" />
-      <div class="location-select" @click="doSelectLocation">
-        누르면 지도 나오게
+    <div class="write-form">
+      <div class="title">
+        <label for="">제목</label>
+        <input type="text" v-model="title" />
       </div>
-      <div class="map">
-        <BoardWriteMap v-if="isSelectLocation" />
+      <!-- 카테고리가 location이 아닐 때 -->
+      <div class="content" v-if="category != '장소추천'">
+        <label for="">내용</label>
+        <input type="text" v-model="content" />
       </div>
-    </div>
-    <div class="form-footer">
-      <div class="category">
-        <span>카테고리</span>
-        <div class="categories">
-          <button @click="setCategory('소통')">소통</button>
-          <button @click="setCategory('장소추천')">장소 추천</button>
-          <button @click="setCategory('카풀')">카풀</button>
-          <button @click="setCategory('질문')">질문</button>
+      <!-- 카테고리가 location일 때 -->
+      <div class="content-if-location" v-else>
+        <label for="">내용</label>
+        <input type="text" v-model="content" />
+        <div class="location-select" @click="doSelectLocation">
+          여기를 누르면 장소를 첨부할 지도를 표시한다.
         </div>
+        <!-- <div class="map" > -->
+        <!-- </div> -->
       </div>
-      <button class="submit-btn">등록</button>
+      <div class="form-footer">
+        <div class="category">
+          <span>카테고리</span>
+          <div class="categories">
+            <button @click="setCategory('소통')">소통</button> |
+            <button @click="setCategory('장소추천')">장소 추천</button> |
+            <button @click="setCategory('카풀')">카풀</button> |
+            <button @click="setCategory('질문')">질문</button>
+          </div>
+        </div>
+        <button class="submit-btn">등록</button>
+      </div>
+      <BoardWriteMap class="map" v-if="isSelectLocation" @close-window="doSelectLocation" />
     </div>
   </div>
 </template>
@@ -64,16 +65,20 @@ const setCategory = (sel) => {
 </script>
 
 <style scoped>
-.map {
-  position: fixed;
-}
-/* * {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.container {
+.container{
+  margin-top: 70px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.write-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,6 +107,7 @@ input {
   top: 0.3rem;
   left: 0.5rem;
 }
+
 .title input {
   height: 3rem;
 }
@@ -109,21 +115,24 @@ input {
 .content input,
 .content-if-location input {
   height: 10rem;
-} */
+}
 
 /* 장소 추천 글일 때 컨텐트 div 설정 */
-/* .content-if-location {
+.content-if-location {
   display: flex;
   width: 100%;
 }
+
 .content-if-location label {
   position: absolute;
   top: 0.3rem;
   left: 0.5rem;
 }
+
 .content-if-location input {
   width: 60%;
 }
+
 .location-select {
   border-radius: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -178,5 +187,4 @@ input {
   width: 4rem;
   color: white;
   transition: all 0.5s;
-} */
-</style>
+}</style>
