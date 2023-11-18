@@ -1,16 +1,34 @@
 <template>
-  <div>
-    <div id="map"></div>
-    <!-- <button @click="initMap">내위치</button> -->
-  </div>
-  <div>
-    <input type="text" v-model="keyword" />
-    <button @click="search">검색</button>
+  <div class="container" @click="doDetectClick">
+    <div class="map">
+      <div id="map"></div>
+      <div>
+        <input type="text" v-model="keyword" />
+        <button @click="search">검색</button>
+        <button @click="doCloseWindow">닫기</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
+
+// 지도 창 닫기
+const emit = defineEmits(['closeWindow']);
+const doCloseWindow = () => {
+  console.log('emit 발신');
+  emit('closeWindow');
+}
+
+const doDetectClick = (e) => {
+  console.log(e.target.className);
+  if (e.target.className === 'container map') {
+    emit('closeWindow');
+  }
+}
+
+// 지도 관련
 
 let keyword = ref("");
 
@@ -84,9 +102,8 @@ onMounted(() => {
     initMap();
   } else {
     const script = document.createElement("script"); // autoload=false 스크립트를 동적으로 로드하기 위해서 사용
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
-      import.meta.env.VITE_KAKAO_API_KEY
-    }&libraries=services`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
+      }&libraries=services`;
     script.addEventListener("load", () => {
       kakao.maps.load(initMap);
     }); //헤드태그에 추가
@@ -99,5 +116,15 @@ onMounted(() => {
 #map {
   width: 400px;
   height: 400px;
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  background-color: rgba(128, 128, 128, 0.6);
 }
 </style>
