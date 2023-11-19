@@ -32,6 +32,29 @@ body {
   margin-top: 2%;
   text-align: center;
 }
+
+@keyframes fadein{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+@keyframes delayed-fadein{
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+
 *{
   box-sizing: border-box;
 }
@@ -89,6 +112,7 @@ body {
   height: 20rem;
   opacity: 1;
   transition: all 0.7s ease;
+  animation: delayed-fadein 1s;
 }
 
 .comm-menu {
@@ -108,6 +132,7 @@ a {
   transition: all 0.8s ease;
   position: relative;
   opacity: 0.85;
+  animation: fadein 1s;
 }
 
 a:hover {
