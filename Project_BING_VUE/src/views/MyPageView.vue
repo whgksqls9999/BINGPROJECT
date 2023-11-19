@@ -32,7 +32,6 @@ const nicknameParam = route.params.nickname;
 
 <style scoped>
 * {
-  font-family: "DungGeunMo";
   box-sizing: border-box;
   font-weight: lighter;
 }
