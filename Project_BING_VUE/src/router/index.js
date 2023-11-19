@@ -8,6 +8,7 @@ import BoardDetail from "@/components/board/BoardDetail.vue";
 import MyBoards from "@/components/myPage/MyBoards.vue";
 import MyFavorite from "@/components/myPage/MyFavorite.vue";
 import MyInfo from "@/components/myPage/MyInfo.vue";
+import ModifyInfo from "@/components/account/modifyForm.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -65,6 +66,11 @@ const router = createRouter({
           path: "boards",
           name: "myBoards",
           component: MyBoards,
+        },
+        {
+          path: "modify",
+          name: "modifyInfo",
+          component: ModifyInfo,
         },
       ],
     },
