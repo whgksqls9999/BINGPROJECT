@@ -1,23 +1,17 @@
 <template>
-  <h1>{{ community.community_name }} 게시판입니다.</h1>
-  <div>
-    <RouterLink
-      :to="{ name: 'board', params: { community_id: community.community_id } }"
-      v-for="community in elseCommunityList"
-      >{{ community.community_name }}</RouterLink
-    >
-  </div>
+  <div class="container">
+    <h1>{{ community.community_name }} 게시판입니다.</h1>
+    <div>
+      <RouterLink :to="{ name: 'board', params: { community_id: community.community_id } }"
+        v-for="community in elseCommunityList">{{ community.community_name }}</RouterLink>
+    </div>
 
-  <RouterLink
-    :to="{ name: 'boardDetail', params: { board_id: board.board_id } }"
-    v-for="board in commBoardList"
-    >{{ board.board_id }}번 게시글</RouterLink
-  >
-  <RouterView />
-  <div>
-    <RouterLink :to="{ name: 'boardWrite', params:{'community_id': idParam} }" :comm_id="idParam"
-      >글 작성</RouterLink
-    >
+    <RouterLink :to="{ name: 'boardDetail', params: { board_id: board.board_id } }" v-for="board in commBoardList">{{
+      board.board_id }}번 게시글</RouterLink>
+    <RouterView />
+    <div>
+      <RouterLink :to="{ name: 'boardWrite', params: { 'community_id': idParam } }" :comm_id="idParam">글 작성</RouterLink>
+    </div>
   </div>
 </template>
 
