@@ -123,12 +123,12 @@ button {
 }
 
 .fixed {
+  position: fixed;
   background-color: black;
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+
 }
-/* 
-.fixed a,
-.fixed .weather,
-.fixed button {
-  color: black;
-} */
 </style>

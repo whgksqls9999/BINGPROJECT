@@ -9,6 +9,7 @@ import MyBoards from "@/components/myPage/MyBoards.vue";
 import MyFavorite from "@/components/myPage/MyFavorite.vue";
 import MyInfo from "@/components/myPage/MyInfo.vue";
 import ModifyInfo from "@/components/account/modifyForm.vue";
+import UserWithdraw from "@/components/account/WithdrawForm.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -71,6 +72,11 @@ const router = createRouter({
           path: "modify",
           name: "modifyInfo",
           component: ModifyInfo,
+        },
+        {
+          path: "withdraw",
+          name: "withdraw",
+          component: UserWithdraw,
         },
       ],
     },

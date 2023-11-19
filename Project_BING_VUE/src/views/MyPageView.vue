@@ -32,9 +32,12 @@ const nicknameParam = route.params.nickname;
 
 <style scoped>
 * {
+  font-family: "DungGeunMo";
   box-sizing: border-box;
+  font-weight: lighter;
 }
 .myrouter-container {
+  margin-left: 160px;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -48,7 +51,7 @@ const nicknameParam = route.params.nickname;
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #111; /* Black */
+  background-color: rgba(0, 0, 0, 0.7); /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
 }
@@ -56,7 +59,7 @@ const nicknameParam = route.params.nickname;
 .menu-route a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 1.35em;
   color: #818181;
   display: block;
 }
@@ -65,14 +68,18 @@ const nicknameParam = route.params.nickname;
   color: #f1f1f1;
 }
 
-@media screen and (max-height: 450px) {
+@media screen and (max-width: 450px) {
   .menu-route {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 50%;
     padding-top: 15px;
   }
   .menu-route a {
-    font-size: 18px;
+    font-size: 15px;
+    color: black;
   }
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
