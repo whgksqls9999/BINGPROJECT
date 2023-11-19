@@ -1,6 +1,6 @@
 <template>
   <div class="header-global">
-    <div class="header-container" :class="{fixed: !isHeaderFixed}">
+    <div class="header-container" :class="{ fixed: !isHeaderFixed }">
       <div class="weather">
         <TheWeather />
       </div>
@@ -47,8 +47,8 @@ const isHeaderFixed = computed(() => commonStore.isHeaderFixed);
 
 //스크롤 초기화
 const scrollInit = () => {
-  scrollTo(0,0);
-}
+  scrollTo(0, 0);
+};
 // 페이지 로딩 시 로그인 유저 체크
 onMounted(() => {
   userStore.loginUser = sessionStorage.getItem("access-token");
@@ -91,7 +91,7 @@ button {
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  font-weight: 600;
+  font-weight: bold;
   color: white;
   text-align: center;
   animation: glow 1s ease-in-out infinite alternate;
@@ -121,7 +121,13 @@ button {
   font-weight: 500;
 }
 
-.fixed{
-  background-color: black;
+.fixed {
+  background-color: white;
 }
+/* 
+.fixed a,
+.fixed .weather,
+.fixed button {
+  color: black;
+} */
 </style>
