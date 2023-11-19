@@ -42,7 +42,6 @@ export const useBoardStore = defineStore("board", () => {
 
   // 게시글 등록하기
   const registBoard = (board, comm_id) => {
-    console.log(comm_id);
     axios
       .post(`${REST_BOARD_API}/insert`, board, {
         headers: {

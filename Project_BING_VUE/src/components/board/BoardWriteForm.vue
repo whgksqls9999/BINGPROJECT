@@ -44,12 +44,14 @@
 <script setup>
 import { useBoardStore } from '@/stores/boardStore.js';
 import { useUserStore } from '@/stores/userStore';
+import { useLocationStore } from '@/stores/locationStore.js';
 import { useRoute } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import BoardWriteMap from "@/components/board/BoardWriteMap.vue";
 // Store
 const boardStore = useBoardStore();
 const userStore = useUserStore();
+const locationStore = useLocationStore();
 
 onMounted(() => {
   boardStore.getCommBoardList(comm_id);
@@ -75,6 +77,14 @@ const doRegistBoard = () => {
     'writer': user.value.nickname,
     'location_id': location.value.id,
   }
+
+  if(category.value === '장소추천'){
+    locationStore.doGetLocation(location.value.id);
+    if (locationStore.location == ''){
+      locationStore.doPostLocation(location.value);
+    }
+  }
+
   boardStore.registBoard(board, comm_id);
 }
 

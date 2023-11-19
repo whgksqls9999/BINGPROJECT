@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,7 +44,7 @@ public class LocationRestController {
 	}
 
 	@PostMapping("/regist")
-	public ResponseEntity<?> registLocation(Location location) {
+	public ResponseEntity<?> registLocation(@RequestBody Location location) {
 		int result = locationService.registLocation(location);
 		if (result > 0) {
 			return new ResponseEntity<Location>(location, HttpStatus.OK);

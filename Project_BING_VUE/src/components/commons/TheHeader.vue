@@ -62,6 +62,7 @@ const changeForm = function (num) {
 const logout = () => {
   userStore.userLogout();
 };
+
 </script>
 
 <style scoped>
@@ -122,7 +123,7 @@ button {
 }
 
 .fixed {
-  background-color: white;
+  background-color: black;
 }
 /* 
 .fixed a,
