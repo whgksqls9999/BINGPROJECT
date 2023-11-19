@@ -26,11 +26,12 @@
       </div>
       <div class="form-footer">
         <div class="category">
-          <span>카테고리</span>
+          <span v-if="category==''">카테고리</span>
+          <span v-else> {{ category }}</span>
           <div class="categories">
-            <button @click="setCategory('소통')">소통</button> |
-            <button @click="setCategory('장소추천')">장소 추천</button> |
-            <button @click="setCategory('카풀')">카풀</button> |
+            <button @click="setCategory('소통')">소통</button>
+            <button @click="setCategory('장소추천')">장소 추천</button>
+            <button @click="setCategory('카풀')">카풀</button>
             <button @click="setCategory('질문')">질문</button>
           </div>
         </div>
@@ -68,6 +69,11 @@ const writer = JSON.parse(atob(sessionStorage.getItem('access-token').split(".")
 
 // 게시글 등록하기
 const doRegistBoard = () => {
+  if(category.value === ''){
+    alert('카테고리를 설정해주세요');
+    return;
+  }
+
   let board = {
     'community_id': comm_id,
     'num': num,
@@ -107,13 +113,12 @@ const doSelectLocation = () => {
 
 // 선택된 장소 정보 가져오기
 const doSelectPlace = (place) => {
-  console.log(place);
   location.value = place;
   isSelectLocation.value = !isSelectLocation.value;
 }
 
 // 카테고리 설정
-const category = ref("소통");
+const category = ref("");
 const setCategory = (sel) => {
   category.value = sel;
   if(sel !== '장소추천'){
@@ -127,6 +132,34 @@ const setCategory = (sel) => {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+
+
+@keyframes fadein{
+  from{
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  33%{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+    transform: translateX(0rem);
+  }
+}
+
+@keyframes background-glow{
+  0%{
+    background-color: black;
+  }
+  50%{
+    background-color: rgb(24, 24, 24);
+  }
+  100%{
+    background-color: black;
+  }
 }
 
 .container {
@@ -158,7 +191,13 @@ input {
 .content-if-location {
   position: relative;
 }
+.title{
+  animation: fadein 0.5s;
+}
 
+.content{
+  animation: fadein 1s;
+}
 .title label,
 .content label,
 .content-if-location label {
@@ -198,12 +237,14 @@ input {
   box-shadow: 0 1px 0.2rem grey;
   width: 40%;
   padding: 0.3rem;
+  margin-left: 1rem;
 }
 
 .form-footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  animation: fadein 1.5s;
 }
 
 .category {
@@ -213,22 +254,34 @@ input {
   box-shadow: 0 1px 0.2rem grey;
   height: 3rem;
   width: 6rem;
-  transition: width 1s ease;
+  transition: all 1s ease;
   transition-delay: 100ms;
   display: flex;
   overflow: hidden;
   display: flex;
   align-items: center;
+  background-color: black;
+  color: white;
+  /* cursor: pointer; */
 }
 
 .category:hover {
   width: 23rem;
+  background-color: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 0.5rem black;
+  animation: background-glow 2s infinite ease;
+}
+
+.category span{
+  margin-left: 1rem;
 }
 
 .categories {
   position: absolute;
   width: 100%;
-  left: 8rem;
+  left: 7.4rem;
+  display: flex;
+  align-items: center;
 }
 
 .categories button {
@@ -236,6 +289,12 @@ input {
   width: 3rem;
   border: none;
   border-radius: 0.3rem;
+  margin: 0 0.3rem;
+  transition: all 0.2s;
+}
+
+.categories button:active {
+  transform: translateY(1px);
 }
 
 .submit-btn {
