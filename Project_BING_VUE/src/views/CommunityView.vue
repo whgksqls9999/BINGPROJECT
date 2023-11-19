@@ -5,19 +5,24 @@
       <div class="comm-menu">
         <RouterLink :to="{ name: 'board', params: { community_id: '1' } }" class="freediving">FREEDIVING</RouterLink>
         <div class="freediving-desc desc">
-          WELCOME TO FREEDIVING WORLD!
+          WELCOME TO <br><strong style="font-size: 50px;">FREEDIVING</strong> WORLD!
         </div>
         <RouterLink :to="{ name: 'board', params: { community_id: '2' } }" class="skinscuba">SKINSCUBA</RouterLink>
         <div class="skinscuba-desc desc">
-          WELCOME TO SKINSCUBA WORLD!
+          WELCOME TO <br><strong style="font-size: 50px;">SKINSCUBA</strong> WORLD!
         </div>
         <div class="comm-title"> SELECT COMMUNITY </div>
+        <!-- <div class="comm-desc"> SHARE YOUR WORLD </div> -->
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+const fadeout = ref('false');
+</script>
 
 <style scoped>
 body {
@@ -62,12 +67,12 @@ body {
   position: absolute;
   top: 100%;
   margin-top: 1rem;
-  transition: all 0.7s ease;
+  transition: all 0.5s;
   opacity: 0;
   font-size: 2rem;
-  width: 40rem;
+  width: 50rem;
   background-color: white;
-  height: 20rem;
+  height: 30rem;
   padding: 1rem;
   text-align: left;
 }
@@ -108,8 +113,8 @@ body {
   margin-bottom: 0.2rem;
   font-size: 50px;
   font-weight: bold;
-  width: 40rem;
-  height: 20rem;
+  width: 50rem;
+  height: 30rem;
   opacity: 1;
   transition: all 0.7s ease;
   animation: delayed-fadein 1s;
@@ -123,6 +128,13 @@ body {
   position: relative;
 }
 
+.comm-desc{
+  position: absolute;
+  top: 980%;
+  font-size: 40px;
+  width: 30rem;
+  animation: delayed-fadein 1.6s;
+}
 a {
   text-decoration: none;
   color: white;
