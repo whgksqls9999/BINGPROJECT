@@ -206,6 +206,10 @@ input {
   left: 0.5rem;
 }
 
+.content-if-location{
+  animation: fadein 1s;
+}
+
 .title input {
   height: 3rem;
 }

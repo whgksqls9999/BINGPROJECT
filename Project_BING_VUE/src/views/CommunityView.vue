@@ -33,11 +33,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 2%;
+  /* justify-content: center; */
+  margin-top: 70px;
+  padding-top: 20px;
   text-align: center;
+  height: 90vh;
 }
-
 @keyframes fadein{
   from{
     opacity: 0;
@@ -51,7 +52,7 @@ body {
   0%{
     opacity: 0;
   }
-  50%{
+  33%{
     opacity: 0;
   }
   100%{
@@ -117,7 +118,7 @@ body {
   height: 30rem;
   opacity: 1;
   transition: all 0.7s ease;
-  animation: delayed-fadein 1s;
+  animation: fadein 1s;
 }
 
 .comm-menu {
@@ -128,13 +129,13 @@ body {
   position: relative;
 }
 
-.comm-desc{
+/* .comm-desc{
   position: absolute;
   top: 980%;
   font-size: 40px;
   width: 30rem;
-  animation: delayed-fadein 1.6s;
-}
+  animation: delayed-fadein 2s;
+} */
 a {
   text-decoration: none;
   color: white;
@@ -144,7 +145,7 @@ a {
   transition: all 0.8s ease;
   position: relative;
   opacity: 0.85;
-  animation: fadein 1s;
+  animation: delayed-fadein 1.5s;
 }
 
 a:hover {
