@@ -3,10 +3,10 @@
   <div class="myboard-global">
     <!--게시글-->
     <div class="myboard-title">
-      <h2>{{ nicknameParam }}님의 게시글 목록</h2>
+      <h2>✍ {{ nicknameParam }}님의 게시글 목록</h2>
       <br />
       <div class="myboard-container">
-        <h5 v-if="myBoards.length == 0">작성한 게시글 목록이 없습니다.</h5>
+        <h3 v-if="myBoards.length == 0">작성한 게시글 목록이 없습니다.</h3>
         <table class="myboard-table" v-else>
           <thead>
             <tr>
@@ -30,10 +30,10 @@
     </div>
     <!--댓글-->
     <div class="myreply-title">
-      <h2>{{ nicknameParam }}님의 댓글 목록</h2>
+      <h2>📋 {{ nicknameParam }}님의 댓글 목록</h2>
       <br />
       <div class="myreply-container">
-        <h5 v-if="myReplys.length == 0">작성한 댓글 목록이 없습니다.</h5>
+        <h3 v-if="myReplys.length == 0">작성한 댓글 목록이 없습니다.</h3>
         <table class="myreply-table" v-else>
           <thead>
             <tr>
@@ -84,6 +84,7 @@ onMounted(() => {
 
 <style scoped>
 .myboard-global {
+  margin-top: 150px;
   display: grid;
   grid-template-rows: 1fr 1fr;
   row-gap: 100px;
@@ -97,15 +98,11 @@ h2 {
   justify-content: center;
   padding: 10px;
   border-radius: 30px;
-  background: linear-gradient(
-    0deg,
-    rgba(200, 209, 209, 0.7) 0%,
-    rgba(65, 133, 138, 0.7) 100%
-  );
+  border: 3px solid black;
 }
 .myboard-table,
 .myreply-table {
-  color: white;
+  color: rgb(63, 60, 60);
   font-size: 1.3rem;
   font-weight: 500;
   text-align: center;

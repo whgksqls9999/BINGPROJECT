@@ -1,16 +1,23 @@
 <template>
   <!--장소 게시글 한번에-->
-  <div>
-    <!--장소-->
-    {{ nicknameParam }}님의 정보입니다.
-    <div>
-      <h4 v-if="myFavLocations.length == 0">회원님이 찜한 장소가 없습니다.</h4>
+  <div class="myFavorite-global">
+    <h2>{{ nicknameParam }}님의 찜한 장소 목록</h2>
+    <br />
+    <div class="myFavLocation-container">
+      <h3 v-if="myFavLocations.length == 0">
+        {{ nicknameParam }}님이 찜한 장소가 없습니다.
+      </h3>
+      <div v-else class="myFavLoction-map"></div>
       <!--찜한 장소 지도에 MARKER로 뜨겠지? 그거 받아오면 될 듯 아 그럼 또 DB 추가해야됨?-->
     </div>
     <!--게시글-->
-    <div>
-      <h4 v-if="myFavBoards.length == 0">회원님이 찜한 게시글이 없습니다.</h4>
-      <table v-else>
+    <div class="myFavoriteBoard-container">
+      <h2>{{ nicknameParam }}님의 찜한 게시글 목록</h2>
+      <br />
+      <h3 v-if="myFavBoards.length == 0">
+        {{ nicknameParam }}님이 찜한 게시글이 없습니다.
+      </h3>
+      <table v-else class="myFavoriteBoard-table">
         <thead>
           <tr>
             <th>번호</th>
@@ -20,7 +27,7 @@
           </tr>
         </thead>
         <!--key값.....:key뭘로잡아....-->
-        <tbody v-for="favboard in myFavBoards">
+        <tbody v-for="favboard in myFavBoards" :key="favorite_boardId">
           <tr>
             <td>{{ favboard.favorite_boardId }}</td>
             <td>{{ favboard.content }}</td>
@@ -60,4 +67,27 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.myFavorite-global {
+  margin-top: 150px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 100px;
+}
+
+.myFavLocation-container,
+.myFavoriteBoard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.myFavoriteBoard-table {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  border-spacing: 1.3rem;
+}
+</style>
