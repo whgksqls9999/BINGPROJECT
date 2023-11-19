@@ -44,15 +44,75 @@ onMounted(() => {
   userStore.getUser(nicknameParam);
 });
 </script>
-
 <style scoped>
-/* @font-face {
-  font-family: "DungGeunMo";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-} */
+.myInfo-global {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.myInfo-container {
+  border: 3px solid #dbdbdb;
+  border-radius: 8px;
+  width: 500px;
+  background-color: white;
+}
+
+.myInfo-title {
+  font-size: 25px;
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.myInfo-detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.myInfo-img img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.myInfo-detail-series {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.myInfo-detail-series div {
+  margin: 10px 0;
+}
+
+.myInfo-series {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+  margin: 10px auto;
+}
+
+.myInfo-link a,
+.myInfo-withdraw a {
+  text-decoration: none;
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  color: #262626;
+}
+
+.myInfo-link a:hover,
+.myInfo-withdraw a:hover {
+  background-color: #dbd8d8;
+}
+</style>
+
+<!-- <style scoped>
 .myInfo-global {
   border: 3px solid black;
   border-radius: 30px;
@@ -66,16 +126,6 @@ onMounted(() => {
   width: 50vh;
 }
 
-/* .myInfo-container {
-  background: linear-gradient(
-    0deg,
-    rgba(200, 209, 209, 0.7) 0%,
-    rgba(65, 133, 138, 0.7) 100%
-  );
-  border-radius: 30px;
-  padding: 20px;
-  text-align: center;
-} */
 img {
   border-radius: 50%;
   width: 100px;
@@ -143,4 +193,4 @@ img {
 .myInfo-withdraw a:hover {
   background-color: #ff0000;
 }
-</style>
+</style> -->

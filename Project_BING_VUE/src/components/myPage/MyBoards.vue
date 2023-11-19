@@ -97,8 +97,9 @@ h2 {
   display: flex;
   justify-content: center;
   padding: 10px;
-  border-radius: 30px;
-  border: 3px solid black;
+  /* border-radius: 30px; */
+  border-top: 3px solid black;
+  border-left: 3px solid black;
 }
 .myboard-table,
 .myreply-table {

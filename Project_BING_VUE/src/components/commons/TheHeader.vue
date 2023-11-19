@@ -17,7 +17,7 @@
           :to="{ name: 'myPage', params: { nickname: '닉네임' } }"
           >MYPAGE</RouterLink
         >
-        <button v-if="loginUser" @click="logout()">로그아웃</button>
+        <button v-if="loginUser" @click="logout()">LOGOUT</button>
       </div>
     </div>
     <div>
@@ -62,7 +62,6 @@ const changeForm = function (num) {
 const logout = () => {
   userStore.userLogout();
 };
-
 </script>
 
 <style scoped>
@@ -97,14 +96,30 @@ button {
   text-align: center;
   animation: glow 1s ease-in-out infinite alternate;
 }
+
+/* 추가된 부분 */
+@media screen and (max-width: 700px) {
+  .header-project-name {
+    display: none;
+  }
+
+  .header-router-container {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 5px #87cefa, 0 0 10px #87cefa, 0 0 15px #87cefa,
-      0 0 20px #708090, 0 0 25px #2f4f4f, 0 0 30px #000000;
+    text-shadow: 0 0 10px #fff, 0 0 15px rgba(149, 207, 247, 0.8),
+      0 0 20px rgba(149, 207, 247, 0.8), 0 0 25px rgba(149, 207, 247, 0.8),
+      0 0 30px rgba(149, 207, 247, 0.8);
   }
+
   to {
-    text-shadow: 0 0 10px #87cefa, 0 0 15px #87cefa, 0 0 20px #87cefa,
-      0 0 25px #708090, 0 0 30px #2f4f4f, 0 0 35px #000000, 0 0 40px #000000;
+    text-shadow: 0 0 15px rgba(0, 38, 83, 0.8), 0 0 20px rgba(0, 38, 83, 0.8),
+      0 0 25px rgba(0, 38, 83, 0.8), 0 0 30px rgba(0, 38, 83, 0.8),
+      0 0 35px rgba(0, 38, 83, 0.8);
   }
 }
 .header-router-container {
@@ -129,6 +144,5 @@ button {
   left: 0;
   top: 0;
   right: 0;
-
 }
 </style>
