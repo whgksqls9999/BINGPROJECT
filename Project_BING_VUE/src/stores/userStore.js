@@ -13,12 +13,12 @@ export const useUserStore = defineStore("user", () => {
       .get(`${REST_USER_API}/nickname/${nickname}`)
       .then((response) => (user.value = response.data));
   };
-  
+
   // 유저 정보 가져오기(이메일)
   const getUserByEmail = (email) => {
     axios
-    .get(`${REST_USER_API}/email/${email}`)
-    .then((response) => (user.value = response.data));
+      .get(`${REST_USER_API}/email/${email}`)
+      .then((response) => (user.value = response.data));
   };
 
   // header 출력 폼 결정
@@ -30,18 +30,19 @@ export const useUserStore = defineStore("user", () => {
   // 로그인 요청
   const loginUser = ref("");
   const userLogin = (id, pw) => {
-    console.log(id, pw);
     axios
       .post(`${REST_USER_API}/login`, { email: id, pw: pw })
       .then((response) => {
-        // console.log(response);
-        sessionStorage.setItem("access-token", response.data["access-token"]);
-        const token = response.data["access-token"].split(".");
-        // let id = token[1];
-        // id = JSON.parse(atob(id));
-        loginUser.value = JSON.parse(atob(token[1]));
-        showForm.value = 0;
-        router.push({ name: "main" });
+        console.log(response.data["access-token"]);
+        if (response.data["access-token"] == null) {
+          alert("ID 또는 비밀번호를 확인해주세요.");
+        } else {
+          sessionStorage.setItem("access-token", response.data["access-token"]);
+          const token = response.data["access-token"].split(".");
+          loginUser.value = JSON.parse(atob(token[1]));
+          showForm.value = 0;
+          router.push({ name: "main" });
+        }
       })
       .catch((err) => console.log(err));
   };

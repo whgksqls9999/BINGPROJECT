@@ -18,6 +18,9 @@ import BoardWriteForm from "../components/board/BoardWriteForm.vue";
   padding: 0;
 }
 
+.container{
+  margin-top: 70px;
+}
 .board-write-form {
   display: flex;
   justify-content: center;
