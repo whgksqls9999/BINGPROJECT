@@ -78,6 +78,7 @@ const doRegistBoard = () => {
     'location_id': location.value.id,
   }
 
+  // 장소추천 글이라면 DB에 장소정보 등록
   if(category.value === '장소추천'){
     locationStore.doGetLocation(location.value.id);
     if (locationStore.location == ''){
