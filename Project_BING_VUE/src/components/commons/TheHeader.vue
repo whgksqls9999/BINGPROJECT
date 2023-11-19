@@ -62,6 +62,7 @@ const changeForm = function (num) {
 const logout = () => {
   userStore.userLogout();
 };
+
 </script>
 
 <style scoped>
@@ -128,5 +129,6 @@ button {
   left: 0;
   top: 0;
   right: 0;
+
 }
 </style>

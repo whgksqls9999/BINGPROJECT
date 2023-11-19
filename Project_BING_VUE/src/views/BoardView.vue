@@ -15,7 +15,7 @@
   >
   <RouterView />
   <div>
-    <RouterLink :to="{ name: 'boardWrite' }" :comm_id="idParam"
+    <RouterLink :to="{ name: 'boardWrite', params:{'community_id': idParam} }" :comm_id="idParam"
       >글 작성</RouterLink
     >
   </div>

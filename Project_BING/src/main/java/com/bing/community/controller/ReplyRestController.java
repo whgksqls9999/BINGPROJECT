@@ -38,7 +38,6 @@ public class ReplyRestController {
 	@GetMapping("/board/{board_id}")
 	public ResponseEntity<?> getBoardReply(@PathVariable int board_id) {
 		List<Reply> list = replyService.getBoardReply(board_id);
-		System.out.println(list);
 		if (list == null || list.size() == 0) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		} else {

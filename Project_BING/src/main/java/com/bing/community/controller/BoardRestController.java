@@ -60,7 +60,8 @@ public class BoardRestController {
 
 	//게시글 넣기
 	@PostMapping("/insert")
-	public ResponseEntity<?> signUp(Board board) {
+	public ResponseEntity<?> signUp(@RequestBody Board board) {
+		System.out.println(board);
 		int result = boardService.registBoard(board);
 		if (result > 0) {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);

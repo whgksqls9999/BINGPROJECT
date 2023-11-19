@@ -6,12 +6,19 @@ import router from "@/router/index.js";
 export const useUserStore = defineStore("user", () => {
   const REST_USER_API = "http://localhost:1004/user";
 
-  // 유저 정보 가져오기
+  // 유저 정보 가져오기(닉네임)
   const user = ref({});
   const getUser = (nickname) => {
     axios
       .get(`${REST_USER_API}/nickname/${nickname}`)
       .then((response) => (user.value = response.data));
+  };
+  
+  // 유저 정보 가져오기(이메일)
+  const getUserByEmail = (email) => {
+    axios
+    .get(`${REST_USER_API}/email/${email}`)
+    .then((response) => (user.value = response.data));
   };
 
   // header 출력 폼 결정
@@ -30,8 +37,8 @@ export const useUserStore = defineStore("user", () => {
         // console.log(response);
         sessionStorage.setItem("access-token", response.data["access-token"]);
         const token = response.data["access-token"].split(".");
-        let id = token[1];
-        id = JSON.parse(atob(id));
+        // let id = token[1];
+        // id = JSON.parse(atob(id));
         loginUser.value = JSON.parse(atob(token[1]));
         showForm.value = 0;
         router.push({ name: "main" });
@@ -49,11 +56,9 @@ export const useUserStore = defineStore("user", () => {
 
   // 회원가입 요청 - 하는중,,
   const registUser = (user) => {
-    console.log(JSON.stringify(user));
     axios
-      .post(`${REST_USER_API}/`, null, {
+      .post(`${REST_USER_API}/`, user, {
         headers: { "Content-Type": "application/json" },
-        data: JSON.stringify(user),
       })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
@@ -74,5 +79,6 @@ export const useUserStore = defineStore("user", () => {
     user,
     getUser,
     doLoginCheck,
+    getUserByEmail,
   };
 });

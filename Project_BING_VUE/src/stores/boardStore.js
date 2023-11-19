@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
+import router from '@/router/index.js';
 
 export const useBoardStore = defineStore("board", () => {
   const REST_BOARD_API = "http://localhost:1004/board";
@@ -39,6 +40,21 @@ export const useBoardStore = defineStore("board", () => {
     });
   };
 
+  // 게시글 등록하기
+  const registBoard = (board, comm_id) => {
+    axios
+      .post(`${REST_BOARD_API}/insert`, board, {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      })
+      .then(() => {
+        alert('게시글이 등록되었습니다.');
+        router.push({path:`/board/${comm_id}`});
+      })
+      .catch((err) => console.log(err));
+  };
+
   return {
     commBoardList,
     getCommBoardList,
@@ -46,5 +62,6 @@ export const useBoardStore = defineStore("board", () => {
     getCommunity,
     communityList,
     getCommunityList,
+    registBoard,
   };
 });

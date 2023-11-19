@@ -36,7 +36,7 @@ const router = createRouter({
       ],
     },
     {
-      path: "/board/write",
+      path: "/board/:community_id/write",
       name: "boardWrite",
       component: BoardWrite,
       beforeEnter: (to, from) => {

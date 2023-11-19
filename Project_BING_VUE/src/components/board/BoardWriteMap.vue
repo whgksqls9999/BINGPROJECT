@@ -1,59 +1,56 @@
 <template>
-  <div>
-    <div id="map"></div>
-    <!-- <button @click="initMap">내위치</button> -->
-  </div>
-  <div>
-    <input type="text" v-model="keyword" />
-    <button @click="search">검색</button>
+  <div class="container" @click="doDetectClick">
+    <div class="map">
+      <div id="map"></div>
+      <div>
+        <input type="text" v-model="keyword" @keyup.enter="search" />
+        <button @click="search">검색</button>
+        <button @click="doCloseWindow">닫기</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
+
+// 지도 창 닫기
+// 1. 닫기 버튼 눌러서 닫기
+const emit = defineEmits(['closeWindow', 'selectPlace']);
+const doCloseWindow = () => {
+  emit('closeWindow');
+}
+// 2. 바깥 공간 눌러서 닫기
+const doDetectClick = (e) => {
+  if (e.target.className === 'container map') {
+    emit('closeWindow');
+  }
+}
+
+// 선택된 장소 정보 저장하기
+const location = ref('');
+window.addEventListener('click',function(e){
+  if(e.target.className === 'select-point'){
+    // let place = JSON.parse(this.localStorage.getItem('place'));
+    // location.value = place;
+    doSelectPlace(location.value);
+  }
+}) 
+
+const doSelectPlace = (location) => {
+  emit('selectPlace', location);
+}
+
+// 지도 관련
 
 let keyword = ref("");
+let infowindow = '';
 
 const search = () => {
   // 장소 검색을 위한 객체 생성
   let ps = new kakao.maps.services.Places();
   // 키워드로 장소 검색
   ps.keywordSearch(keyword.value, placesSearchCB);
-};
-
-// 키워드 검색 함수
-const placesSearchCB = (data, status, pagination) => {
-  if (status === kakao.maps.services.Status.OK) {
-    // LatLngBounds 객체에 좌표 추가
-    // 검색 장소 위치 기준으로 지도 범위 재설정 위함
-    let bounds = new kakao.maps.LatLngBounds();
-    console.log(data);
-    console.log(status);
-    for (let i = 0; i < data.length; ++i) {
-      displayMarker(data[i]);
-      bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-    }
-
-    //  검색 위치 기준으로 지도 범위 재설정
-    map.setBounds(bounds);
-  }
-};
-
-// 마커 표시 함수
-const displayMarker = (place) => {
-  let marker = new kakao.maps.Marker({
-    map: map,
-    position: new kakao.maps.LatLng(place.y, place.x),
-  });
-
-  // 마커에 클릭이벤트를 등록합니다
-  kakao.maps.event.addListener(marker, "click", function () {
-    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-    infowindow.setContent(
-      '<div style="padding:5px;font-size:12px;">' + place.place_name + "</div>"
-    );
-    infowindow.open(map, marker);
-  });
 };
 
 let map = null;
@@ -65,7 +62,7 @@ const initMap = () => {
   };
   map = new kakao.maps.Map(mapContainer, mapOption);
 
-  let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+  infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
   // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
   const mapTypeControl = new kakao.maps.MapTypeControl();
@@ -78,15 +75,59 @@ const initMap = () => {
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 };
 
+// 마커 표시 함수
+const displayMarker = (place) => {
+  let marker = new kakao.maps.Marker({
+    map: map,
+    position: new kakao.maps.LatLng(place.y, place.x),
+  });
+
+  // 마커에 클릭이벤트를 등록합니다
+  kakao.maps.event.addListener(marker, "click", function () {
+    location.value = place;
+    // localStorage.setItem('place',JSON.stringify(place));
+    let address = place.address_name.split(' ').splice(0,3).join(' '); 
+    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+    infowindow.setContent(
+      `<div class="map-info" style="padding:3px;font-size:12px;width:200px;display:flex">
+        <div>
+          <div style="font-weight: bold; font-size: 14px">${place.place_name}</div>
+          <div style="width:160px">${address}</div>
+        </div>
+        <button class="select-point" style="width:50px;background-color:skyblue;color:white;">
+          <div class="select-point">등록</div>
+          <div class="select-point">하기</div>
+        </button>
+      </div>`
+    );
+    infowindow.open(map, marker);
+  });
+};
+
+// 키워드 검색 함수
+const placesSearchCB = (data, status, pagination) => {
+  if (status === kakao.maps.services.Status.OK) {
+    // LatLngBounds 객체에 좌표 추가
+    // 검색 장소 위치 기준으로 지도 범위 재설정 위함
+    let bounds = new kakao.maps.LatLngBounds();
+    for (let i = 0; i < data.length; ++i) {
+      displayMarker(data[i]);
+      bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+    }
+
+    //  검색 위치 기준으로 지도 범위 재설정
+    map.setBounds(bounds);
+  }
+};
+
 onMounted(() => {
   // 지도 생성하기
   if (window.kakao && window.kakao.maps) {
     initMap();
   } else {
     const script = document.createElement("script"); // autoload=false 스크립트를 동적으로 로드하기 위해서 사용
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
-      import.meta.env.VITE_KAKAO_API_KEY
-    }&libraries=services`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
+      }&libraries=services`;
     script.addEventListener("load", () => {
       kakao.maps.load(initMap);
     }); //헤드태그에 추가
@@ -99,5 +140,15 @@ onMounted(() => {
 #map {
   width: 400px;
   height: 400px;
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  background-color: rgba(128, 128, 128, 0.6);
 }
 </style>
