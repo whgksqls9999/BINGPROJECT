@@ -29,14 +29,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useCommonStore } from "../stores/commonStore";
+
+import { ref, onMounted } from 'vue';
+import { useCommonStore } from "@/stores/commonStore.js";
+
 
 // 헤더 fixed toggle
 const commonStore = useCommonStore();
 onMounted(() => {
   commonStore.toggleHeaderFixed(false);
 });
+
+const fadeout = ref('false');
+
 </script>
 
 <style scoped>

@@ -9,11 +9,7 @@ public class User {
 	private String withdraw_text;
 	
 	public User() {
-<<<<<<< HEAD
-		// TODO Auto-generated constructor stub
-=======
 
->>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 	}
 
 	public User(String email, String pw, String name, String gender, String nickname, String withdraw_text) {
@@ -75,8 +71,5 @@ public class User {
 	}
 	
 	
-<<<<<<< HEAD
-=======
-	
->>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
+
 }
