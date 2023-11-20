@@ -2,8 +2,13 @@
   <div class="container" @click="doDetectClick">
     <div class="map">
       <div id="map"></div>
-      <div>
-        <input type="text" v-model="keyword" @keyup.enter="search" />
+      <div class="map-form">
+        <input
+          type="text"
+          placeholder="찾고자 하는 장소를 입력해주세요."
+          v-model="keyword"
+          @keyup.enter="search"
+        />
         <button @click="search">검색</button>
         <button @click="doCloseWindow">닫기</button>
       </div>
@@ -16,35 +21,36 @@ import { onMounted, ref, computed } from "vue";
 
 // 지도 창 닫기
 // 1. 닫기 버튼 눌러서 닫기
-const emit = defineEmits(['closeWindow', 'selectPlace']);
+const emit = defineEmits(["closeWindow", "selectPlace"]);
 const doCloseWindow = () => {
-  emit('closeWindow');
-}
+  emit("closeWindow");
+};
 // 2. 바깥 공간 눌러서 닫기
 const doDetectClick = (e) => {
-  if (e.target.className === 'container map') {
-    emit('closeWindow');
+  if (e.target.className === "container") {
+    emit("closeWindow");
   }
-}
+};
 
 // 선택된 장소 정보 저장하기
-const location = ref('');
-window.addEventListener('click',function(e){
-  if(e.target.className === 'select-point'){
+const location = ref("");
+const shortAddress = ref("");
+window.addEventListener("click", function (e) {
+  if (e.target.className === "select-point") {
     // let place = JSON.parse(this.localStorage.getItem('place'));
     // location.value = place;
-    doSelectPlace(location.value);
+    doSelectPlace(location.value, shortAddress);
   }
-}) 
+});
 
-const doSelectPlace = (location) => {
-  emit('selectPlace', location);
-}
+const doSelectPlace = (location, shortAddress) => {
+  emit("selectPlace", location, shortAddress);
+};
 
 // 지도 관련
 
 let keyword = ref("");
-let infowindow = '';
+let infowindow = "";
 
 const search = () => {
   // 장소 검색을 위한 객체 생성
@@ -86,7 +92,8 @@ const displayMarker = (place) => {
   kakao.maps.event.addListener(marker, "click", function () {
     location.value = place;
     // localStorage.setItem('place',JSON.stringify(place));
-    let address = place.address_name.split(' ').splice(0,3).join(' '); 
+    let address = place.address_name.split(" ").splice(0, 3).join(" ");
+    shortAddress.value = address;
     // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
     infowindow.setContent(
       `<div class="map-info" style="padding:3px;font-size:12px;width:200px;display:flex">
@@ -126,8 +133,9 @@ onMounted(() => {
     initMap();
   } else {
     const script = document.createElement("script"); // autoload=false 스크립트를 동적으로 로드하기 위해서 사용
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
-      }&libraries=services`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
+      import.meta.env.VITE_KAKAO_API_KEY
+    }&libraries=services`;
     script.addEventListener("load", () => {
       kakao.maps.load(initMap);
     }); //헤드태그에 추가
@@ -137,18 +145,59 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.container {
+  position: fixed;
+  flex-direction: column;
+  display: flex;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(128, 128, 128, 0.6);
+}
+.map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 1rem;
+  width: 30rem;
+  height: 30rem;
+  margin-top: -20rem;
+  box-shadow: 0 0 0.3rem grey;
+}
+
 #map {
   width: 400px;
   height: 400px;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 0 0.2rem grey;
 }
 
-.container {
-  position: fixed;
-  top: 0;
-  height: 100%;
+.map-form {
+  width: 70%;
   display: flex;
   flex-direction: column;
-  z-index: 1;
-  background-color: rgba(128, 128, 128, 0.6);
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.map-form input {
+  background-color: white;
+  margin-bottom: 0.3rem;
+  border: 2px solid black;
+  border-radius: 0.4rem;
+  padding: 3px;
+  width: 15rem;
+}
+
+.map-form input:focus {
+  box-shadow: 0 0 0.3rem black;
+}
+
+.map-form button {
+  margin-top: 0.5rem;
+  width: 3rem;
 }
 </style>

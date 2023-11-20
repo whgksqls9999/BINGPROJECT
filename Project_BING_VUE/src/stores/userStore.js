@@ -33,7 +33,6 @@ export const useUserStore = defineStore("user", () => {
     axios
       .post(`${REST_USER_API}/login`, { email: id, pw: pw })
       .then((response) => {
-        console.log(response.data["access-token"]);
         if (response.data["access-token"] == null) {
           alert("ID 또는 비밀번호를 확인해주세요.");
         } else {
