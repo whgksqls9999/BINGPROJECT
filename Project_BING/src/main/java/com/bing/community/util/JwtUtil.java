@@ -1,9 +1,10 @@
 package com.bing.community.util;
 
 import java.io.UnsupportedEncodingException;
-import java.security.SignatureException;
 
 import org.springframework.stereotype.Component;
+
+import com.bing.community.model.dto.User;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
