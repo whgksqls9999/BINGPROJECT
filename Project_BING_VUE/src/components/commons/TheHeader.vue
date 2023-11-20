@@ -35,7 +35,7 @@ import TheWeather from "@/components/commons/TheWeather.vue";
 const commonStore = useCommonStore();
 const userStore = useUserStore();
 const loginUser = computed(() => userStore.loginUser);
-console.log(loginUser.value);
+
 const headerShow = ref(true);
 const footerShow = ref(false);
 
@@ -46,10 +46,13 @@ const isHeaderFixed = computed(() => commonStore.isHeaderFixed);
 const scrollInit = () => {
   scrollTo(0, 0);
 };
+
 // 페이지 로딩 시 로그인 유저 체크
 onMounted(() => {
-  userStore.loginUser = sessionStorage.getItem("access-token");
+  // userStore.loginUser = sessionStorage.getItem("access-token");
+  userStore.loginUser = JSON.parse(atob(sessionStorage.getItem("access-token").split('.')[1]));
 });
+
 // 로그인/회원가입 모달
 const showForm = computed(() => userStore.showForm);
 const changeForm = function (num) {
