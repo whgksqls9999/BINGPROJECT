@@ -54,7 +54,6 @@ const nickname = ref("");
 const withdraw_text = ref("");
 
 const user = computed(() => userStore.user);
-console.log(user.value);
 
 //비밀번호 일치하는지 검사
 const pwConfirm = computed(() => pw.value === pwCheck.value);
@@ -63,8 +62,6 @@ const pwConfirm = computed(() => pw.value === pwCheck.value);
 const modifyUser = () => {
   if (passwordConfirm()) return;
 
-  console.log("에엥");
-  console.log(user.value.email);
   const updateUser = {
     email: user.value.email,
     pw: pw.value,
@@ -80,9 +77,9 @@ const modifyUser = () => {
 
 onMounted(() => {
   emailParam.value = route.params.email;
-  userStore.getUserByEmail(emailParam);
+  userStore.getUserByEmail(emailParam.value);
   //초기값
-  console.log(user.value.email);
+  // console.log(user.value.email);
   pw.value = user.value.pw;
   name.value = user.value.name;
   gender.value = user.value.gender;
