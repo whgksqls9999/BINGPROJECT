@@ -11,7 +11,7 @@
   </div> -->
   <div class="login-box">
     <h2></h2>
-    <form v-on:submit.prevnet>
+    <form v-on:submit.prevent>
       <div class="user-box">
         <input type="text" v-model.trim="id" />
         <label>UserId</label>
