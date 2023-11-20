@@ -14,6 +14,13 @@ export const useUserStore = defineStore("user", () => {
     });
   };
 
+  const users = ref([]);
+  const getAllUsers = () => {
+    axios.get(`${REST_USER_API}/`).then((response) => {
+      users.value = response.data;
+    });
+  };
+
   // 유저 정보 가져오기(이메일)
   const getUserByEmail = (email) => {
     axios
@@ -61,8 +68,16 @@ export const useUserStore = defineStore("user", () => {
       .post(`${REST_USER_API}/`, user, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      .then((response) => {
+        console.log(response);
+        alert("환영합니다!");
+        console.log("dasdfasdf");
+        router.push({ name: "main" });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("회원가입 중 에러가 발생했습니다");
+      });
   };
 
   // 로그인 체크
@@ -81,22 +96,24 @@ export const useUserStore = defineStore("user", () => {
         console.log(response);
         console.log(update.nickname);
 
-        router.push({ name: "myInfo", params: { nickname: update.nickname } });
+        router.push({ name: "myInfo", params: { email: update.email } });
       })
       .catch((err) => console.log(err));
   };
 
   //회원 탈퇴
-  const deleteUser=(removeEmail)=>{
-    axios.delete(`${REST_USER_API}/${removeEmail}`)
-    .then((response)=>{
-      console.log('탈퇴완료');
-      alert('회원님의 탈퇴가 완료되었습니다.');
-      router.push({name:'main'})
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
+  const deleteUser = (removeEmail) => {
+    axios
+      .delete(`${REST_USER_API}/${removeEmail}`)
+      .then((response) => {
+        console.log("탈퇴완료");
+        alert("회원님의 탈퇴가 완료되었습니다.");
+        router.push({ name: "main" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return {
     userLogin,
@@ -110,6 +127,8 @@ export const useUserStore = defineStore("user", () => {
     doLoginCheck,
     getUserByEmail,
     modifyUser,
-    deleteUser
-  }; 
+    deleteUser,
+    users,
+    getAllUsers,
+  };
 });

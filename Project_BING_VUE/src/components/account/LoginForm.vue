@@ -52,7 +52,7 @@ const login = function () {
 
 const closeWindow = () => {
   userStore.changeForm(0);
-}
+};
 </script>
 
 <style scoped>
@@ -64,9 +64,9 @@ const closeWindow = () => {
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
@@ -101,11 +101,11 @@ const closeWindow = () => {
   font-size: 16px;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
-.login-box .user-box input:focus~label,
-.login-box .user-box input:valid~label {
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
   top: -20px;
   left: 0;
   color: #b4e1e4;
@@ -121,18 +121,16 @@ const closeWindow = () => {
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
-  transition: .5s;
+  transition: 0.5s;
   margin-top: 40px;
-  letter-spacing: 4px
+  letter-spacing: 4px;
 }
 
 .login-box button:hover {
   background: #b4e1e4;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #b4e1e4,
-    0 0 25px #b4e1e4,
-    0 0 50px #b4e1e4,
+  box-shadow: 0 0 5px #b4e1e4, 0 0 25px #b4e1e4, 0 0 50px #b4e1e4,
     0 0 100px #b4e1e4;
 }
 
@@ -168,7 +166,7 @@ const closeWindow = () => {
   height: 100%;
   background: linear-gradient(180deg, transparent, #b4e1e4);
   animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s
+  animation-delay: 0.25s;
 }
 
 @keyframes btn-anim2 {
@@ -189,7 +187,7 @@ const closeWindow = () => {
   height: 2px;
   background: linear-gradient(270deg, transparent, #b4e1e4);
   animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s
+  animation-delay: 0.5s;
 }
 
 @keyframes btn-anim3 {
@@ -210,13 +208,17 @@ const closeWindow = () => {
   height: 100%;
   background: linear-gradient(360deg, transparent, #b4e1e4);
   animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s
+  animation-delay: 0.75s;
 }
 
-.signIn-button{
+button {
+  background-color: transparent;
+  border-style: none;
+}
+
+.signIn-button {
   display: flex;
   justify-content: space-around;
-
 }
 
 @keyframes btn-anim4 {
@@ -229,10 +231,6 @@ const closeWindow = () => {
     bottom: 100%;
   }
 }
-
-
-
-
 
 /* .container {
   background-color: rgba(0, 0, 0, 0.5);
@@ -275,4 +273,5 @@ const closeWindow = () => {
 
 input {
   box-shadow: 0 1px 0.3rem black;
-} */</style>
+} */
+</style>

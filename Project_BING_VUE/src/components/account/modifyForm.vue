@@ -22,7 +22,7 @@
       <button
         @click="
           () => {
-            router.push(`/user/${emailParam}`);
+            router.push({ name: 'myInfo', params: { email: emailParam } });
           }
         "
       >

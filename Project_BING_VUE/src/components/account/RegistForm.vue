@@ -13,6 +13,8 @@
     <input type="text" v-model="gender" />
     <label for="">nickname</label>
     <input type="text" v-model="nickname" />
+    <label for="">withdraw text</label>
+    <input type="text" v-model="withdraw_text" />
     <button @click="registUser">등록하기</button>
   </div>
 </template>
@@ -27,23 +29,16 @@ const pwCheck = ref("");
 const name = ref("");
 const gender = ref("");
 const nickname = ref("");
+const withdraw_text = ref("");
 const pwConfirm = computed(() => pw.value == pwCheck.value);
 
 // 회원가입 요청
 const userStore = useUserStore();
-const registUser = () => {
-  if (passwordConfirm()) return;
+const users = computed(() => userStore.users);
 
-  let user = {
-    email: email.value,
-    pw: pw.value,
-    name: name.value,
-    gender: gender.value,
-    nickname: nickname.value,
-  };
-
-  userStore.registUser(user);
-};
+onMounted(() => {
+  userStore.getAllUsers;
+});
 
 const passwordConfirm = () => {
   if (!pwConfirm.value) {
@@ -52,6 +47,52 @@ const passwordConfirm = () => {
     return true;
   }
   return false;
+};
+
+const isPwValid = (pwd) => {
+  return pwd.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/g.test(pwd);
+};
+
+const registUser = () => {
+  if (
+    email.value === "" ||
+    pw.value === "" ||
+    name.value === "" ||
+    gender.value === "" ||
+    nickname.value === "" ||
+    withdraw_text === ""
+  ) {
+    alert("모든 정보를 입력해주세요.");
+    return;
+  }
+
+  if (passwordConfirm()) return;
+
+  if (!isPwValid(pw.value)) {
+    alert("비밀번호는 8자리 이상, 특수문자를 포함해야 합니다.");
+    return;
+  }
+  console.log(email.value);
+  console.log(userStore.getUserByEmail(email.value));
+  if (users.value.length > 0) {
+    const userAlready = users.value.some((user) => user.email === email.value);
+    console.log(userAlready);
+    if (userAlready) {
+      alert("이미 존재하는 아이디입니다");
+      return;
+    }
+  }
+
+  let user = {
+    email: email.value,
+    pw: pw.value,
+    name: name.value,
+    gender: gender.value,
+    nickname: nickname.value,
+    withdraw_text: withdraw_text.value,
+  };
+
+  userStore.registUser(user);
 };
 </script>
 
