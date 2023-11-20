@@ -6,6 +6,21 @@ public class User {
 	private String name;
 	private String gender;
 	private String nickname;
+	private String withdraw_text;
+	
+	public User() {
+
+	}
+
+	public User(String email, String pw, String name, String gender, String nickname, String withdraw_text) {
+		super();
+		this.email = email;
+		this.pw = pw;
+		this.name = name;
+		this.gender = gender;
+		this.nickname = nickname;
+		this.withdraw_text = withdraw_text;
+	}
 
 	public String getEmail() {
 		return email;
@@ -47,16 +62,14 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public User(String email, String pw, String name, String gender, String nickname) {
-		super();
-		this.email = email;
-		this.pw = pw;
-		this.name = name;
-		this.gender = gender;
-		this.nickname = nickname;
+	public String getWithdraw_text() {
+		return withdraw_text;
 	}
 
-	public User() {
-		// TODO Auto-generated constructor stub
+	public void setWithdraw_text(String withdraw_text) {
+		this.withdraw_text = withdraw_text;
 	}
+	
+	
+	
 }

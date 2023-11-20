@@ -85,6 +85,7 @@ onMounted(() => {
   gender.value = user.value.gender;
   nickname.value = user.value.nickname;
   withdraw_text.value = user.value.withdraw_text;
+  console.log(user.value.withdraw_text);
 });
 
 const passwordConfirm = () => {
