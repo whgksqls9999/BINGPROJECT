@@ -16,7 +16,6 @@
         <textarea type="text" v-model="content" />
         <div class="location-select" @click="doSelectLocation">
           <div v-if="!location" class="map-image">
-            <img src="@/assets/네이버블로그.png" alt="" />
           </div>
           <div v-else>
             <fieldset>
