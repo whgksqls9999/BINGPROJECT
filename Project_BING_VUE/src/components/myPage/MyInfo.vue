@@ -2,7 +2,7 @@
   <div class="myInfo-global">
     <div class="myInfo-container">
       <div class="myInfo-title">
-        <h2>{{ nicknameParam }}님의 정보</h2>
+        <h2>{{ user.nickname }}님의 정보</h2>
       </div>
       <div class="myInfo-detail">
         <div class="myInfo-img">
@@ -13,6 +13,7 @@
           <div><strong>이름:</strong> {{ user.name }}</div>
           <div><strong>닉네임:</strong> {{ user.nickname }}</div>
           <div><strong>성별:</strong> {{ user.gender }}</div>
+          <div><strong>탈퇴 문구:</strong> {{ user.withdraw_text }}</div>
         </div>
       </div>
       <div class="myInfo-series">
@@ -34,14 +35,14 @@ import { computed, onMounted } from "vue";
 
 // 유저 닉네임 받아오기
 const route = useRoute();
-const nicknameParam = route.params.nickname;
+const emailParam = route.params.email;
 
 // 유저 정보 가져오기
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 onMounted(() => {
-  userStore.getUser(nicknameParam);
+  userStore.getUserByEmail(emailParam);
 });
 </script>
 <style scoped>
@@ -106,9 +107,13 @@ onMounted(() => {
   color: #262626;
 }
 
-.myInfo-link a:hover,
+.myInfo-link a:hover{
+  background-color: #aecadb;
+  color: white;
+}
 .myInfo-withdraw a:hover {
-  background-color: #dbd8d8;
+  color: whitesmoke;
+  background-color: rgb(216, 67, 67);
 }
 </style>
 

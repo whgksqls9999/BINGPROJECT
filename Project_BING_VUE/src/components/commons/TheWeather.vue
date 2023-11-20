@@ -48,6 +48,7 @@ onMounted(() => {
         base_date: todayStr,
         base_time: closestTime,
         numOfRows: 15,
+        //대전 위치
         nx: 67,
         ny: 101,
       },

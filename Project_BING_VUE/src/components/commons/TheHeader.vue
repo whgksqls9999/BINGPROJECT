@@ -14,7 +14,7 @@
         <button v-if="!loginUser" @click="changeForm(2)">SIGN UP</button>
         <RouterLink
           v-if="loginUser"
-          :to="{ name: 'myPage', params: { nickname: '닉네임' } }"
+          :to="{ name: 'myPage', params: { email:loginUser.email } }"
           >MYPAGE</RouterLink
         >
         <button v-if="loginUser" @click="logout()">LOGOUT</button>
@@ -39,6 +39,7 @@ import TheWeather from "@/components/commons/TheWeather.vue";
 const commonStore = useCommonStore();
 const userStore = useUserStore();
 const loginUser = computed(() => userStore.loginUser);
+console.log(loginUser.value);
 const headerShow = ref(true);
 const footerShow = ref(false);
 
