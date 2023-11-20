@@ -52,7 +52,7 @@ const login = function () {
 
 const closeWindow = () => {
   userStore.changeForm(0);
-}
+};
 </script>
 
 <style scoped>
@@ -64,9 +64,15 @@ const closeWindow = () => {
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, .5);
+<<<<<<< HEAD
+  background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+=======
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+>>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
   border-radius: 10px;
 }
 
@@ -92,23 +98,22 @@ const closeWindow = () => {
   outline: none;
   background: transparent;
 }
-
 .login-box .user-box label {
   position: absolute;
-  top: 0;
+  top:0;
   left: 0;
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
-.login-box .user-box input:focus~label,
-.login-box .user-box input:valid~label {
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
   top: -20px;
   left: 0;
-  color: #b4e1e4;
+  color: #b6eaec;
   font-size: 12px;
 }
 
@@ -116,24 +121,35 @@ const closeWindow = () => {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
-  color: #b4e1e4;
+  color: #c0cdce;
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
-  transition: .5s;
+  transition: 0.5s;
   margin-top: 40px;
+<<<<<<< HEAD
+  letter-spacing: 4px;
+=======
   letter-spacing: 4px
+
+>>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 }
 
 .login-box button:hover {
-  background: #b4e1e4;
+  background: #c0cdce;
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #b4e1e4,
-    0 0 25px #b4e1e4,
-    0 0 50px #b4e1e4,
+<<<<<<< HEAD
+  box-shadow: 0 0 5px #b4e1e4, 0 0 25px #b4e1e4, 0 0 50px #b4e1e4,
     0 0 100px #b4e1e4;
+=======
+ border: 1px solid transparent;
+  box-shadow: 0 0 5px #c0cdce,
+              0 0 25px #c0cdce,
+              0 0 50px #c0cdce,
+              0 0 100px #c0cdce;
+>>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 }
 
 .login-box button span {
@@ -146,7 +162,7 @@ const closeWindow = () => {
   left: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #b4e1e4);
+  background: linear-gradient(90deg, transparent, #8db4b6);
   animation: btn-anim1 1s linear infinite;
 }
 
@@ -154,9 +170,7 @@ const closeWindow = () => {
   0% {
     left: -100%;
   }
-
-  50%,
-  100% {
+  50%,100% {
     left: 100%;
   }
 }
@@ -166,18 +180,16 @@ const closeWindow = () => {
   right: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, #b4e1e4);
+  background: linear-gradient(180deg, transparent, #8db4b6);
   animation: btn-anim2 1s linear infinite;
-  animation-delay: .25s
+  animation-delay: 0.25s;
 }
 
 @keyframes btn-anim2 {
   0% {
     top: -100%;
   }
-
-  50%,
-  100% {
+  50%,100% {
     top: 100%;
   }
 }
@@ -187,18 +199,16 @@ const closeWindow = () => {
   right: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(270deg, transparent, #b4e1e4);
+  background: linear-gradient(270deg, transparent, #8db4b6);
   animation: btn-anim3 1s linear infinite;
-  animation-delay: .5s
+  animation-delay: 0.5s;
 }
 
 @keyframes btn-anim3 {
   0% {
     right: -100%;
   }
-
-  50%,
-  100% {
+  50%,100% {
     right: 100%;
   }
 }
@@ -208,32 +218,51 @@ const closeWindow = () => {
   left: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(360deg, transparent, #b4e1e4);
+  background: linear-gradient(360deg, transparent, #8db4b6);
   animation: btn-anim4 1s linear infinite;
-  animation-delay: .75s
+  animation-delay: 0.75s;
 }
 
-.signIn-button{
+<<<<<<< HEAD
+button {
+  background-color: transparent;
+  border-style: none;
+}
+
+.signIn-button {
   display: flex;
   justify-content: space-around;
-
 }
+=======
+>>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 
 @keyframes btn-anim4 {
   0% {
     bottom: -100%;
   }
-
-  50%,
-  100% {
+  50%,100% {
     bottom: 100%;
   }
 }
 
+<<<<<<< HEAD
+=======
+.signIn-button{
+  display: flex;
+  justify-content: space-around;
+}
+
+button{
+  border:1px solid transparent;
+  background-color: transparent;
+  border-style: none;
+  color: white;
+  font-family: 'Noto Sans KR';
+}
 
 
 
-
+>>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 /* .container {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100vw;
@@ -275,4 +304,5 @@ const closeWindow = () => {
 
 input {
   box-shadow: 0 1px 0.3rem black;
-} */</style>
+} */
+</style>

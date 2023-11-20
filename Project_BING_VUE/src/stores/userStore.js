@@ -8,10 +8,17 @@ export const useUserStore = defineStore("user", () => {
   // 유저 정보 가져오기(닉네임)
   const user = ref({});
   const getUser = (nickname) => {
-    axios
-      .get(`${REST_USER_API}/nickname/${nickname}`)
-      .then((response) => {user.value = response.data;
-      console.log(response.data)});
+    axios.get(`${REST_USER_API}/nickname/${nickname}`).then((response) => {
+      user.value = response.data;
+      console.log(response.data);
+    });
+  };
+
+  const users = ref([]);
+  const getAllUsers = () => {
+    axios.get(`${REST_USER_API}/`).then((response) => {
+      users.value = response.data;
+    });
   };
 
   // 유저 정보 가져오기(이메일)
@@ -33,16 +40,14 @@ export const useUserStore = defineStore("user", () => {
     axios
       .post(`${REST_USER_API}/login`, { email: id, pw: pw })
       .then((response) => {
-        console.log(response.data["access-token"]);
         if (response.data["access-token"] == null) {
           alert("ID 또는 비밀번호를 확인해주세요.");
         } else {
           sessionStorage.setItem("access-token", response.data["access-token"]);
           const token = response.data["access-token"].split(".");
-          console.log(JSON.parse(atob(token[1])));
           loginUser.value = JSON.parse(atob(token[1]));
-          console.log(loginUser.value);
           showForm.value = 0;
+          getUserByEmail(loginUser.value);
           router.push({ name: "main" });
         }
       })
@@ -63,8 +68,16 @@ export const useUserStore = defineStore("user", () => {
       .post(`${REST_USER_API}/`, user, {
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      .then((response) => {
+        console.log(response);
+        alert("환영합니다!");
+        console.log("dasdfasdf");
+        router.push({ name: "main" });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("회원가입 중 에러가 발생했습니다");
+      });
   };
 
   // 로그인 체크
@@ -72,33 +85,35 @@ export const useUserStore = defineStore("user", () => {
     return sessionStorage.getItem("access-token");
   };
 
-//회원정보 수정          
-  const modifyUser = (update) =>{
+  //회원정보 수정
+  const modifyUser = (update) => {
     console.log(update);
     axios
       .put(`${REST_USER_API}/${update.email}`, update, {
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
         console.log(response);
-        console.log(update.nickname)
-        
-        router.push({name:'myInfo',params:{nickname:update.nickname}});
+        console.log(update.nickname);
+
+        router.push({ name: "myInfo", params: { email: update.email } });
       })
       .catch((err) => console.log(err));
-  } 
+  };
 
   //회원 탈퇴
-  const deleteUser=(removeEmail)=>{
-    axios.delete(`${REST_USER_API}/${removeEmail}`)
-    .then((response)=>{
-      console.log('탈퇴완료');
-      alert('회원님의 탈퇴가 완료되었습니다.');
-      router.push({name:'main'})
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
+  const deleteUser = (removeEmail) => {
+    axios
+      .delete(`${REST_USER_API}/${removeEmail}`)
+      .then((response) => {
+        console.log("탈퇴완료");
+        alert("회원님의 탈퇴가 완료되었습니다.");
+        router.push({ name: "main" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return {
     userLogin,
@@ -112,6 +127,8 @@ export const useUserStore = defineStore("user", () => {
     doLoginCheck,
     getUserByEmail,
     modifyUser,
-    deleteUser
-  }; 
+    deleteUser,
+    users,
+    getAllUsers,
+  };
 });

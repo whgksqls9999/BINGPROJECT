@@ -34,7 +34,8 @@
 	<update id="updateUser" parameterType="User">
 		UPDATE user
 		SET pw = #{pw},
-		name = #{name}, gender = #{gender}, nickname = #{nickname} withdraw_text = #{withdraw_text},
+		name = #{name}, gender = #{gender}, nickname = #{nickname},
+		withdraw_text = #{withdraw_text}
 		WHERE email = #{email}
 	</update>
 

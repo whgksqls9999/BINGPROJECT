@@ -26,6 +26,7 @@ import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useCommonStore } from "@/stores/commonStore.js";
 
+
 // 헤더 fixed toggle
 const commonStore = useCommonStore();
 onMounted(() => {

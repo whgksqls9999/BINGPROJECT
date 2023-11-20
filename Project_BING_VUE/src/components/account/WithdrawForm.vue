@@ -21,7 +21,8 @@
         <div class="withdraw-submit">
           <div class="withdraw-block-text" v-if="currentStep === 4">
             <label for="withdraw-text"></label>
-            <input v-model="withdrawText"
+            <input
+              v-model="withdrawText"
               type="text"
               name="withdraw-text"
               id="withdraw-text"
@@ -29,7 +30,11 @@
             />
           </div>
           <div>
-            <button v-if="currentStep === 4" class="withdraw-button" @click="deleteUser">
+            <button
+              v-if="currentStep === 4"
+              class="withdraw-button"
+              @click="deleteUser"
+            >
               탈퇴
             </button>
           </div>
@@ -40,15 +45,15 @@
 </template>
 
 <script setup>
-import { ref,computed } from "vue";
+import { ref, computed } from "vue";
 import { useUserStore } from "@/stores/userStore.js";
 const userStore = useUserStore();
 const userText = computed(() => userStore.user.withdraw_text);
 const currentStep = ref(1);
-const withdrawText = ref('');
+const withdrawText = ref("");
 console.log(userText);
 const withdrawConfirm = computed(() => withdrawText.value === userText.value);
-console.log(userStore.user.withdraw_text)
+console.log(userStore.user.withdraw_text);
 const handleButtonClick = (step) => {
   console.log(`Button clicked for step ${step}`);
   if (step < 4) {
@@ -67,6 +72,8 @@ const deleteUser = () => {
 
 <style scoped>
 button {
+  background-color: transparent;
+  border-style: none;
   text-align: center;
   font-size: 30px;
   font-weight: bold;
@@ -107,9 +114,10 @@ input {
   height: 40px;
   width: 400px;
   border-radius: 10px;
-  color: white;
+  color: rgb(53, 50, 50);
   font-weight: bold;
   font-size: 20px;
+  border-style: none;
 }
 
 input:focus {
@@ -136,8 +144,9 @@ input::placeholder {
   width: 100px;
   height: 40px;
   border-radius: 25px;
+  color: rgb(83, 82, 80);
   font-size: 23px;
-  font-weight: 300;
+  font-weight: 600;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
