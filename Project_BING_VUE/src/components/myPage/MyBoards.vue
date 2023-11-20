@@ -3,7 +3,7 @@
   <div class="myboard-global">
     <!--게시글-->
     <div class="myboard-title">
-      <h2>✍ {{ nicknameParam }}님의 게시글 목록</h2>
+      <h2>✍ {{ nickname }}님의 게시글 목록</h2>
       <br />
       <div class="myboard-container">
         <h3 v-if="myBoards.length == 0">작성한 게시글 목록이 없습니다.</h3>
@@ -61,11 +61,13 @@
 <script setup>
 import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
+import { useUserStore } from "@/stores/userStore";
 import { useRoute } from "vue-router";
 
 // 유저 닉네임 받아오기
 const route = useRoute();
-const nicknameParam = route.params.nickname;
+const userStore = useUserStore();
+const emailParam = route.params.email;
 
 const store = useMyPageStore();
 const myBoards = computed(() => {
@@ -76,9 +78,14 @@ const myReplys = computed(() => {
   return store.myReplys;
 });
 
+const nickname = computed(() => {
+  return userStore.user.nickname;
+})
+
 onMounted(() => {
-  store.getMyBoards(nicknameParam);
-  store.getMyReplys(nicknameParam);
+  userStore.getUserByEmail(emailParam); 
+  store.getMyBoards(nickname.value);
+  store.getMyReplys(nickname.value);
 });
 </script>
 
