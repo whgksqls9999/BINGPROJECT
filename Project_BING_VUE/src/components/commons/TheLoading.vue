@@ -32,6 +32,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
 }
 .box {
   width: 300px;
