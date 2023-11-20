@@ -13,6 +13,7 @@
           <div><strong>이름:</strong> {{ user.name }}</div>
           <div><strong>닉네임:</strong> {{ user.nickname }}</div>
           <div><strong>성별:</strong> {{ user.gender }}</div>
+          <div><strong>탈퇴 문구:</strong> {{ user.withdraw_text }}</div>
         </div>
       </div>
       <div class="myInfo-series">
@@ -106,9 +107,13 @@ onMounted(() => {
   color: #262626;
 }
 
-.myInfo-link a:hover,
+.myInfo-link a:hover{
+  background-color: #aecadb;
+  color: white;
+}
 .myInfo-withdraw a:hover {
-  background-color: #dbd8d8;
+  color: whitesmoke;
+  background-color: rgb(216, 67, 67);
 }
 </style>
 

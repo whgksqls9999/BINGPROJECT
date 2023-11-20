@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
-
 export const useUserStore = defineStore("user", () => {
   const REST_USER_API = "http://localhost:1004/user";
 
@@ -70,6 +69,27 @@ export const useUserStore = defineStore("user", () => {
     return sessionStorage.getItem("access-token");
   };
 
+  //회원 정보 수정 요청
+  // const modifyUser = (updateUser)=>{
+  //  axios({
+  //   url:`${REST_USER_API}/${updateUser.email}`,
+  //   method:"put",
+  //   data:updateUser,
+  //   headers:{"Content-Type": "application/json"},
+  //  }).then((response)=>{
+  //   console.log(response.data)
+  //   router.push(`/email/${updateUser.email}`);
+  //  }).catch((err)=>{
+  //   console.log(err);
+  //  })
+  // }
+  const modifyUser = (update) =>{
+    axios.put(`${REST_USER_API}/email/${update.email}`,update,{
+      headers:{"Content-Type":"application/json"},
+    }).then((response)=>console.log(response))
+    .catch((err)=>console.log(err))
+  }
+
   return {
     userLogin,
     loginUser,
@@ -81,5 +101,6 @@ export const useUserStore = defineStore("user", () => {
     getUser,
     doLoginCheck,
     getUserByEmail,
-  };
+    modifyUser,
+  }; 
 });
