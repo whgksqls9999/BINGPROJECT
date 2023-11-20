@@ -32,8 +32,9 @@
         <RouterLink
           :to="{ name: 'boardWrite', params: { community_id: idParam } }"
           :comm_id="idParam"
-          >글 작성</RouterLink
         >
+          <div><font-awesome-icon :icon="['fas', 'pen-to-square']" /></div
+        ></RouterLink>
       </div>
     </div>
   </div>
@@ -129,5 +130,8 @@ onMounted(() => {
 a {
   text-decoration: none;
   color: white;
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
 }
 </style>

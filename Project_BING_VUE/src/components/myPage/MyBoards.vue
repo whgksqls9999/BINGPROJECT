@@ -63,6 +63,14 @@ import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
 import { useRoute } from "vue-router";
 
+import { useCommonStore } from "@/stores/commonStore";
+
+// 헤더 fixed toggle
+const commonStore = useCommonStore();
+onMounted(() => {
+  commonStore.toggleHeaderFixed(false);
+});
+
 // 유저 닉네임 받아오기
 const route = useRoute();
 const nicknameParam = route.params.nickname;

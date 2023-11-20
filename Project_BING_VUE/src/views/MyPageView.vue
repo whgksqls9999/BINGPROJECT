@@ -23,7 +23,14 @@
 import MyBoards from "@/components/myPage/MyBoards.vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useCommonStore } from "../stores/commonStore";
+
+// 헤더 fixed toggle
+const commonStore = useCommonStore();
+onMounted(() => {
+  commonStore.toggleHeaderFixed(false);
+});
 
 const route = useRoute();
 const isNavOpen = ref(false);
