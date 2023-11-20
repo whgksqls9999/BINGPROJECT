@@ -52,6 +52,7 @@ const doLoadingEnd = () => {
   background-color: black;
   width: 100%;
   z-index: 101;
+  top: 0;
 }
 .app-header {
   width: 100%;
