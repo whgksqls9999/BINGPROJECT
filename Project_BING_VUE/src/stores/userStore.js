@@ -86,6 +86,18 @@ export const useUserStore = defineStore("user", () => {
       .catch((err) => console.log(err));
   };
 
+  //회원 탈퇴
+  const deleteUser=(removeEmail)=>{
+    axios.delete(`${REST_USER_API}/${removeEmail}`)
+    .then((response)=>{
+      console.log('탈퇴완료');
+      alert('회원님의 탈퇴가 완료되었습니다.');
+      router.push({name:'main'})
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+
   return {
     userLogin,
     loginUser,
@@ -98,5 +110,6 @@ export const useUserStore = defineStore("user", () => {
     doLoginCheck,
     getUserByEmail,
     modifyUser,
-  };
+    deleteUser
+  }; 
 });

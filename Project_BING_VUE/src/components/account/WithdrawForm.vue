@@ -21,7 +21,7 @@
         <div class="withdraw-submit">
           <div class="withdraw-block-text" v-if="currentStep === 4">
             <label for="withdraw-text"></label>
-            <input
+            <input v-model="withdrawText"
               type="text"
               name="withdraw-text"
               id="withdraw-text"
@@ -29,7 +29,7 @@
             />
           </div>
           <div>
-            <button v-if="currentStep === 4" class="withdraw-button">
+            <button v-if="currentStep === 4" class="withdraw-button" @click="deleteUser">
               탈퇴
             </button>
           </div>
@@ -40,15 +40,28 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
+import { ref,computed } from "vue";
+import { useUserStore } from "@/stores/userStore.js";
+const userStore = useUserStore();
+const userText = computed(() => userStore.user.withdraw_text);
 const currentStep = ref(1);
-
+const withdrawText = ref('');
+console.log(userText);
+const withdrawConfirm = computed(() => withdrawText.value === userText.value);
+console.log(userStore.user.withdraw_text)
 const handleButtonClick = (step) => {
   console.log(`Button clicked for step ${step}`);
   if (step < 4) {
     currentStep.value = step + 1;
   }
+};
+
+const deleteUser = () => {
+  if (!withdrawConfirm.value) {
+    alert("문구를 다시 확인하세요");
+    return;
+  }
+  userStore.deleteUser(userStore.user.email);
 };
 </script>
 

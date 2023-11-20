@@ -12,11 +12,7 @@
         <RouterLink :to="{ name: 'community' }">COMMUNITY</RouterLink>
         <button v-if="!loginUser" @click="changeForm(1)">SIGN IN</button>
         <button v-if="!loginUser" @click="changeForm(2)">SIGN UP</button>
-        <RouterLink
-          v-if="loginUser"
-          :to="{ name: 'myPage', params: { email: loginUser.email } }"
-          >MYPAGE</RouterLink
-        >
+        <RouterLink v-if="loginUser" :to="{ name: 'myPage', params: { email: loginUser.email } }">MYPAGE</RouterLink>
         <button v-if="loginUser" @click="logout()">LOGOUT</button>
       </div>
     </div>
@@ -83,6 +79,7 @@ button {
   color: white;
   cursor: pointer;
 }
+
 .header-container {
   height: 70px;
   display: flex;
@@ -90,6 +87,7 @@ button {
   background-color: transparent;
   padding: 0 10px;
 }
+
 .header-project-name {
   display: flex;
   justify-content: center;
@@ -126,6 +124,7 @@ button {
       0 0 35px rgba(0, 38, 83, 0.8);
   }
 }
+
 .header-router-container {
   display: flex;
   justify-content: flex-end;
@@ -133,6 +132,7 @@ button {
   gap: 20px;
   width: 30%;
 }
+
 .weather {
   width: 33%;
   display: flex;
