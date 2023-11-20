@@ -2,7 +2,7 @@
   <div class="myInfo-global">
     <div class="myInfo-container">
       <div class="myInfo-title">
-        <h2>{{ nicknameParam }}님의 정보</h2>
+        <h2>{{ user.nickname }}님의 정보</h2>
       </div>
       <div class="myInfo-detail">
         <div class="myInfo-img">
@@ -35,14 +35,14 @@ import { computed, onMounted } from "vue";
 
 // 유저 닉네임 받아오기
 const route = useRoute();
-const nicknameParam = route.params.nickname;
+const emailParam = route.params.email;
 
 // 유저 정보 가져오기
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 onMounted(() => {
-  userStore.getUser(nicknameParam);
+  userStore.getUserByEmail(emailParam);
 });
 </script>
 <style scoped>

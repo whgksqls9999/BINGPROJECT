@@ -46,7 +46,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/myPage/:nickname",
+      path: "/myPage/:email",
       name: "myPage",
       component: MyPageView,
       beforeEnter: (to, from) => {

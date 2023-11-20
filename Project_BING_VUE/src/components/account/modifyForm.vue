@@ -5,11 +5,11 @@
     </div>
     <div class="modifyInfo_container">
       <label for="">아이디</label>
-      <input type="text" v-model="email" readonly/>
+      <input type="text" v-model="user.email" readonly/>
       <label for="">비밀번호</label>
-      <input type="text" v-model="pw" class="user-pw"/>
+      <input type="password" v-model="pw" class="user-pw"/>
       <label for="">비밀번호 확인</label>
-      <input type="text" v-model="pwCheck" class="user-pwCheck"/>
+      <input type="password" v-model="pwCheck" class="user-pwCheck"/>
       <label for="">이름</label>
       <input type="text" v-model="name" class="user-name"/>
       <label for="">성별</label>
@@ -35,52 +35,52 @@ import {  useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
-const emailParam = route.params.email;
+const nicknameParam = ref(route.params.nickname);
 
 //새로 수정된 애들
-const updateUserPw = computed(() => {
-  return document.querySelector('.user-pw');
-});
-const updateUserPwCheck = computed(() => {
-  return document.querySelector('.user-pwCheck');
-});
-const updateUserName = computed(() => {
-  return document.querySelector('.user-name');
-});
-const updateUserGender = computed(() => {
-  return document.querySelector('.user-gender');
-});
-const updateUserNickname = computed(() => {
-  return document.querySelector('.user-nickname');
-});
-const updateUserWithdrawText = computed(() => {
-  return document.querySelector('.user-withdraw-text');
-});
+// const email = ref('');
+const pw = ref('');
+const pwCheck = ref('');
+const name = ref('');
+const gender = ref('');
+const nickname = ref('');
+const withdraw_text = ref('');
 
 const user = computed(() => userStore.user);
+console.log(user.value)
 
 //비밀번호 일치하는지 검사
-const pwConfirm = computed(() => updateUserPw.value === updateUserPwCheck.value);
+const pwConfirm = computed(() => pw.value === pwCheck.value);
 
 // 수정요청
 const modifyUser = (() => {
-  if (!passwordConfirm()) return;
+  if (passwordConfirm()) return;
+ 
   console.log("에엥")
+  console.log(user.value.email)
   const updateUser = {
     email: user.value.email,
-    pw: updateUserPw.value,
-    pwCheck:updateUserPwCheck.value,
-    name: updateUserName.value,
-    gender: updateUserGender.value,
-    nickname: updateUserNickname.value,
-    withdraw_text: updateUserWithdrawText.value,
+    pw: pw.value,
+    pwCheck:pwCheck.value,
+    name: name.value,
+    gender: gender.value,
+    nickname: nickname.value,
+    withdraw_text: withdraw_text.value,
   };
 
   userStore.modifyUser(updateUser);
 });
 
 onMounted(()=>{
-  userStore.getUserByEmail(emailParam);
+  nicknameParam.value = route.params.nickname;
+  userStore.getUser(nicknameParam);
+  //초기값
+  console.log(user.value.email)
+  pw.value = user.value.pw;
+  name.value = user.value.name;
+  gender.value = user.value.gender;
+  nickname.value = user.value.nickname;
+  withdraw_text.value = user.value.withdraw_text;
 });
 
 const passwordConfirm = () => {

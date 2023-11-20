@@ -10,7 +10,8 @@ export const useUserStore = defineStore("user", () => {
   const getUser = (nickname) => {
     axios
       .get(`${REST_USER_API}/nickname/${nickname}`)
-      .then((response) => (user.value = response.data));
+      .then((response) => {user.value = response.data;
+      console.log(response.data)});
   };
 
   // 유저 정보 가져오기(이메일)
@@ -38,7 +39,9 @@ export const useUserStore = defineStore("user", () => {
         } else {
           sessionStorage.setItem("access-token", response.data["access-token"]);
           const token = response.data["access-token"].split(".");
+          console.log(JSON.parse(atob(token[1])));
           loginUser.value = JSON.parse(atob(token[1]));
+          console.log(loginUser.value);
           showForm.value = 0;
           router.push({ name: "main" });
         }
@@ -69,26 +72,21 @@ export const useUserStore = defineStore("user", () => {
     return sessionStorage.getItem("access-token");
   };
 
-  //회원 정보 수정 요청
-  // const modifyUser = (updateUser)=>{
-  //  axios({
-  //   url:`${REST_USER_API}/${updateUser.email}`,
-  //   method:"put",
-  //   data:updateUser,
-  //   headers:{"Content-Type": "application/json"},
-  //  }).then((response)=>{
-  //   console.log(response.data)
-  //   router.push(`/email/${updateUser.email}`);
-  //  }).catch((err)=>{
-  //   console.log(err);
-  //  })
-  // }
+//회원정보 수정          
   const modifyUser = (update) =>{
-    axios.put(`${REST_USER_API}/email/${update.email}`,update,{
-      headers:{"Content-Type":"application/json"},
-    }).then((response)=>console.log(response))
-    .catch((err)=>console.log(err))
-  }
+    console.log(update);
+    axios
+      .put(`${REST_USER_API}/${update.email}`, update, {
+        headers: { "Content-Type": "application/json" }
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(update.nickname)
+        
+        router.push({name:'myInfo',params:{nickname:update.nickname}});
+      })
+      .catch((err) => console.log(err));
+  } 
 
   return {
     userLogin,
@@ -101,6 +99,6 @@ export const useUserStore = defineStore("user", () => {
     getUser,
     doLoginCheck,
     getUserByEmail,
-    modifyUser,
+    modifyUser
   }; 
 });
