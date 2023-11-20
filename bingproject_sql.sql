@@ -4,18 +4,17 @@ CREATE SCHEMA BINGPROJECT;
 USE BINGPROJECT;
 
 CREATE TABLE user (
-    email VARCHAR(300) PRIMARY KEY NOT NULL,
+    email VARCHAR(300) PRIMARY KEY,
     pw VARCHAR(300) NOT NULL,
     name VARCHAR(300) NOT NULL,
     gender VARCHAR(30) NOT NULL,
-    nickname VARCHAR(300) NOT NULL UNIQUE,
-    withdraw_text VARCHAR(1000) NOT NULL
+    nickname VARCHAR(300) NOT NULL UNIQUE
 );
 -- User 데이터
-INSERT INTO user (email,pw,name,gender,nickname,withdraw_text)
-VALUES ('ssafy', '1234', '김싸피', '남', '닉네임', '안녕히계세요 여러분 저는 사회의 굴레 벗어나고 어쩌구'),
-('ssafy2','1234','이싸피','남','닉네임2','안녕히계세요'),
-('ssafy3','1234','이싸피','남','닉네임3','빠잉');
+INSERT INTO user (email,pw,name,gender,nickname)
+VALUES ('ssafy', '1234', '김싸피', '남', '닉네임'),
+('ssafy2','1234','이싸피','남','닉네임2'),
+('ssafy3','1234','이싸피','남','닉네임3');
 SELECT * FROM user;
 
 CREATE TABLE location (
