@@ -59,6 +59,7 @@ CREATE TABLE board (
     FOREIGN KEY (community_id) REFERENCES community(community_id) ON DELETE CASCADE,
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 -- Board 데이터
 INSERT INTO board (community_id, num, header, title, writer, content)
 VALUES (1, 1,'자유','제목1','닉네임','내용1'),

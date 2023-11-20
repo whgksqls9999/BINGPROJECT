@@ -9,6 +9,14 @@
 
 <script setup>
 import BoardWriteForm from "../components/board/BoardWriteForm.vue";
+import { useCommonStore } from "../stores/commonStore";
+// Store
+const commonStore = useCommonStore();
+
+// 헤더 fixed toggle
+onMounted(() => {
+  commonStore.toggleHeaderFixed(false);
+});
 </script>
 
 <style scoped>
@@ -18,7 +26,7 @@ import BoardWriteForm from "../components/board/BoardWriteForm.vue";
   padding: 0;
 }
 
-.container{
+.container {
   margin-top: 70px;
 }
 .board-write-form {

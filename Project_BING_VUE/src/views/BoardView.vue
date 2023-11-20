@@ -2,15 +2,28 @@
   <div class="container">
     <h1>{{ community.community_name }} 게시판입니다.</h1>
     <div>
-      <RouterLink :to="{ name: 'board', params: { community_id: community.community_id } }"
-        v-for="community in elseCommunityList">{{ community.community_name }}</RouterLink>
+      <RouterLink
+        :to="{
+          name: 'board',
+          params: { community_id: community.community_id },
+        }"
+        v-for="community in elseCommunityList"
+        >{{ community.community_name }}</RouterLink
+      >
     </div>
 
-    <RouterLink :to="{ name: 'boardDetail', params: { board_id: board.board_id } }" v-for="board in commBoardList">{{
-      board.board_id }}번 게시글</RouterLink>
+    <RouterLink
+      :to="{ name: 'boardDetail', params: { board_id: board.board_id } }"
+      v-for="board in commBoardList"
+      >{{ board.board_id }}번 게시글</RouterLink
+    >
     <RouterView />
     <div>
-      <RouterLink :to="{ name: 'boardWrite', params: { 'community_id': idParam } }" :comm_id="idParam">글 작성</RouterLink>
+      <RouterLink
+        :to="{ name: 'boardWrite', params: { community_id: idParam } }"
+        :comm_id="idParam"
+        >글 작성</RouterLink
+      >
     </div>
   </div>
 </template>
@@ -18,9 +31,17 @@
 <script setup>
 import { RouterView, RouterLink, useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore.js";
+import { useCommonStore } from "../stores/commonStore";
 import { onMounted, computed } from "vue";
 
+// Store
+const commonStore = useCommonStore();
 const boardStore = useBoardStore();
+
+// 헤더 fixed toggle
+onMounted(() => {
+  commonStore.toggleHeaderFixed(false);
+});
 
 // community_id 받아오기
 const route = useRoute();
@@ -50,7 +71,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.container{
+.container {
   margin-top: 70px;
 }
 </style>

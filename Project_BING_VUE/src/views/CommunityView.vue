@@ -3,15 +3,25 @@
     <div class="comm-form">
       <!-- <div class="comm-title"></div> -->
       <div class="comm-menu">
-        <RouterLink :to="{ name: 'board', params: { community_id: '1' } }" class="freediving">FREEDIVING</RouterLink>
+        <RouterLink
+          :to="{ name: 'board', params: { community_id: '1' } }"
+          class="freediving"
+          >FREEDIVING</RouterLink
+        >
         <div class="freediving-desc desc">
-          WELCOME TO <br><strong style="font-size: 50px;">FREEDIVING</strong> WORLD!
+          WELCOME TO <br /><strong style="font-size: 50px">FREEDIVING</strong>
+          WORLD!
         </div>
-        <RouterLink :to="{ name: 'board', params: { community_id: '2' } }" class="skinscuba">SKINSCUBA</RouterLink>
+        <RouterLink
+          :to="{ name: 'board', params: { community_id: '2' } }"
+          class="skinscuba"
+          >SKINSCUBA</RouterLink
+        >
         <div class="skinscuba-desc desc">
-          WELCOME TO <br><strong style="font-size: 50px;">SKINSCUBA</strong> WORLD!
+          WELCOME TO <br /><strong style="font-size: 50px">SKINSCUBA</strong>
+          WORLD!
         </div>
-        <div class="comm-title"> SELECT COMMUNITY </div>
+        <div class="comm-title">SELECT COMMUNITY</div>
         <!-- <div class="comm-desc"> SHARE YOUR WORLD </div> -->
       </div>
     </div>
@@ -19,9 +29,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from "vue";
+import { useCommonStore } from "../stores/commonStore";
 
-const fadeout = ref('false');
+// 헤더 fixed toggle
+const commonStore = useCommonStore();
+onMounted(() => {
+  commonStore.toggleHeaderFixed(false);
+});
 </script>
 
 <style scoped>
@@ -39,29 +54,28 @@ body {
   text-align: center;
   height: 90vh;
 }
-@keyframes fadein{
-  from{
+@keyframes fadein {
+  from {
     opacity: 0;
   }
-  to{
+  to {
     opacity: 1;
   }
 }
 
-@keyframes delayed-fadein{
-  0%{
+@keyframes delayed-fadein {
+  0% {
     opacity: 0;
   }
-  33%{
+  33% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 }
 
-
-*{
+* {
   box-sizing: border-box;
 }
 .desc {
@@ -78,23 +92,23 @@ body {
   text-align: left;
 }
 
-.freediving-desc{
+.freediving-desc {
   border-top: 1rem solid black;
   border-left: 1rem solid black;
 }
-.skinscuba-desc{
+.skinscuba-desc {
   border-top: 1rem solid black;
   border-left: 1rem solid black;
 }
 
-.freediving:hover+.freediving-desc,
-.skinscuba:hover+.skinscuba-desc {
+.freediving:hover + .freediving-desc,
+.skinscuba:hover + .skinscuba-desc {
   opacity: 1;
   transform: translateY(1rem);
 }
 
 .freediving:hover ~ .comm-title,
-.skinscuba:hover ~ .comm-title{
+.skinscuba:hover ~ .comm-title {
   opacity: 0;
   transform: translateY(-1rem);
 }
