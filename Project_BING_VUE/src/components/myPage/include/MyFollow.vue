@@ -1,4 +1,6 @@
 <template>
+  <div class="my-follow-container-outer">
+  </div>
   <div class="my-follow-container">
     <div class="my-follow-box">
       <div class="my-follow-box-title">
@@ -18,7 +20,7 @@
 import { useUserStore } from "@/stores/userStore.js";
 import { useFavStore } from '@/stores/favStore.js';
 import MyFollowItem from "./MyFollowItem.vue";
-import {computed,onMounted, ref} from 'vue';
+import {computed,onMounted, ref, watch} from 'vue';
 
 // store, emit
 const userStore = useUserStore();
@@ -26,13 +28,15 @@ const favStore = useFavStore();
 const emit = defineEmits(["closeWindow"]);
 
 const props = defineProps({
+  toggle: Array,
   email:String,
   type: String,
 });
 
-const followingList = computed(() => userStore.followingList);
+const followingList = computed(() => {
+  return userStore.followingList});
 const followerList = computed(() => userStore.followerList);
-const followList = ref([]);
+const followList = ref(props.toggle);
 
 // 팔로우 취소 후 목록 갱신
 const renewFollow = async () => {
@@ -53,7 +57,9 @@ if(props.type == 'Follower'){
   followList.value = followingList.value;
 }
 
-console.log(followList.value);
+onMounted(() => {
+  console.log(followList.value);
+})
 
 // onMounted(() => {
 //   userStore.getFollowingList(props.email);
@@ -67,16 +73,28 @@ console.log(followList.value);
   margin: 0;
   padding: 0;
 }
+
+.my-follow-container-outer{
+  z-index: 3;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(128, 128, 128, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
 .my-follow-container {
   position: absolute;
-  top: 13rem;
+  top: 0rem;
   left: 50px;
   width: 400px;
-  height: 10rem;
+  height: 33rem;
   background-color: white;
   border: 2px solid #dbdbdb;
   padding: 0.3rem;
   border-radius: 0.5rem;
+  z-index: 2;
 }
 
 .my-follow-box-title {
@@ -88,7 +106,7 @@ console.log(followList.value);
 }
 
 .my-follow-box-list {
-  height: 7rem;
+  height: 30rem;
   overflow-y: scroll;
 }
 
