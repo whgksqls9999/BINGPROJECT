@@ -21,7 +21,8 @@ SELECT * FROM user;
 CREATE TABLE location (
     location_id INT(10) PRIMARY KEY NOT NULL,
     place_name VARCHAR(100) NOT NULL,
-    address_name VARCHAR(100) NOT NULL
+    address_name VARCHAR(100) NOT NULL,
+    fav_cnt INT(10) DEFAULT 0
 );
 -- Location 데이터
 INSERT INTO location (location_id, place_name, address_name)
@@ -55,6 +56,7 @@ CREATE TABLE board (
     is_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     view_cnt INT(10) DEFAULT 0, 
     location_id INT(10),
+    fav_cnt INT(10) DEFAULT 0,
     FOREIGN KEY (community_id) REFERENCES community(community_id) ON DELETE CASCADE,
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );

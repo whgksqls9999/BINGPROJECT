@@ -26,8 +26,9 @@
 	<update id="updateLocation" parameterType="Location">
 		UPDATE location
 		SET
-		locationd_id = #{locationd_id}, place_name = #{place_name},
-		address_name = #{address_name}
+		place_name = #{place_name},
+		address_name = #{address_name}, fav_cnt = #{fav_cnt}
+		WHERE location_id = #{location_id}
 	</update>
 
 	<!-- 등록했던 장소 삭제하기 -->
