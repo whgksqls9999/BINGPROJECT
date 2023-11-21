@@ -55,6 +55,9 @@ const router = useRouter();
 const userStore = useUserStore();
 const boardStore = useBoardStore();
 
+//로그인 정보
+const loginUser = computed(() => userStore.loginUser);
+
 // idParam : 게시글 id
 const idParam = computed(() => route.params.board_id);
 
@@ -70,8 +73,8 @@ const updateBoard = () => {
     content: content.value,
     board_id: idParam.value,
     title: title.value,
+    view_cnt: boardOne.value.view_cnt-1,
   };
-  console.log(boardData); //ok
   boardOne.reg_date = boardOne.is_modified;
   boardStore.updateBoard(boardData);
   router.push({
@@ -81,8 +84,8 @@ const updateBoard = () => {
 };
 
 onMounted(async () => {
-  boardStore.getBoard(idParam.value);
-  await userStore.getUserByEmail(userStore.loginUser.email);
+  userStore.getUserEmail();
+  await userStore.getUserByEmail(loginUser.value.email);
   content.value = boardOne.value.content;
   title.value = boardOne.value.title;
   // console.log("Content set in onMounted:", content.value);

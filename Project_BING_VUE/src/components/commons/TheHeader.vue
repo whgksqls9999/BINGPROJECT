@@ -52,10 +52,7 @@ const scrollInit = () => {
 
 // 페이지 로딩 시 로그인 유저 체크
 onMounted(() => {
-  if (!sessionStorage.getItem("access-token")) return;
-  userStore.loginUser = JSON.parse(
-    atob(sessionStorage.getItem("access-token").split(".")[1])
-  );
+  userStore.getUserEmail();
 });
 
 // 로그인/회원가입 모달

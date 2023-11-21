@@ -80,9 +80,7 @@ export const useUserStore = defineStore("user", () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        console.log(response);
         alert("환영합니다!");
-        console.log("dasdfasdf");
         router.push({ name: "main" });
       })
       .catch((err) => {
@@ -98,7 +96,6 @@ export const useUserStore = defineStore("user", () => {
 
   //회원정보 수정
   const modifyUser = (update) => {
-    console.log(update);
     axios
       .put(`${REST_USER_API}/${update.email}`, update, {
         headers: { "Content-Type": "application/json" },
@@ -153,6 +150,15 @@ export const useUserStore = defineStore("user", () => {
       .catch((err) => console.log(err));
   };
 
+    // 세션에서 유저 이메일 가져오기
+    const getUserEmail = () => {
+      if (!sessionStorage.getItem("access-token")) return;
+      loginUser.value = JSON.parse(
+        atob(sessionStorage.getItem("access-token").split(".")[1])
+      );
+      return loginUser.value.email;
+    };
+
   return {
     userLogin,
     loginUser,
@@ -173,5 +179,6 @@ export const useUserStore = defineStore("user", () => {
     followerList,
     followingList,
     doFollowCancel,
+    getUserEmail
   };
 });
