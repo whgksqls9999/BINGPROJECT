@@ -20,14 +20,18 @@
         <table>
           <thead>
             <tr>
-              <th>팔로워</th>
-              <th>팔로잉</th>
+              <th class="following" @click="doOpenFollowingList">팔로잉</th>
+              <th class="follower" @click="doOpenFollowerList">팔로워</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{{ followerList.length }}</td>
-              <td>{{ followingList.length }}</td>
+              <td class="following" @click="doOpenFollowingList">
+                {{ followingList.length }}
+              </td>
+              <td class="follower" @click="doOpenFollowerList">
+                {{ followerList.length }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -40,6 +44,12 @@
           <RouterLink :to="{ name: 'withdraw' }">해빙 탈퇴하기</RouterLink>
         </div>
       </div>
+      <MyFollow
+        v-if="followListToggle !== ''"
+        :toggle="followListToggle"
+        :type="followType"
+        @close-window="doCloseFollowList"
+      />
     </div>
   </div>
 </template>
@@ -47,7 +57,8 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { useUserStore } from "@/stores/userStore.js";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
+import MyFollow from "./include/MyFollow.vue";
 
 // 유저 닉네임 받아오기
 const route = useRoute();
@@ -60,6 +71,23 @@ const user = computed(() => userStore.user);
 // 팔로워 정보 가져오기
 const followerList = computed(() => userStore.followerList);
 const followingList = computed(() => userStore.followingList);
+
+// 팔로잉, 팔로워 목록 창
+const followListToggle = ref("");
+const followType = ref("");
+
+const doOpenFollowerList = () => {
+  followListToggle.value = followerList.value;
+  followType.value = "Follower";
+};
+const doOpenFollowingList = () => {
+  followListToggle.value = followingList.value;
+  followType.value = "Following";
+};
+
+const doCloseFollowList = () => {
+  followListToggle.value = "";
+};
 
 onMounted(() => {
   userStore.getUserByEmail(emailParam);
@@ -80,6 +108,7 @@ onMounted(() => {
   border-radius: 8px;
   width: 500px;
   background-color: white;
+  position: relative;
 }
 
 .myInfo-title {
@@ -150,6 +179,11 @@ table {
 .myInfo-withdraw a:hover {
   color: whitesmoke;
   background-color: rgb(216, 67, 67);
+}
+
+.follower,
+.following {
+  cursor: pointer;
 }
 </style>
 
