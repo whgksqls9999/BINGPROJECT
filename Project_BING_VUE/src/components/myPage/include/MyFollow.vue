@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="my-follow-box-list">
-        <MyFollowItem v-for="person in toggle" :person="person" :type="type" />
+        <MyFollowItem v-for="person in followList" :person="person" :type="type" @renew-follow="renewFollow"/>
       </div>
     </div>
   </div>
@@ -16,21 +16,49 @@
 
 <script setup>
 import { useUserStore } from "@/stores/userStore.js";
+import { useFavStore } from '@/stores/favStore.js';
 import MyFollowItem from "./MyFollowItem.vue";
+import {computed,onMounted, ref} from 'vue';
 
-// store
+// store, emit
 const userStore = useUserStore();
+const favStore = useFavStore();
+const emit = defineEmits(["closeWindow"]);
+
+const props = defineProps({
+  email:String,
+  type: String,
+});
+
+const followingList = computed(() => userStore.followingList);
+const followerList = computed(() => userStore.followerList);
+const followList = ref([]);
+
+// 팔로우 취소 후 목록 갱신
+const renewFollow = async () => {
+  await userStore.getFollowingList(props.email);
+  followList.value = followingList.value;
+}
+
 
 // 팔로우 목록 창 닫기
-const emit = defineEmits(["closeWindow"]);
 const closeWindow = () => {
   emit("closeWindow");
 };
 
-const props = defineProps({
-  toggle: Object,
-  type: String,
-});
+
+if(props.type == 'Follower'){
+  followList.value = followerList.value;
+} else if (props.type == 'Following'){
+  followList.value = followingList.value;
+}
+
+console.log(followList.value);
+
+// onMounted(() => {
+//   userStore.getFollowingList(props.email);
+//   userStore.getFollowerList(props.email);
+// })
 </script>
 
 <style scoped>
