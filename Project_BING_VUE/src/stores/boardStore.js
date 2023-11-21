@@ -48,16 +48,16 @@ export const useBoardStore = defineStore("board", () => {
 
   //게시글 눌렀을 때 가져오기
   const boardOne = ref({});
-  const getBoard = (boardId)=>{
+  const getBoard = (boardId) => {
     axios({
-      url:`${REST_BOARD_API}/${boardId}`,
-      method:"GET",
-    }).then((response)=>{
+      url: `${REST_BOARD_API}/${boardId}`,
+      method: "GET",
+    }).then((response) => {
       boardOne.value = response.data;
     });
   };
   // console.log(boardOne.value);
-  
+
   // 게시글 등록하기
   const registBoard = (board, comm_id) => {
     axios
@@ -73,31 +73,39 @@ export const useBoardStore = defineStore("board", () => {
       .catch((err) => console.log(err));
   };
 
-
   //게시글 수정하기
-  const updateBoard = ((newBoard, community_id)=>{
-    axios.put(`${REST_BOARD_API}/modify/${newBoard.board_id}`,newBoard,{
-      headers:{ "Content-Type": "application/json" },
-    })
-    .then((response)=>{
-      console.log(response)
-      alert('수정이 완료되었습니다.')
-      router.push({name:'boardDetail',params:{community_id:newBoard.community_id, board_id:newBoard.board_id} })
-      //router.push({path:'/board/${community_id}/${newBoard.board_id}})
-    })
-    .catch((err)=>console.log(err));
-  });
+  const updateBoard = (newBoard) => {
+    console.log(newBoard);
+    axios
+      .put(`${REST_BOARD_API}/modify/${newBoard.board_id}`, newBoard, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response);
+        alert("수정이 완료되었습니다.");
+        router.push({
+          name: "boardDetail",
+          params: {
+            community_id: boardOne.value.community_id,
+            board_id: newBoard.board_id,
+          },
+        });
+        //router.push({path:'/board/${community_id}/${newBoard.board_id}})
+      })
+      .catch((err) => console.log(err));
+  };
 
   //게시글 삭제하기
-  const deleteBoard = (removeBoardId)=>{
-    axios.delete(`${REST_BOARD_API}/delete/${removeBoardId}`)
-    .then((response)=>{
-      console.log(response);
-      //게시글 목록으로 돌아가기
-      alert('삭제가 완료되었습니다.')
-      router.push({name:'board'});
-    })
-  }
+  const deleteBoard = (removeBoardId) => {
+    axios
+      .delete(`${REST_BOARD_API}/delete/${removeBoardId}`)
+      .then((response) => {
+        console.log(response);
+        //게시글 목록으로 돌아가기
+        alert("삭제가 완료되었습니다.");
+        router.push({ name: "board" });
+      });
+  };
   return {
     commBoardList,
     getCommBoardList,
@@ -111,6 +119,5 @@ export const useBoardStore = defineStore("board", () => {
     getBoard,
     boardOne,
     deleteBoard,
-
   };
 });

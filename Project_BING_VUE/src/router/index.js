@@ -9,8 +9,9 @@ import MyBoards from "@/components/myPage/MyBoards.vue";
 import MyFavorite from "@/components/myPage/MyFavorite.vue";
 import MyInfo from "@/components/myPage/MyInfo.vue";
 import ModifyInfo from "@/components/account/ModifyForm.vue";
-
+import BoardModify from "@/components/board/BoardModify.vue";
 import UserWithdraw from "@/components/account/WithdrawForm.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -40,6 +41,11 @@ const router = createRouter({
       path: "/board/:community_id/:board_id",
       name: "boardDetail",
       component: BoardDetail,
+    },
+    {
+      path: "/board/:community_id/:board_id/modify",
+      name: "boardModify",
+      component: BoardModify,
     },
     {
       path: "/board/:community_id/write",
