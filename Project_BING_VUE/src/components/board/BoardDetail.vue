@@ -104,9 +104,6 @@ const favBoardList = computed(() => favStore.favBoardList);
 // 찜 여부 체크
 const isFavored = computed(() => favStore.isFavored);
 
-// 유저 정보
-const user = computed(() => userStore.user);
-
 // idParam : 게시글 id
 const idParam = computed(() => route.params.board_id);
 
@@ -127,7 +124,6 @@ const replyContent = ref("");
 onMounted(async () => {
   replyStore.getBoardReplyList(idParam.value);
   boardStore.getBoard(idParam.value);
-});
   await userStore.getUserByEmail(userStore.loginUser.email);
   await favStore.getFavBoardList(userStore.user.nickname);
   userStore.isFavored = await favStore.doFavorCheck(

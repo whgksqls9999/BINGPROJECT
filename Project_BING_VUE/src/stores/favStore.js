@@ -38,16 +38,16 @@ export const useFavStore = defineStore("fav", () => {
   //이미 찜한 게시물인지 체크
   const isFavored = ref("");
   const doFavorCheck = async (nickname, board_id) => {
-    const check = false;
+    const check = ref(false);
     await getFavBoardList(nickname);
     favBoardList.value.forEach((element) => {
       if (element.board_id == board_id) {
         isFavored.value = element.favorite_boardId;
-        check = true;
+        check.value = true;
         return;
       }
     });
-    if (!check) {
+    if (!check.value) {
       isFavored.value = null;
     }
   };
