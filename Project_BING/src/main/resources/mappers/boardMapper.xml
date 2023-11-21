@@ -41,7 +41,7 @@
 	</insert>
 
 	<!-- 게시글 수정 -->
-	<update id="updateBoard" parameterType="Board" keyProperty="">
+	<update id="updateBoard" parameterType="Board">
 		UPDATE board
 		SET title = #{title}, content = #{content}, is_modified =
 		CURRENT_TIMESTAMP, fav_cnt = #{fav_cnt}
