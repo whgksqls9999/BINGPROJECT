@@ -90,7 +90,9 @@ export const useUserStore = defineStore("user", () => {
   };
 
   // 로그인 체크
+  const isLogin = ref('');
   const doLoginCheck = () => {
+    isLogin.value = sessionStorage.getItem('access-token');
     return sessionStorage.getItem("access-token");
   };
 
@@ -179,6 +181,7 @@ export const useUserStore = defineStore("user", () => {
     followerList,
     followingList,
     doFollowCancel,
-    getUserEmail
+    getUserEmail,
+    isLogin
   };
 });

@@ -38,8 +38,10 @@
           <button class="action-button" id="delete" @click="boardDelete">
             삭제
           </button>
-          <button @click="doFavBoard">좋아요</button>
-          <button @click="doFavCancel">좋아요취소</button>
+          <span v-if="isLogin != null">
+            <button v-if="isFavored == ''" @click="doFavBoard" class="fav-button">좋아요</button>
+            <button v-else @click="doFavCancel" class="fav-cancel-button">좋아요</button>
+          </span>
           <button class="nav-button">다음</button>
         </div>
       </div>
@@ -81,7 +83,7 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, onUpdated, ref } from "vue";
+import { computed, onMounted, onUpdated, ref} from "vue";
 import { useReplyStore } from "@/stores/replyStore.js";
 import { useUserStore } from "@/stores/userStore.js";
 
@@ -101,7 +103,7 @@ const boardStore = useBoardStore();
 const favStore = useFavStore();
 
 // 게시글 찜하기
-const doFavBoard = () => {
+const doFavBoard = async () => {
   let favBoard = {
     favorite_boardId: 0,
     board_id: idParam.value,
@@ -109,18 +111,21 @@ const doFavBoard = () => {
   };
 
   favStore.doFavBoard(favBoard, user.value.nickname);
-  boardStore.getBoard(idParam.value);
   boardOne.value.fav_cnt++;
-  boardStore.updateBoard(boardOne.value);
+  await boardStore.updateBoard(boardOne.value);
+  boardStore.getBoard(idParam.value);
 };
 
 // 게시글 찜 취소하기
-const doFavCancel = () => {
+const doFavCancel = async () => {
   favStore.doFavBoardCancel(
     isFavored.value,
     user.value.nickname,
     idParam.value
   );
+  boardOne.value.fav_cnt--;
+  await boardStore.updateBoard(boardOne.value);
+  boardStore.getBoard(idParam.value);
 };
 
 // favBoardList : 해당 유저의 찜 게시글 목록
@@ -137,15 +142,15 @@ const boardReplyList = computed(() => replyStore.boardReplyList);
 // boardOne board_id로 선택해 온 게시글 하나, 의존하는 변수 변할때마다 올려줄거임~!
 const boardOne = computed(() => boardStore.boardOne);
 
-
-
 //글 작성자 맞으면 수정 삭제 버튼 띄우기위해서 user 불러오기
 const user = computed(() => userStore.user);
+
 // 로그인 체크용 변수
-const isLogin = userStore.doLoginCheck();
+const isLogin = computed(() => userStore.isLogin);
 
 // 댓글 작성 관련 //
 const replyContent = ref("");
+
 //게시글 관련
 
 //수정 누르면 수정 form으로 이동
@@ -175,6 +180,7 @@ onMounted(async () => {
     idParam.value
   );
   commonStore.toggleHeaderFixed(false);
+  userStore.doLoginCheck();
 });
 
 // onUpdated(() => {
@@ -411,6 +417,27 @@ input {
 .comment-input button:hover {
   background-color: white;
   color: black;
+}
+
+
+.fav-cancel-button:hover,
+.fav-button{
+  background-color: rgb(255, 255, 255);
+  font-weight: bold;
+  color: pink;
+  padding: 8px 16px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.fav-button:hover,
+.fav-cancel-button{
+  background-color: pink;
+  font-weight: bold;
+  color: white;
+  padding: 8px 16px;
+  margin-right: 5px;
+  cursor: pointer;
 }
 </style>
 <!-- .comment-container {

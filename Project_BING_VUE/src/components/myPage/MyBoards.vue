@@ -29,7 +29,7 @@
                       board_id: board.board_id,
                     },
                   }"
-                  @click="() => {boardStore.updateViewCnt(board.board_id)}"
+                  @click="async () => {await boardStore.updateViewCnt(board.board_id)}"
                   >{{ board.title }}</RouterLink
                 >
               </td>

@@ -48,7 +48,7 @@ export const useFavStore = defineStore("fav", () => {
       }
     });
     if (!check.value) {
-      isFavored.value = null;
+      isFavored.value = '';
     }
   };
 
