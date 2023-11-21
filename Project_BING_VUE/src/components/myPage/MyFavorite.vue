@@ -1,21 +1,21 @@
 <template>
   <!--장소 게시글 한번에-->
   <div class="myFavorite-global">
-    <h2>{{ nicknameParam }}님의 찜한 장소 목록</h2>
+    <h2>{{ user.nickname }}님의 찜한 장소 목록</h2>
     <br />
     <div class="myFavLocation-container">
       <h3 v-if="myFavLocations.length == 0">
-        {{ nicknameParam }}님이 찜한 장소가 없습니다.
+        {{ user.nickname }}님이 찜한 장소가 없습니다.
       </h3>
       <div v-else class="myFavLoction-map"></div>
       <!--찜한 장소 지도에 MARKER로 뜨겠지? 그거 받아오면 될 듯 아 그럼 또 DB 추가해야됨?-->
     </div>
     <!--게시글-->
     <div class="myFavoriteBoard-container">
-      <h2>{{ nicknameParam }}님의 찜한 게시글 목록</h2>
+      <h2>{{ user.nickname }}님의 찜한 게시글 목록</h2>
       <br />
       <h3 v-if="myFavBoards.length == 0">
-        {{ nicknameParam }}님이 찜한 게시글이 없습니다.
+        {{ user.nickname }}님이 찜한 게시글이 없습니다.
       </h3>
       <table v-else class="myFavoriteBoard-table">
         <thead>
@@ -44,13 +44,20 @@
 <script setup>
 import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
+import { useUserStore} from '@/stores/userStore.js';
 import { useRoute } from "vue-router";
 
-// 유저 닉네임 받아오기
+// route, store
 const route = useRoute();
-const nicknameParam = route.params.nickname;
-
+const userStore = useUserStore();
 const store = useMyPageStore();
+
+// 유저 정보 받아오기
+const user = computed(() => userStore.user);
+
+// 유저 이메일 받아오기
+const emailParam = route.params.email;
+
 //내가 찜한 장소 불러오기
 const myFavLocations = computed(() => {
   return store.myFavLocations;
@@ -61,9 +68,13 @@ const myFavBoards = computed(() => {
   return store.myFavBoards;
 });
 
-onMounted(() => {
+onMounted(async() => {
   // store.getMyFavLocations(); 이것을 살려야 한다 지도 API 必
-  store.getMyFavBoards(nicknameParam);
+  await userStore.getUserByEmail(emailParam);
+  await store.getMyFavBoards(user.value.nickname);
+  console.log(user.value);
+  // console.log(myFavBoards.value);
+  // console.log(emailParam);
 });
 </script>
 
