@@ -17,17 +17,14 @@
 
 	<!-- 장소 등록하기 -->
 	<insert id="insertLocation" parameterType="Location">
-		INSERT INTO
-		location(location_id, place_name, address_name)
-		VALUES(#{location_id}, #{place_name}, #{address_name})
+		INSERT INTO location (location_id, place_name, address_name, fav_cnt, longitude, latitude)
+		VALUES(#{location_id}, #{place_name}, #{address_name}, #{fav_cnt}, #{longitude}, #{latitude})
 	</insert>
 
 	<!-- 등록했던 장소 수정하기 -->
 	<update id="updateLocation" parameterType="Location">
 		UPDATE location
-		SET
-		place_name = #{place_name},
-		address_name = #{address_name}, fav_cnt = #{fav_cnt}
+		SET fav_cnt = #{fav_cnt}
 		WHERE location_id = #{location_id}
 	</update>
 

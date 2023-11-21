@@ -22,14 +22,19 @@ CREATE TABLE location (
     location_id INT(10) PRIMARY KEY NOT NULL,
     place_name VARCHAR(100) NOT NULL,
     address_name VARCHAR(100) NOT NULL,
-    fav_cnt INT(10) DEFAULT 0
+    fav_cnt INT(10) DEFAULT 0,
+    longitude DECIMAL(10,7) NOT NULL,
+    latitude DECIMAL(10,7) NOT NULL
 );
+
+INSERT INTO location (location_id, place_name, address_name, fav_cnt, longitude, latitude)
+VALUES (1, '장소이름','주소',0,00.0000,00.0000);
 -- Location 데이터
-INSERT INTO location (location_id, place_name, address_name)
-VALUES (1, '장소 이름', '주소'),
-(2, '장소 이름2', '주소2'),
-(3, '장소 이름3', '주소3'),
-(4, '장소 이름4', '주소4');
+-- INSERT INTO location (location_id, place_name, address_name)
+-- VALUES (1, '장소 이름', '주소'),
+-- (2, '장소 이름2', '주소2'),
+-- (3, '장소 이름3', '주소3'),
+-- (4, '장소 이름4', '주소4');
 SELECT * FROM location;
 
 CREATE TABLE community (
