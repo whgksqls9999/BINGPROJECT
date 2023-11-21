@@ -90,6 +90,22 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+textarea {
+  padding: 1rem;
+  border-radius: 30px;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  border-style: none;
+  font-size: 18px;
+  font-family: "Noto Sans KR";
+}
+
+textarea:focus {
+  outline: none;
+  border: 2px solid black;
+}
+
 .board-detail {
   margin-top: 120px;
   text-align: center;
@@ -110,6 +126,7 @@ onMounted(async () => {
 }
 
 .board-detail-content {
+  overflow: hidden;
   font-size: 1.2rem;
   display: flex;
   justify-content: center;

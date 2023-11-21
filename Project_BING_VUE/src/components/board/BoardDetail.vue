@@ -27,11 +27,20 @@
         <div class="board-detail-content">
           <p>{{ boardOne.content }}</p>
         </div>
+        <div
+          class="board-detail-location"
+          v-if="boardOne.header === '장소추천'"
+        >
+          <!--지도뿌리기-->
+          <img src="@/assets/PHOTO_0057.jpg" />
+        </div>
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
           <button class="nav-button">이전</button>
           <button class="action-button" @click="boardModifyPush">수정</button>
-          <button class="action-button" id="delete">삭제</button>
+          <button class="action-button" id="delete" @click="boardDelete">
+            삭제
+          </button>
           <button class="nav-button">다음</button>
         </div>
       </div>
@@ -146,6 +155,10 @@ const boardModifyPush = () => {
     },
   });
 };
+
+const boardDelete = () => {
+  boardStore.deleteBoard(idParam.value);
+};
 onMounted(async () => {
   replyStore.getBoardReplyList(idParam.value);
   boardStore.getBoard(idParam.value);
@@ -183,6 +196,12 @@ onMounted(async () => {
   border: 1px solid #ccc;
   padding: 20px;
   margin-top: 20px;
+}
+
+board-detail-location {
+  width: 100%;
+  border-radius: 30px;
+  border: 2px solid rgb(168, 165, 165);
 }
 
 .board-detail-content {
