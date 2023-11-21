@@ -4,9 +4,18 @@ public class Location {
 	private int location_id;
 	private String place_name;
 	private String address_name;
+	private int fav_cnt;
 
 	public Location() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Location(int location_id, String place_name, String address_name, int fav_cnt) {
+		super();
+		this.location_id = location_id;
+		this.place_name = place_name;
+		this.address_name = address_name;
+		this.fav_cnt = fav_cnt;
 	}
 
 	public int getLocation_id() {
@@ -33,11 +42,12 @@ public class Location {
 		this.address_name = address_name;
 	}
 
-	public Location(int location_id, String place_name, String address_name) {
-		super();
-		this.location_id = location_id;
-		this.place_name = place_name;
-		this.address_name = address_name;
+	public int getFav_cnt() {
+		return fav_cnt;
+	}
+
+	public void setFav_cnt(int fav_cnt) {
+		this.fav_cnt = fav_cnt;
 	}
 
 }

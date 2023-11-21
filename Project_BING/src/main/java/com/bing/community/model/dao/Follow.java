@@ -1,4 +1,4 @@
-package com.bing.community.model.dto;
+package com.bing.community.model.dao;
 
 public class Follow {
 	private int follow_id;
