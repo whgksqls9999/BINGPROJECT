@@ -141,6 +141,18 @@ export const useUserStore = defineStore("user", () => {
     });
   };
 
+  // 팔로잉 취소하기
+  const doFollowCancel = (follow_id, email) => {
+    console.log(follow_id);
+    axios
+      .delete(`${REST_FOLLOW_API}/${follow_id}`)
+      .then(() => {
+        getFollowerList(email);
+        getFollowingList(email);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return {
     userLogin,
     loginUser,
@@ -160,5 +172,6 @@ export const useUserStore = defineStore("user", () => {
     getFollowingList,
     followerList,
     followingList,
+    doFollowCancel,
   };
 });

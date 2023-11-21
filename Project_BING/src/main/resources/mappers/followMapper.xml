@@ -5,10 +5,14 @@
 <mapper namespace="com.bing.community.model.dao.FollowDao">
 	<select id="selectFollowing" parameterType="string" resultType="Follow">
 		SELECT * FROM follow
+		INNER JOIN user
+		ON follow.follow_to = user.email
 		WHERE follow_from = #{email}
 	</select>
 	<select id="selectFollower" parameterType="string" resultType="Follow">
 		SELECT * FROM follow
+		INNER JOIN user
+		ON follow.follow_from = user.email
 		WHERE follow_to = #{user_email}
 	</select>
 	<insert id="insertFollow" parameterType="Follow">
