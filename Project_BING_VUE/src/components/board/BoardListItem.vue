@@ -4,7 +4,7 @@
     <td>
       <RouterLink
         :to="{ name: 'boardDetail', params: { board_id: board.board_id } }"
-        >{{ board.title }}</RouterLink
+        @Click="() => {boardStore.updateViewCnt(board.board_id)}">{{ board.title }}</RouterLink
       >
     </td>
     <td>{{ board.writer }}</td>
@@ -15,6 +15,9 @@
 </template>
 
 <script setup>
+import { useBoardStore } from '@/stores/boardStore';
+const boardStore = useBoardStore();
+
 const props = defineProps({
   board: Object,
 });

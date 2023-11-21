@@ -29,6 +29,7 @@
                       board_id: board.board_id,
                     },
                   }"
+                  @click="() => {boardStore.updateViewCnt(board.board_id)}"
                   >{{ board.title }}</RouterLink
                 >
               </td>
@@ -84,8 +85,10 @@ import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
 import { useUserStore } from "@/stores/userStore";
 import { useRoute } from "vue-router";
-
+import { useBoardStore } from "@/stores/boardStore";
 import { useCommonStore } from "@/stores/commonStore";
+
+const boardStore = useBoardStore();
 
 // 헤더 fixed toggle
 const commonStore = useCommonStore();

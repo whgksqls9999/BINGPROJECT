@@ -43,8 +43,6 @@ public class BoardRestController {
 		} else {
 			return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
 		}
-		
-		
 	}
 
 	//게시글 하나 가져오기
@@ -69,7 +67,7 @@ public class BoardRestController {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	
 	@PutMapping("/modify/{board_id}")
 	public ResponseEntity<?> modifyBoard(@RequestBody Board board, @PathVariable int board_id) {
 		System.out.println(board+" "+board_id);
@@ -78,6 +76,18 @@ public class BoardRestController {
 		
 		if (result > 0) {
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	// 조회수 증가
+	@PutMapping("/{board_id}")
+	public ResponseEntity<?> increaseViewCnt(@PathVariable int board_id) {
+		int result = boardService.increaseViewCnt(board_id);
+		
+		if (result > 0) {
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}

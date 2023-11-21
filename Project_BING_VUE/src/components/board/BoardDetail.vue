@@ -5,8 +5,8 @@
         <h3>
           {{
             boardOne.community_id === 1
-              ? "FREEDIVING"
-              : boardOne.community_id === 2
+            ? "FREEDIVING"
+            : boardOne.community_id === 2
               ? "SKINSCUBA"
               : boardOne.community_id
           }}
@@ -27,10 +27,7 @@
         <div class="board-detail-content">
           <p>{{ boardOne.content }}</p>
         </div>
-        <div
-          class="board-detail-location"
-          v-if="boardOne.header === '장소추천'"
-        >
+        <div class="board-detail-location" v-if="boardOne.header === '장소추천'">
           <!--지도뿌리기-->
           <img src="@/assets/PHOTO_0057.jpg" />
         </div>
@@ -58,11 +55,7 @@
                 <th>작성일</th>
               </tr>
             </thead>
-            <tbody
-              v-for="reply in boardReplyList"
-              :key="reply.id"
-              class="reply-item"
-            >
+            <tbody v-for="reply in boardReplyList" :key="reply.id" class="reply-item">
               <tr>
                 <td>{{ reply.reply_id }}</td>
                 <td>{{ reply.content }}</td>
@@ -99,7 +92,6 @@ const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
 const replyStore = useReplyStore();
-
 const boardStore = useBoardStore();
 const favStore = useFavStore();
 
@@ -161,8 +153,11 @@ const boardDelete = () => {
 };
 onMounted(async () => {
   replyStore.getBoardReplyList(idParam.value);
-  boardStore.getBoard(idParam.value);
-  await userStore.getUserByEmail(userStore.loginUser.email);
+  // await boardStore.updateViewCnt(idParam.value);
+  await boardStore.getBoard(idParam.value);
+  if (userStore.loginUser != '') {
+    await userStore.getUserByEmail(userStore.loginUser.email);
+  }
   await favStore.getFavBoardList(userStore.user.nickname);
   userStore.isFavored = await favStore.doFavorCheck(
     user.value.nickname,
@@ -324,6 +319,7 @@ td {
 }
 
 @media all and (max-width: 768px) {
+
   table,
   thead,
   tbody,
@@ -399,6 +395,7 @@ input {
   color: #ffffff;
   height: 32px;
 }
+
 .comment-input button:hover {
   background-color: white;
   color: black;

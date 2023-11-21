@@ -59,4 +59,12 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectCommBoardList(community_id);
 	}
 
+	// 조회수 증가
+	@Override
+	public int increaseViewCnt(int id) {
+		return boardDao.updateViewCnt(id);
+	}
+	
+	
+
 }

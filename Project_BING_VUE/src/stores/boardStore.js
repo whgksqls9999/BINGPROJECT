@@ -48,15 +48,14 @@ export const useBoardStore = defineStore("board", () => {
 
   //게시글 눌렀을 때 가져오기
   const boardOne = ref({});
-  const getBoard = (boardId) => {
-    axios({
+  const getBoard = async (boardId) => {
+    await axios({
       url: `${REST_BOARD_API}/${boardId}`,
       method: "GET",
     }).then((response) => {
       boardOne.value = response.data;
     });
   };
-  // console.log(boardOne.value);
 
   // 게시글 등록하기
   const registBoard = (board, comm_id) => {
@@ -74,14 +73,12 @@ export const useBoardStore = defineStore("board", () => {
   };
 
   //게시글 수정하기
-  const updateBoard = (newBoard) => {
-    console.log(newBoard);
-    axios
+  const updateBoard = async (newBoard) => {
+    await axios
       .put(`${REST_BOARD_API}/modify/${newBoard.board_id}`, newBoard, {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        console.log(response);
         alert("수정이 완료되었습니다.");
         router.push({
           name: "boardDetail",
@@ -100,12 +97,22 @@ export const useBoardStore = defineStore("board", () => {
     axios
       .delete(`${REST_BOARD_API}/delete/${removeBoardId}`)
       .then((response) => {
-        console.log(response);
         //게시글 목록으로 돌아가기
         alert("삭제가 완료되었습니다.");
         router.push({ name: "board" });
       });
   };
+
+  // 조회수 증가하기
+  const updateViewCnt = async (board_id) => {
+    await axios
+      .put(`${REST_BOARD_API}/${board_id}`)
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
+
+
+
   return {
     commBoardList,
     getCommBoardList,
@@ -114,10 +121,10 @@ export const useBoardStore = defineStore("board", () => {
     communityList,
     getCommunityList,
     registBoard,
-
     updateBoard,
     getBoard,
     boardOne,
     deleteBoard,
+    updateViewCnt,
   };
 });

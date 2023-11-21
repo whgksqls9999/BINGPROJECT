@@ -29,4 +29,7 @@ public interface BoardService {
 	
 	//게시글 검색
 	List<Board> searchBoard(SearchCondition con);
+	
+	// 조회수 증가
+	int increaseViewCnt(int id);
 }
