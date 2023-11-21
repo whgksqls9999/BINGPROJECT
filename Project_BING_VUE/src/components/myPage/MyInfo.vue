@@ -48,7 +48,9 @@
         v-if="followListToggle !== ''"
         :toggle="followListToggle"
         :type="followType"
+        :email="emailParam"
         @close-window="doCloseFollowList"
+        @renew-following="doOpenFollowingList"
       />
     </div>
   </div>
@@ -76,18 +78,36 @@ const followingList = computed(() => userStore.followingList);
 const followListToggle = ref("");
 const followType = ref("");
 
+// 팔로워 리스트 열기
 const doOpenFollowerList = () => {
   followListToggle.value = followerList.value;
+  userStore.getFollowingList(emailParam);
   followType.value = "Follower";
 };
+
+// 팔로잉 리스트 열기
 const doOpenFollowingList = () => {
   followListToggle.value = followingList.value;
+  userStore.getFollowerList(emailParam);
   followType.value = "Following";
 };
 
+// 팔로워(잉) 리스트 닫기
 const doCloseFollowList = () => {
   followListToggle.value = "";
 };
+
+// // 팔로워 목록 갱신
+// const doRenewFollower = async () =>  {
+//   await userStore.getFollowerList(emailParam);
+//   followListToggle.value = followerList.value;
+// }
+
+// 팔로잉 목록 갱신
+const doRenewFollowing = async () => {
+  await userStore.getFollowingList(emailParam);
+  followListToggle.value = followingList.value;
+}
 
 onMounted(() => {
   userStore.getUserByEmail(emailParam);

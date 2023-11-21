@@ -135,16 +135,17 @@ export const useUserStore = defineStore("user", () => {
 
   // 팔로잉 정보 가져오기
   const followingList = ref([]);
-  const getFollowingList = (email) => {
-    axios.get(`${REST_FOLLOW_API}/${email}/following`).then((response) => {
-      followingList.value = response.data;
-    });
+  const getFollowingList = async (email) => {
+    await axios
+      .get(`${REST_FOLLOW_API}/${email}/following`)
+      .then((response) => {
+        followingList.value = response.data;
+      });
   };
 
   // 팔로잉 취소하기
-  const doFollowCancel = (follow_id, email) => {
-    console.log(follow_id);
-    axios
+  const doFollowCancel = async (follow_id, email) => {
+    await axios
       .delete(`${REST_FOLLOW_API}/${follow_id}`)
       .then(() => {
         getFollowerList(email);

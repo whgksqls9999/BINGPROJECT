@@ -10,7 +10,7 @@
       <div>{{ person.email }}</div>
     </div>
     <div class="my-follow-item-right">
-      <button class="my-follow-item-cancel" @click="doFollowCancel">
+      <button class="my-follow-item-cancel" @click="doFollowCancel" v-if="type=='Following'">
         팔로우 취소
       </button>
     </div>
@@ -24,10 +24,17 @@ import { useUserStore } from "@/stores/userStore.js";
 const userStore = useUserStore();
 
 const user = computed(() => userStore.user);
+
 // 팔로우 취소
-const doFollowCancel = () => {
-  userStore.doFollowCancel(props.person.follow_id, user.value.email);
+const doFollowCancel = async () => {
+  await userStore.doFollowCancel(props.person.follow_id, user.value.email);
+  doRenewFollowList();
 };
+
+const emit = defineEmits(['renewFollow']);
+const  doRenewFollowList = () => {
+    emit('renewFollow');
+}
 
 const props = defineProps({
   person: Object,

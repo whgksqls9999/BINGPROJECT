@@ -141,6 +141,7 @@ onMounted(async () => {
 .board-detail {
   margin-top: 120px;
   text-align: center;
+  height: 1000px;
 }
 
 .board-detail-global {

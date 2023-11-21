@@ -40,8 +40,7 @@ CREATE TABLE community (
 -- Community 데이터
 INSERT INTO community (community_name, community_description)
 VALUES ('프리다이빙','프리다이빙을 위한 커뮤니티'),
-('스킨스쿠버','스킨스쿠버를 위한 커뮤니티'),
-('해녀','해녀를 위한 커뮤니티');
+('스킨스쿠버','스킨스쿠버를 위한 커뮤니티');
 SELECT * FROM community;
 
 CREATE TABLE board (
