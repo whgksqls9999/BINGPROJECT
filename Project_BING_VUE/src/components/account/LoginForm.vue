@@ -9,32 +9,34 @@
         <button @click="closeWindow">닫기</button>
     </div>
   </div> -->
-  <div class="login-box">
-    <h2></h2>
-    <form v-on:submit.prevent>
-      <div class="user-box">
-        <input type="text" v-model.trim="id" />
-        <label>UserId</label>
-      </div>
-      <div class="user-box">
-        <input type="password" v-model.trim="pw" @keyup.enter="login" />
-        <label>Password</label>
-      </div>
-      <div class="signIn-button">
-        <button @click="login">
-          <span></span>
-          <span></span>
-          <span></span>
-          로그인
-        </button>
-        <button @click="closeWindow">
-          <span></span>
-          <span></span>
-          <span></span>
-          닫기
-        </button>
-      </div>
-    </form>
+  <div class="login-box-outer" @click.stop="detectClick">
+    <div class="login-box">
+      <h2></h2>
+      <form v-on:submit.prevent>
+        <div class="user-box">
+          <input type="text" v-model.trim="id" />
+          <label>UserId</label>
+        </div>
+        <div class="user-box">
+          <input type="password" v-model.trim="pw" @keyup.enter="login" />
+          <label>Password</label>
+        </div>
+        <div class="signIn-button">
+          <button @click="login">
+            <span></span>
+            <span></span>
+            <span></span>
+            로그인
+          </button>
+          <button @click="closeWindow">
+            <span></span>
+            <span></span>
+            <span></span>
+            닫기
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -53,21 +55,36 @@ const login = function () {
 const closeWindow = () => {
   userStore.changeForm(0);
 };
+
+const detectClick = (e) => {
+  if (e.target.className === "login-box-outer") {
+    closeWindow();
+  }
+};
 </script>
 
 <style scoped>
+.login-box-outer {
+  background-color: rgba(128, 128, 128, 0.4);
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
 .login-box {
   margin-top: 250px;
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 10%;
   left: 50%;
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  z-index: 2;
 }
 
 .login-box h2 {

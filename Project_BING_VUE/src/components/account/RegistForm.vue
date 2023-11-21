@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "@/stores/userStore.js";
 
 const email = ref("");
