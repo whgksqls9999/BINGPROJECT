@@ -61,6 +61,18 @@ export const useBoardStore = defineStore("board", () => {
       .catch((err) => console.log(err));
   };
 
+  // 게시글 수정하기
+  const modifyBoard = (board) => {
+    axios
+      .post(`${REST_BOARD_API}/{modify}/${board.board_id}`, board, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
+
   return {
     commBoardList,
     getCommBoardList,
@@ -69,5 +81,6 @@ export const useBoardStore = defineStore("board", () => {
     communityList,
     getCommunityList,
     registBoard,
+    modifyBoard,
   };
 });

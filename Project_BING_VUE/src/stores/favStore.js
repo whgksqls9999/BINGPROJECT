@@ -2,10 +2,13 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
+import { useBoardStore } from "@/stores/boardStore.js";
 
 export const useFavStore = defineStore("fav", () => {
   const REST_FAVBOARD_API = "http://localhost:1004/favboard";
   const REST_FAVLOCATION_API = "http://localhost:1004/favlocation";
+
+  const boardStore = useBoardStore();
 
   // 게시글 찜하기
   const doFavBoard = (favBoard, nickname) => {
@@ -37,11 +40,9 @@ export const useFavStore = defineStore("fav", () => {
   const doFavorCheck = async (nickname, board_id) => {
     const check = false;
     await getFavBoardList(nickname);
-    console.log(favBoardList.value);
     favBoardList.value.forEach((element) => {
-      console.log(element.board_id, board_id);
       if (element.board_id == board_id) {
-        isFavored.value = board_id;
+        isFavored.value = element.favorite_boardId;
         check = true;
         return;
       }
@@ -49,10 +50,18 @@ export const useFavStore = defineStore("fav", () => {
     if (!check) {
       isFavored.value = null;
     }
-    // isFavored.value = null;
   };
 
-  const doFavBoardCancel = () => {};
+  // 찜 취소
+  const doFavBoardCancel = (favorite_boardId, nickname, board_id) => {
+    axios
+      .delete(`${REST_FAVBOARD_API}/deletefavboard/${favorite_boardId}`)
+      .then((response) => {
+        doFavorCheck(nickname, board_id);
+        alert("게시글 찜을 취소했습니다.");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return {
     doFavBoard,
