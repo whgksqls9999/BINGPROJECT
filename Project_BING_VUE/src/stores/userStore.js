@@ -2,7 +2,13 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
+import { useFavStore } from "@/stores/favStore";
+
 export const useUserStore = defineStore("user", () => {
+  // Store
+  const favStore = useFavStore();
+
+  //API
   const REST_USER_API = "http://localhost:1004/user";
   const REST_FOLLOW_API = "http://localhost:1004/follow";
 
@@ -15,18 +21,19 @@ export const useUserStore = defineStore("user", () => {
     });
   };
 
-  const users = ref([]);
-  const getAllUsers = () => {
-    axios.get(`${REST_USER_API}/`).then((response) => {
-      users.value = response.data;
-    });
-  };
-
   // 유저 정보 가져오기(이메일)
   const getUserByEmail = (email) => {
     axios
       .get(`${REST_USER_API}/email/${email}`)
       .then((response) => (user.value = response.data));
+  };
+
+  // 유저 목록 가져오기
+  const users = ref([]);
+  const getAllUsers = () => {
+    axios.get(`${REST_USER_API}/`).then((response) => {
+      users.value = response.data;
+    });
   };
 
   // header 출력 폼 결정
@@ -48,7 +55,11 @@ export const useUserStore = defineStore("user", () => {
           const token = response.data["access-token"].split(".");
           loginUser.value = JSON.parse(atob(token[1]));
           showForm.value = 0;
+
+          // 기본 정보 가져오기
           getUserByEmail(loginUser.value.email);
+          getFollowerList(loginUser.value.email);
+          getFollowingList(loginUser.value.email);
           router.push({ name: "main" });
         }
       })

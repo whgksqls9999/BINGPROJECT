@@ -1,4 +1,5 @@
 <template>
+
   <div class="board-detail">
     <div class="board-detail-global">
       <h3>{{ boardOne.community_id === 1 ? 'FREEDIVING' : (boardOne.community_id === 2 ? 'SKINSCUBA' :
@@ -63,13 +64,48 @@ import { useRoute } from "vue-router";
 import { computed, onMounted, onUpdated, ref } from "vue";
 import { useReplyStore } from "@/stores/replyStore.js";
 import { useUserStore } from "@/stores/userStore.js";
+
 import { useBoardStore } from "@/stores/boardStore";
+
+import { useFavStore } from "@/stores/favStore.js";
+
 
 // route, store 임포트
 const route = useRoute();
 const userStore = useUserStore();
 const replyStore = useReplyStore();
+
 const boardStore = useBoardStore();
+const favStore = useFavStore();
+
+// 게시글 찜하기
+const doFavBoard = () => {
+  let favBoard = {
+    favorite_boardId: 0,
+    board_id: idParam.value,
+    writername: user.value.nickname,
+  };
+
+  favStore.doFavBoard(favBoard, user.value.nickname);
+};
+
+// 게시글 찜 취소하기
+const doFavCancel = () => {
+  favStore.doFavBoardCancel(
+    isFavored.value,
+    user.value.nickname,
+    idParam.value
+  );
+};
+
+// favBoardList : 해당 유저의 찜 게시글 목록
+const favBoardList = computed(() => favStore.favBoardList);
+
+// 찜 여부 체크
+const isFavored = computed(() => favStore.isFavored);
+
+// 유저 정보
+const user = computed(() => userStore.user);
 
 // idParam : 게시글 id
 const idParam = computed(() => route.params.board_id);
@@ -88,11 +124,21 @@ const replyContent = ref("");
 //게시글 관련
 
 
-onMounted(() => {
+onMounted(async () => {
   replyStore.getBoardReplyList(idParam.value);
   boardStore.getBoard(idParam.value);
 });
+  await userStore.getUserByEmail(userStore.loginUser.email);
+  await favStore.getFavBoardList(userStore.user.nickname);
+  userStore.isFavored = await favStore.doFavorCheck(
+    user.value.nickname,
+    idParam.value
+  );
+});
 
+// onUpdated(() => {
+//   replyStore.getBoardReplyList(idParam.value);
+// });
 </script>
 
 <style scoped>

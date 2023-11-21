@@ -64,7 +64,7 @@ CREATE TABLE board (
 INSERT INTO board (community_id, num, header, title, writer, content)
 VALUES (1, 1,'자유','제목1','닉네임','내용1'),
 (1, 2,'자유','제목2','닉네임','내용2'),
-(1, 3,'자유','제목3','닉네임','내용3'),
+(1, 2,'자유','제목3','닉네임','내용3'),
 (2, 1,'자유','제목4','닉네임2','내용4'),
 (2, 2,'자유','제목5','닉네임','내용5');
 SELECT * FROM board;
@@ -79,8 +79,7 @@ CREATE TABLE favorite_board (
 INSERT INTO favorite_board
 VALUES (1,1,'닉네임'),
 (2,2,'닉네임2'),
-(3,2,'닉네임2'),
-(4,3,'닉네임3');
+(3,2,'닉네임2');
 SELECT * FROM
 favorite_board;
 

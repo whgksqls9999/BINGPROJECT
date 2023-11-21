@@ -40,6 +40,7 @@ public class FavoriteBoardRestController {
 	// 장소 찜 등록하기
 	@PostMapping("/addfavboard")
 	public ResponseEntity<?> addFavoriteBoard(@RequestBody FavoriteBoard favBoard) {
+		System.out.println(favBoard);
 		int result = favBoardService.insertFavoriteBoard(favBoard);
 		if (result > 0) {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);

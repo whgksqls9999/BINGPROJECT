@@ -1,7 +1,6 @@
 package com.bing.community.model.dto;
 
 public class FavoriteBoard {
-
 	private int favorite_boardId;
 	private int board_id;
 	private String writername;
@@ -70,7 +69,11 @@ public class FavoriteBoard {
 		this.reg_date = reg_date;
 		this.title = title;
 	}
-	
 
-	
+	@Override
+	public String toString() {
+		return "FavoriteBoard [favorite_boardId=" + favorite_boardId + ", board_id=" + board_id + ", writername="
+				+ writername + ", content=" + content + ", reg_date=" + reg_date + ", title=" + title + "]";
+	}
+
 }

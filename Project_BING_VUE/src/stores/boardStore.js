@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
-import router from '@/router/index.js';
+import router from "@/router/index.js";
 
 export const useBoardStore = defineStore("board", () => {
   const REST_BOARD_API = "http://localhost:1004/board";
   const REST_COMM_API = "http://localhost:1004/community";
+  const REST_FAV_API = "http://localhost:1004/favboard";
 
   // 전체 커뮤니티 목록 가져오기
   const communityList = ref([]);
@@ -37,6 +38,11 @@ export const useBoardStore = defineStore("board", () => {
       mathod: "GET",
     }).then((response) => {
       commBoardList.value = response.data;
+      // sessionStorage.setItem(
+      // btoa("commBoardList"),
+      // btoa(JSON.stringify(commBoardList.value))
+      // );
+      console.log();
     });
   };
 
@@ -61,11 +67,12 @@ export const useBoardStore = defineStore("board", () => {
         },
       })
       .then(() => {
-        alert('게시글이 등록되었습니다.');
-        router.push({path:`/board/${comm_id}`});
+        alert("게시글이 등록되었습니다.");
+        router.push({ path: `/board/${comm_id}` });
       })
       .catch((err) => console.log(err));
   };
+
 
   //게시글 수정하기
   const updateBoard = ((newBoard, community_id)=>{
@@ -99,9 +106,11 @@ export const useBoardStore = defineStore("board", () => {
     communityList,
     getCommunityList,
     registBoard,
+
     updateBoard,
     getBoard,
     boardOne,
     deleteBoard,
+
   };
 });
