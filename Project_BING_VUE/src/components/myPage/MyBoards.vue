@@ -30,7 +30,7 @@
     </div>
     <!--댓글-->
     <div class="myreply-title">
-      <h2>📋 {{ nicknameParam }}님의 댓글 목록</h2>
+      <h2>📋 {{ nickname }}님의 댓글 목록</h2>
       <br />
       <div class="myreply-container">
         <h3 v-if="myReplys.length == 0">작성한 댓글 목록이 없습니다.</h3>
@@ -68,9 +68,6 @@ import { useCommonStore } from "@/stores/commonStore";
 
 // 헤더 fixed toggle
 const commonStore = useCommonStore();
-onMounted(() => {
-  commonStore.toggleHeaderFixed(false);
-});
 
 // 유저 닉네임 받아오기
 const route = useRoute();
@@ -88,12 +85,13 @@ const myReplys = computed(() => {
 
 const nickname = computed(() => {
   return userStore.user.nickname;
-})
+});
 
 onMounted(() => {
-  userStore.getUserByEmail(emailParam); 
+  userStore.getUserByEmail(emailParam);
   store.getMyBoards(nickname.value);
   store.getMyReplys(nickname.value);
+  commonStore.toggleHeaderFixed(false);
 });
 </script>
 

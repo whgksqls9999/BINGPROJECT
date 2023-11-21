@@ -28,13 +28,18 @@ const router = createRouter({
       path: "/board/:community_id",
       name: "board",
       component: BoardView,
-      children: [
-        {
-          path: ":board_id",
-          name: "boardDetail",
-          component: BoardDetail,
-        },
-      ],
+      // children: [
+      //   {
+      //     path: ":board_id",
+      //     name: "boardDetail",
+      //     component: BoardDetail,
+      //   },
+      // ],
+    },
+    {
+      path: "/board/:community_id/:board_id",
+      name: "boardDetail",
+      component: BoardDetail,
     },
     {
       path: "/board/:community_id/write",
