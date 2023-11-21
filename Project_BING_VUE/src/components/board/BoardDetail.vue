@@ -34,8 +34,8 @@
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
           <button class="nav-button">이전</button>
-          <button class="action-button" @click="boardModifyPush">수정</button>
-          <button class="action-button" id="delete" @click="boardDelete">
+          <button class="action-button" @click="boardModifyPush" v-if="isWriter">수정</button>
+          <button class="action-button" id="delete" @click="boardDelete" v-if="isWriter">
             삭제
           </button>
           <span v-if="isLogin != null">
@@ -145,6 +145,9 @@ const boardOne = computed(() => boardStore.boardOne);
 //글 작성자 맞으면 수정 삭제 버튼 띄우기위해서 user 불러오기
 const user = computed(() => userStore.user);
 
+// 글 작성자 체크
+const isWriter = ref(false);
+
 // 로그인 체크용 변수
 const isLogin = computed(() => userStore.isLogin);
 
@@ -181,6 +184,7 @@ onMounted(async () => {
   );
   commonStore.toggleHeaderFixed(false);
   userStore.doLoginCheck();
+  isWriter.value = user.value.nickname == boardOne.value.writer;
 });
 
 // onUpdated(() => {
