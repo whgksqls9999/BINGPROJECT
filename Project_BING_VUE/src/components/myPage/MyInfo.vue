@@ -50,7 +50,6 @@
         :type="followType"
         :email="emailParam"
         @close-window="doCloseFollowList"
-        @renew-following="doOpenFollowingList"
       />
     </div>
   </div>
