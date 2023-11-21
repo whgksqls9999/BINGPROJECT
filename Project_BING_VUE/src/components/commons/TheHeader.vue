@@ -14,7 +14,7 @@
         <button v-if="!loginUser" @click="changeForm(2)">SIGN UP</button>
         <RouterLink
           v-if="loginUser"
-          :to="{ name: 'myPage', params: { email: loginUser.email } }"
+          :to="{ name: 'myInfo', params: { email: loginUser.email } }"
           >MYPAGE</RouterLink
         >
         <button v-if="loginUser" @click="logout()">LOGOUT</button>

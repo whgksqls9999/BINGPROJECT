@@ -11,6 +11,7 @@ import MyInfo from "@/components/myPage/MyInfo.vue";
 import ModifyInfo from "@/components/account/ModifyForm.vue";
 import BoardModify from "@/components/board/BoardModify.vue";
 import UserWithdraw from "@/components/account/WithdrawForm.vue";
+import ReplyDetail from "@/components/board/ReplyDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,6 +56,11 @@ const router = createRouter({
         if (loginCheck()) return true;
         return false;
       },
+    },
+    {
+      path: "/board/:board_id/reply/:reply_id",
+      name: "replyDetail",
+      component: ReplyDetail,
     },
     {
       path: "/myPage/:email",
