@@ -38,6 +38,11 @@ export const useBoardStore = defineStore("board", () => {
       mathod: "GET",
     }).then((response) => {
       commBoardList.value = response.data;
+      // sessionStorage.setItem(
+      // btoa("commBoardList"),
+      // btoa(JSON.stringify(commBoardList.value))
+      // );
+      console.log();
     });
   };
 

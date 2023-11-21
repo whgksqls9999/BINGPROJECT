@@ -1,7 +1,6 @@
 package com.bing.community.model.dto;
 
 public class FavoriteBoard {
-
 	private int favorite_boardId;
 	private int board_id;
 	private String writername;
