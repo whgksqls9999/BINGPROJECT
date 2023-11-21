@@ -4,17 +4,18 @@ CREATE SCHEMA BINGPROJECT;
 USE BINGPROJECT;
 
 CREATE TABLE user (
-    email VARCHAR(300) PRIMARY KEY,
+    email VARCHAR(300) PRIMARY KEY NOT NULL,
     pw VARCHAR(300) NOT NULL,
     name VARCHAR(300) NOT NULL,
     gender VARCHAR(30) NOT NULL,
-    nickname VARCHAR(300) NOT NULL UNIQUE
+    nickname VARCHAR(300) NOT NULL UNIQUE,
+    withdraw_text VARCHAR(1000) NOT NULL
 );
 -- User 데이터
-INSERT INTO user (email,pw,name,gender,nickname)
-VALUES ('ssafy', '1234', '김싸피', '남', '닉네임'),
-('ssafy2','1234','이싸피','남','닉네임2'),
-('ssafy3','1234','이싸피','남','닉네임3');
+INSERT INTO user (email,pw,name,gender,nickname,withdraw_text)
+VALUES ('ssafy', '1234', '김싸피', '남', '닉네임', '안녕히계세요 여러분 저는 사회의 굴레 벗어나고 어쩌구'),
+('ssafy2','1234','이싸피','남','닉네임2','안녕히계세요'),
+('ssafy3','1234','이싸피','남','닉네임3','빠잉'); 
 SELECT * FROM user;
 
 CREATE TABLE location (
@@ -30,7 +31,6 @@ VALUES (1, '장소 이름', '주소'),
 (4, '장소 이름4', '주소4');
 SELECT * FROM location;
 
-
 CREATE TABLE community (
     community_id INT(10) AUTO_INCREMENT PRIMARY KEY,
     community_name VARCHAR(100) NOT NULL,
@@ -42,7 +42,6 @@ VALUES ('프리다이빙','프리다이빙을 위한 커뮤니티'),
 ('스킨스쿠버','스킨스쿠버를 위한 커뮤니티'),
 ('해녀','해녀를 위한 커뮤니티');
 SELECT * FROM community;
-
 
 CREATE TABLE board (
     board_id INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -59,26 +58,21 @@ CREATE TABLE board (
     FOREIGN KEY (community_id) REFERENCES community(community_id) ON DELETE CASCADE,
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 -- Board 데이터
 INSERT INTO board (community_id, num, header, title, writer, content)
 VALUES (1, 1,'자유','제목1','닉네임','내용1'),
 (1, 2,'자유','제목2','닉네임','내용2'),
 (1, 3,'자유','제목3','닉네임','내용3'),
 (2, 1,'자유','제목4','닉네임2','내용4'),
-(2, 2,'자유','제목5','닉네임','내용5'),
-(2, 3,'자유','제목6','닉네임','내용6'),
-(3, 3,'자유','제목6','닉네임','내용7'),
-(3, 3,'자유','제목6','닉네임','내용7');
+(2, 2,'자유','제목5','닉네임','내용5');
 SELECT * FROM board;
-
 
 CREATE TABLE favorite_board (
     favorite_boardId INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     board_id INT(10) NOT NULL,
     writername VARCHAR(300) NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
-	FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
 INSERT INTO favorite_board
 VALUES (1,1,'닉네임'),
@@ -114,5 +108,19 @@ VALUES (1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (2, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 SELECT * FROM reply;
 
--- SELECT b.writer, b.content, b.reg_date  FROM board as b INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
+CREATE TABLE follow (
+	follow_id INT(10) PRIMARY KEY AUTO_INCREMENT,
+    follow_from VARCHAR(300) NOT NULL,
+    follow_to VARCHAR(300) NOT NULL,
+    FOREIGN KEY (follow_from) REFERENCES user(email) ON DELETE CASCADE,
+    FOREIGN KEY (follow_to) REFERENCES user(email) ON DELETE CASCADE
+);
 
+INSERT INTO follow (follow_from, follow_to)
+VALUES ('ssafy', 'ssafy2'),
+('ssafy', 'ssafy3'),
+('ssafy2','ssafy'),
+('ssafy2','ssafy3');
+SELECT * FROM follow;
+
+SELECT b.writer, b.content, b.reg_date  FROM board as b INNER JOIN favorite_board as fb ON b.board_id = fb.board_id;
