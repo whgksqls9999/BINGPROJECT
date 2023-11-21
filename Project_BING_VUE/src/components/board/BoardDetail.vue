@@ -1,12 +1,24 @@
 <template>
-
   <div class="board-detail">
     <div class="board-detail-global">
-      <h3>{{ boardOne.community_id === 1 ? 'FREEDIVING' : (boardOne.community_id === 2 ? 'SKINSCUBA' :
-        boardOne.community_id) }}</h3>
-      <p>{{ boardOne.header }}</p>
+      <div class="board-detail-category">
+        <h3>
+          {{
+            boardOne.community_id === 1
+              ? "FREEDIVING"
+              : boardOne.community_id === 2
+              ? "SKINSCUBA"
+              : boardOne.community_id
+          }}
+        </h3>
+        <p>{{ boardOne.header }}</p>
+      </div>
+      <div class="board-detail-title">
+        <h3>{{ boardOne.title }}</h3>
+      </div>
       <div class="board-detail-container">
         <div class="board-detail-inform">
+          <h4>: {{ boardOne.writer }}</h4>
           <h4>작성자 : {{ boardOne.writer }}</h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
           <h4>작성일 : {{ boardOne.reg_date }}</h4>
@@ -18,7 +30,7 @@
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
           <button class="nav-button">이전</button>
-          <button class="action-button">수정</button>
+          <button class="action-button" @click="boardModifyPush">수정</button>
           <button class="action-button" id="delete">삭제</button>
           <button class="nav-button">다음</button>
         </div>
@@ -37,7 +49,11 @@
                 <th>작성일</th>
               </tr>
             </thead>
-            <tbody v-for="reply in boardReplyList" :key="reply.id" class="reply-item">
+            <tbody
+              v-for="reply in boardReplyList"
+              :key="reply.id"
+              class="reply-item"
+            >
               <tr>
                 <td>{{ reply.reply_id }}</td>
                 <td>{{ reply.content }}</td>
@@ -60,7 +76,7 @@
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, onUpdated, ref } from "vue";
 import { useReplyStore } from "@/stores/replyStore.js";
 import { useUserStore } from "@/stores/userStore.js";
@@ -69,9 +85,9 @@ import { useBoardStore } from "@/stores/boardStore";
 
 import { useFavStore } from "@/stores/favStore.js";
 
-
 // route, store 임포트
 const route = useRoute();
+const router = useRouter();
 const userStore = useUserStore();
 const replyStore = useReplyStore();
 
@@ -120,7 +136,16 @@ const isLogin = userStore.doLoginCheck();
 const replyContent = ref("");
 //게시글 관련
 
-
+//수정 누르면 수정 form으로 이동
+const boardModifyPush = () => {
+  router.push({
+    name: "boardModify",
+    params: {
+      community_id: boardOne.community_id,
+      board_id: idParam.value,
+    },
+  });
+};
 onMounted(async () => {
   replyStore.getBoardReplyList(idParam.value);
   boardStore.getBoard(idParam.value);
@@ -139,6 +164,7 @@ onMounted(async () => {
 
 <style scoped>
 .board-detail {
+  min-height: 110vh;
   margin-top: 120px;
   text-align: center;
 }
@@ -186,11 +212,11 @@ onMounted(async () => {
 button {
   border-style: none;
   border-radius: 20px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
 .nav-button {
-  background-color: rgba(173, 202, 219, .7);
+  background-color: rgba(173, 202, 219, 0.7);
   color: white;
   font-weight: bold;
   padding: 8px 16px;
@@ -241,14 +267,13 @@ button {
 
 .board-detail-reply-title {
   padding: 10px;
-
 }
 
 table {
   /* text-align: center; */
   border: 1px #a39485 solid;
-  font-size: .9em;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  font-size: 0.9em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
   width: 100%;
   border-collapse: collapse;
   border-radius: 5px;
@@ -263,7 +288,7 @@ thead {
   font-size: 15px;
   font-weight: bold;
   color: #fff;
-  background-color: rgba(173, 202, 219, .7);
+  background-color: rgba(173, 202, 219, 0.7);
 }
 
 td,
@@ -273,13 +298,12 @@ th {
 }
 
 td {
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-left: 1em;
   background: #ffffff;
 }
 
 @media all and (max-width: 768px) {
-
   table,
   thead,
   tbody,
@@ -297,7 +321,7 @@ td {
     position: relative;
     padding-bottom: 0;
     border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 
   thead {
@@ -324,8 +348,6 @@ td {
   td {
     border-bottom: 1px solid #e5e5e5;
   }
-
-
 }
 
 .comment-container {
@@ -345,7 +367,6 @@ input {
   margin-right: 27px;
 }
 
-
 .comment-input {
   margin: 10px;
 }
@@ -353,16 +374,15 @@ input {
 .comment-input button {
   font-size: 16px;
   font-weight: 600;
-  background-color: rgba(173, 202, 219, .7);
+  background-color: rgba(173, 202, 219, 0.7);
   width: 12%;
   color: #ffffff;
   height: 32px;
 }
-.comment-input button:hover{
+.comment-input button:hover {
   background-color: white;
   color: black;
 }
-
 </style>
 <!-- .comment-container {
   max-height: 200px; /* 댓글 입력 컨테이너의 최대 높이 설정 */

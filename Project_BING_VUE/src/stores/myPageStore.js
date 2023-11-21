@@ -54,7 +54,7 @@ export const useMyPageStore = defineStore("mypage", () => {
   };
   //내가 팔로우한 사람은 다른데서 구현
 
-  //개인정보 변경 -> userStore
+  //개인정보 변경 -> userStore 완료
   return {
     getMyBoards,
     myBoards,

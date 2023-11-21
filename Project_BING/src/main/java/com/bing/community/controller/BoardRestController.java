@@ -72,8 +72,10 @@ public class BoardRestController {
 
 	@PutMapping("/modify/{board_id}")
 	public ResponseEntity<?> modifyBoard(@RequestBody Board board, @PathVariable int board_id) {
+		System.out.println(board+" "+board_id);
 		board.setBoard_id(board_id);
 		int result = boardService.modifyBoard(board);
+		
 		if (result > 0) {
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
 		} else {
