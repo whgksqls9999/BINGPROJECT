@@ -15,8 +15,7 @@
         <label for="">내용</label>
         <textarea type="text" v-model="content" />
         <div class="location-select" @click="doSelectLocation">
-          <div v-if="!location" class="map-image">
-          </div>
+          <div v-if="!location" class="map-image"></div>
           <div v-else>
             <fieldset>
               <legend>장소명</legend>

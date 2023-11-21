@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="board-detail-container">
     <h3>게시글 상세내용</h3>
     {{ idParam }}번 게시글
     <div>댓글</div>
@@ -44,4 +44,8 @@ onUpdated(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.board-detail-container {
+  margin-top: 70px;
+}
+</style>

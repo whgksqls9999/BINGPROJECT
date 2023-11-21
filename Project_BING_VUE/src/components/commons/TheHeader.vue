@@ -12,7 +12,11 @@
         <RouterLink :to="{ name: 'community' }">COMMUNITY</RouterLink>
         <button v-if="!loginUser" @click="changeForm(1)">SIGN IN</button>
         <button v-if="!loginUser" @click="changeForm(2)">SIGN UP</button>
-        <RouterLink v-if="loginUser" :to="{ name: 'myPage', params: { email: loginUser.email } }">MYPAGE</RouterLink>
+        <RouterLink
+          v-if="loginUser"
+          :to="{ name: 'myPage', params: { email: loginUser.email } }"
+          >MYPAGE</RouterLink
+        >
         <button v-if="loginUser" @click="logout()">LOGOUT</button>
       </div>
     </div>
@@ -48,6 +52,7 @@ const scrollInit = () => {
 
 // 페이지 로딩 시 로그인 유저 체크
 onMounted(() => {
+  if (!sessionStorage.getItem("access-token")) return;
   userStore.loginUser = JSON.parse(
     atob(sessionStorage.getItem("access-token").split(".")[1])
   );
@@ -144,7 +149,6 @@ button {
 .fixed {
   position: fixed;
   background-color: black;
-  width: 100%;
   left: 0;
   top: 0;
   right: 0;

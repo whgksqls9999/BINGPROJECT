@@ -1,7 +1,12 @@
 <template>
   <tr>
     <td>{{ board.num }}</td>
-    <td>{{ board.title }}</td>
+    <td>
+      <RouterLink
+        :to="{ name: 'boardDetail', params: { board_id: board.board_id } }"
+        >{{ board.title }}</RouterLink
+      >
+    </td>
     <td>{{ board.writer }}</td>
     <td>{{ board.reg_date }}</td>
     <td>{{ board.view_cnt }}</td>
@@ -15,4 +20,9 @@ const props = defineProps({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+a {
+  text-decoration: none;
+  color: black;
+}
+</style>

@@ -47,7 +47,7 @@ export const useUserStore = defineStore("user", () => {
           const token = response.data["access-token"].split(".");
           loginUser.value = JSON.parse(atob(token[1]));
           showForm.value = 0;
-          getUserByEmail(loginUser.value);
+          getUserByEmail(loginUser.value.email);
           router.push({ name: "main" });
         }
       })
@@ -93,9 +93,6 @@ export const useUserStore = defineStore("user", () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        console.log(response);
-        console.log(update.nickname);
-
         router.push({ name: "myInfo", params: { email: update.email } });
       })
       .catch((err) => console.log(err));
@@ -106,7 +103,8 @@ export const useUserStore = defineStore("user", () => {
     axios
       .delete(`${REST_USER_API}/${removeEmail}`)
       .then((response) => {
-        console.log("탈퇴완료");
+        sessionStorage.removeItem("access-token");
+        loginUser.value = null;
         alert("회원님의 탈퇴가 완료되었습니다.");
         router.push({ name: "main" });
       })

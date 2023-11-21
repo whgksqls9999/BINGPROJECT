@@ -107,7 +107,7 @@ onMounted(() => {
   color: #262626;
 }
 
-.myInfo-link a:hover{
+.myInfo-link a:hover {
   background-color: #aecadb;
   color: white;
 }
