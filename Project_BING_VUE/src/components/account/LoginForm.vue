@@ -64,15 +64,9 @@ const closeWindow = () => {
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-<<<<<<< HEAD
   background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-=======
-  background: rgba(0,0,0,.5);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
->>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
   border-radius: 10px;
 }
 
@@ -100,7 +94,7 @@ const closeWindow = () => {
 }
 .login-box .user-box label {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   padding: 10px 0;
   font-size: 16px;
@@ -128,28 +122,16 @@ const closeWindow = () => {
   overflow: hidden;
   transition: 0.5s;
   margin-top: 40px;
-<<<<<<< HEAD
   letter-spacing: 4px;
-=======
-  letter-spacing: 4px
-
->>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 }
 
 .login-box button:hover {
   background: #c0cdce;
   color: #fff;
   border-radius: 5px;
-<<<<<<< HEAD
-  box-shadow: 0 0 5px #b4e1e4, 0 0 25px #b4e1e4, 0 0 50px #b4e1e4,
-    0 0 100px #b4e1e4;
-=======
- border: 1px solid transparent;
-  box-shadow: 0 0 5px #c0cdce,
-              0 0 25px #c0cdce,
-              0 0 50px #c0cdce,
-              0 0 100px #c0cdce;
->>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
+  border: 1px solid transparent;
+  box-shadow: 0 0 5px #c0cdce, 0 0 25px #c0cdce, 0 0 50px #c0cdce,
+    0 0 100px #c0cdce;
 }
 
 .login-box button span {
@@ -170,7 +152,8 @@ const closeWindow = () => {
   0% {
     left: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     left: 100%;
   }
 }
@@ -189,7 +172,8 @@ const closeWindow = () => {
   0% {
     top: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     top: 100%;
   }
 }
@@ -208,7 +192,8 @@ const closeWindow = () => {
   0% {
     right: -100%;
   }
-  50%,100% {
+  50%,
+  100% {
     right: 100%;
   }
 }
@@ -223,46 +208,29 @@ const closeWindow = () => {
   animation-delay: 0.75s;
 }
 
-<<<<<<< HEAD
-button {
-  background-color: transparent;
-  border-style: none;
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
 }
 
 .signIn-button {
   display: flex;
   justify-content: space-around;
 }
-=======
->>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,100% {
-    bottom: 100%;
-  }
-}
-
-<<<<<<< HEAD
-=======
-.signIn-button{
-  display: flex;
-  justify-content: space-around;
-}
-
-button{
-  border:1px solid transparent;
+button {
+  border: 1px solid transparent;
   background-color: transparent;
   border-style: none;
   color: white;
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
 }
 
-
-
->>>>>>> 42ed4eec5e642997ad12a97370ce4e2b9b0d9b2c
 /* .container {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100vw;
