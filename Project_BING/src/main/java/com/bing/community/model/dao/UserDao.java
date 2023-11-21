@@ -23,4 +23,5 @@ public interface UserDao {
 	
 	// 유저 삭제(탈퇴)
 	int deleteUser(String email);
+	
 }
