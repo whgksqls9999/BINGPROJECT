@@ -19,8 +19,19 @@
           <tbody v-for="board in myBoards" :key="board.num">
             <tr>
               <td>{{ board.num }}</td>
-              <!--나중에 boarddetail구현하고 만들것 <td><RouterLink :to="{name: 'BoardDetail', params:{id: board.num}}">{{ board.title }}</RouterLink></td> -->
-              <td>{{ board.title }}</td>
+              <!-- <td>{{ board.title }}</td> -->
+              <td>
+                <RouterLink
+                  :to="{
+                    name: 'boardDetail',
+                    params: {
+                      community_id: board.community_id,
+                      board_id: board.board_id,
+                    },
+                  }"
+                  >{{ board.title }}</RouterLink
+                >
+              </td>
               <td>{{ board.view_cnt }}</td>
               <td>{{ board.reg_date }}</td>
             </tr>
@@ -46,8 +57,18 @@
           <tbody v-for="reply in myReplys" :key="reply.writer">
             <tr>
               <td>{{ reply.reply_id }}</td>
-              <td>{{ reply.content }}</td>
-              <!--나중에 replydetail구현하고 만들것 <td><RouterLink :to="{name: 'ReviewDetail', params:{id: reply.num}}">{{ reply.title }}</RouterLink></td> -->
+              <td>
+                <RouterLink
+                  :to="{
+                    name: 'replyDetail',
+                    params: {
+                      board_id: reply.board_id,
+                      reply_id: reply.reply_id,
+                    },
+                  }"
+                  >{{ reply.content }}</RouterLink
+                >
+              </td>
               <td>{{ reply.writer }}</td>
               <td>{{ reply.reg_date }}</td>
             </tr>
@@ -96,6 +117,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: black;
+}
 .myboard-global {
   margin-top: 150px;
   display: grid;
