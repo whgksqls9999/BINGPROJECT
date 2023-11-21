@@ -16,8 +16,18 @@ export const useLocationStore = defineStore("location", () => {
 
   // 장소 정보 등록하기
   const doPostLocation = (location) => {
+    let newLocation = {
+      location_id: location.id,
+      place_name: location.place_name,
+      address_name: location.address_name,
+      longitude: location.x,
+      latitude: location.y,
+    }
+    console.log(location);
+    console.log(newLocation);
+
     axios
-      .post(`${REST_LOCATION_API}/regist`, location, {
+      .post(`${REST_LOCATION_API}/regist`, newLocation, {
         headers: {
           "Content-Type": "application/json",
         },
