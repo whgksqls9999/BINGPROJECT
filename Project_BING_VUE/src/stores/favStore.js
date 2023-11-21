@@ -8,64 +8,58 @@ export const useFavStore = defineStore("fav", () => {
   const REST_FAVLOCATION_API = "http://localhost:1004/favlocation";
 
   // 게시글 찜하기
-  const doFavBoard = (favBoard) => {
-    console.log(favBoard);
+  const doFavBoard = (favBoard, nickname) => {
     axios
       .post(`${REST_FAVBOARD_API}/addfavboard`, null, {
         headers: { "Content-Type": "application/json" },
         params: favBoard,
       })
-      .then(() => {})
-      .catch((err) => console.log(err));
-  };
-
-  // 전체 커뮤니티 목록 가져오기
-  const communityList = ref([]);
-  const getCommunityList = () => {
-    axios({
-      url: `${REST_COMM_API}/list`,
-      method: "GET",
-    }).then((response) => {
-      communityList.value = response.data;
-    });
-  };
-
-  // 커뮤니티 정보 가져오기
-  const community = ref("");
-  const getCommunity = (community_id) => {
-    axios({
-      url: `${REST_COMM_API}/${community_id}`,
-      method: "GET",
-    }).then((response) => {
-      community.value = response.data;
-    });
-  };
-
-  // 커뮤니티 게시글 가져오기
-  const commBoardList = ref([]);
-  const getCommBoardList = (community_id) => {
-    axios({
-      url: `${REST_BOARD_API}/comm/${community_id}`,
-      mathod: "GET",
-    }).then((response) => {
-      commBoardList.value = response.data;
-    });
-  };
-
-  // 게시글 등록하기
-  const registBoard = (board, comm_id) => {
-    axios
-      .post(`${REST_BOARD_API}/insert`, board, {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
       .then(() => {
-        alert("게시글이 등록되었습니다.");
-        router.push({ path: `/board/${comm_id}` });
+        doFavorCheck(nickname, favBoard.board_id);
+        alert("게시글을 찜했습니다.");
       })
       .catch((err) => console.log(err));
   };
 
-  return { doFavBoard };
+  // 해당 유저 게시글 찜 리스트 가져오기
+  const favBoardList = ref([]);
+  const getFavBoardList = async (nickname) => {
+    await axios
+      .get(`${REST_FAVBOARD_API}/${nickname}`)
+      .then((response) => {
+        favBoardList.value = response.data;
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //이미 찜한 게시물인지 체크
+  const isFavored = ref("");
+  const doFavorCheck = async (nickname, board_id) => {
+    const check = false;
+    await getFavBoardList(nickname);
+    console.log(favBoardList.value);
+    favBoardList.value.forEach((element) => {
+      console.log(element.board_id, board_id);
+      if (element.board_id == board_id) {
+        isFavored.value = board_id;
+        check = true;
+        return;
+      }
+    });
+    if (!check) {
+      isFavored.value = null;
+    }
+    // isFavored.value = null;
+  };
+
+  const doFavBoardCancel = () => {};
+
+  return {
+    doFavBoard,
+    favBoardList,
+    getFavBoardList,
+    isFavored,
+    doFavorCheck,
+    doFavBoardCancel,
+  };
 });
