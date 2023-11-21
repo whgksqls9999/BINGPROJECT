@@ -4,6 +4,7 @@ import axios from "axios";
 import router from "@/router/index.js";
 export const useUserStore = defineStore("user", () => {
   const REST_USER_API = "http://localhost:1004/user";
+  const REST_FOLLOW_API = "http://localhost:1004/follow";
 
   // 유저 정보 가져오기(닉네임)
   const user = ref({});
@@ -113,6 +114,22 @@ export const useUserStore = defineStore("user", () => {
       });
   };
 
+  // 팔로워 정보 가져오기
+  const followerList = ref([]);
+  const getFollowerList = (email) => {
+    axios.get(`${REST_FOLLOW_API}/${email}/follower`).then((response) => {
+      followerList.value = response.data;
+    });
+  };
+
+  // 팔로잉 정보 가져오기
+  const followingList = ref([]);
+  const getFollowingList = (email) => {
+    axios.get(`${REST_FOLLOW_API}/${email}/following`).then((response) => {
+      followingList.value = response.data;
+    });
+  };
+
   return {
     userLogin,
     loginUser,
@@ -128,5 +145,9 @@ export const useUserStore = defineStore("user", () => {
     deleteUser,
     users,
     getAllUsers,
+    getFollowerList,
+    getFollowingList,
+    followerList,
+    followingList,
   };
 });

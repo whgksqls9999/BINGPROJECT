@@ -117,7 +117,6 @@ CREATE TABLE follow (
     FOREIGN KEY (follow_from) REFERENCES user(email) ON DELETE CASCADE,
     FOREIGN KEY (follow_to) REFERENCES user(email) ON DELETE CASCADE
 );
-
 INSERT INTO follow (follow_from, follow_to)
 VALUES ('ssafy', 'ssafy2'),
 ('ssafy', 'ssafy3'),
