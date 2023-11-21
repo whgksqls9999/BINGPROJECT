@@ -31,7 +31,9 @@
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
           <button class="nav-button">이전</button>
           <button class="action-button" @click="boardModifyPush">수정</button>
-          <button class="action-button" id="delete">삭제</button>
+          <button class="action-button" id="delete" @click="boardDelete">
+            삭제
+          </button>
           <button class="nav-button">다음</button>
         </div>
       </div>
@@ -145,6 +147,10 @@ const boardModifyPush = () => {
       board_id: idParam.value,
     },
   });
+};
+
+const boardDelete = () => {
+  boardStore.deleteBoard(idParam.value);
 };
 onMounted(async () => {
   replyStore.getBoardReplyList(idParam.value);
