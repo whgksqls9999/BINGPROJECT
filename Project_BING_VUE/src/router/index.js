@@ -72,7 +72,7 @@ const router = createRouter({
       },
       children: [
         {
-          path: "info",
+          path: '',
           name: "myInfo",
           component: MyInfo,
         },

@@ -23,9 +23,6 @@ export const useLocationStore = defineStore("location", () => {
       longitude: location.x,
       latitude: location.y,
     }
-    console.log(location);
-    console.log(newLocation);
-
     axios
       .post(`${REST_LOCATION_API}/regist`, newLocation, {
         headers: {

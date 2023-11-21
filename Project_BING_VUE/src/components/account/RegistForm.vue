@@ -1,21 +1,22 @@
 <template>
-  <div><h2>회원가입 폼</h2></div>
-  <div>
-    <label for="">email</label>
-    <input type="text" v-model="email" />
-    <label for="">pw</label>
-    <input type="text" v-model="pw" />
-    <label for="">pwCheck</label>
-    <input type="text" v-model="pwCheck" />
-    <label for="">name</label>
-    <input type="text" v-model="name" />
-    <label for="">gender</label>
-    <input type="text" v-model="gender" />
-    <label for="">nickname</label>
-    <input type="text" v-model="nickname" />
-    <label for="">withdraw text</label>
-    <input type="text" v-model="withdraw_text" />
-    <button @click="registUser">등록하기</button>
+  <div class="regist-container">
+    <div class="regist-form">
+      <label for="">email</label>
+      <input type="text" v-model="email" />
+      <label for="">pw</label>
+      <input type="text" v-model="pw" />
+      <label for="">pwCheck</label>
+      <input type="text" v-model="pwCheck" />
+      <label for="">name</label>
+      <input type="text" v-model="name" />
+      <label for="">gender</label>
+      <input type="text" v-model="gender" />
+      <label for="">nickname</label>
+      <input type="text" v-model="nickname" />
+      <label for="">withdraw text</label>
+      <input type="text" v-model="withdraw_text" />
+      <button @click="registUser">등록하기</button>
+    </div>
   </div>
 </template>
 
@@ -53,7 +54,7 @@ const isPwValid = (pwd) => {
   return pwd.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/g.test(pwd);
 };
 
-const registUser = () => {
+const registUser = async () => {
   if (
     email.value === "" ||
     pw.value === "" ||
@@ -72,8 +73,10 @@ const registUser = () => {
     alert("비밀번호는 8자리 이상, 특수문자를 포함해야 합니다.");
     return;
   }
+  await userStore.getAllUsers();
   console.log(email.value);
-  console.log(userStore.getUserByEmail(email.value));
+  console.log(users.value);
+  console.log(userStore.users);
   if (users.value.length > 0) {
     const userAlready = users.value.some((user) => user.email === email.value);
     console.log(userAlready);
@@ -96,4 +99,22 @@ const registUser = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.regist-container{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(128, 128, 128, 0.3);
+  top: 0;
+  left: 0;
+}
+
+.regist-form{
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  position: fixed;
+  top: 15rem;
+  left: 20rem;
+}
+</style>
