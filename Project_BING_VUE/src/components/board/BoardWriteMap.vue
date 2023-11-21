@@ -101,9 +101,8 @@ const displayMarker = (place) => {
           <div style="font-weight: bold; font-size: 14px">${place.place_name}</div>
           <div style="width:160px">${address}</div>
         </div>
-        <button class="select-point" style="width:50px;background-color:skyblue;color:white;">
+        <button class="select-point" style="width:50px; background-color:skyblue; color:white;">
           <div class="select-point">등록</div>
-          <div class="select-point">하기</div>
         </button>
       </div>`
     );
@@ -200,4 +199,5 @@ onMounted(() => {
   margin-top: 0.5rem;
   width: 3rem;
 }
+
 </style>

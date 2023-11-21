@@ -274,7 +274,7 @@ textarea {
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 0.2rem grey;
   width: 40%;
-  padding: 0.3rem;
+  padding: 0.4rem;
   margin-left: 1rem;
 }
 
