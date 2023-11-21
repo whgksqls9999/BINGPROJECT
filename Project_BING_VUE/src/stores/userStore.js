@@ -49,6 +49,8 @@ export const useUserStore = defineStore("user", () => {
           loginUser.value = JSON.parse(atob(token[1]));
           showForm.value = 0;
           getUserByEmail(loginUser.value.email);
+          getFollowerList(loginUser.value.email);
+          getFollowingList(loginUser.value.email);
           router.push({ name: "main" });
         }
       })

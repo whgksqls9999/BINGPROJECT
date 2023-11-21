@@ -3,10 +3,21 @@ import { ref } from "vue";
 import axios from "axios";
 import router from "@/router/index.js";
 
-export const useBoardStore = defineStore("board", () => {
-  const REST_BOARD_API = "http://localhost:1004/board";
-  const REST_COMM_API = "http://localhost:1004/community";
-  const REST_FAV_API = "http://localhost:1004/favboard";
+export const useFavStore = defineStore("fav", () => {
+  const REST_FAVBOARD_API = "http://localhost:1004/favboard";
+  const REST_FAVLOCATION_API = "http://localhost:1004/favlocation";
+
+  // 게시글 찜하기
+  const doFavBoard = (favBoard) => {
+    console.log(favBoard);
+    axios
+      .post(`${REST_FAVBOARD_API}/addfavboard`, null, {
+        headers: { "Content-Type": "application/json" },
+        params: favBoard,
+      })
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
 
   // 전체 커뮤니티 목록 가져오기
   const communityList = ref([]);
@@ -56,13 +67,5 @@ export const useBoardStore = defineStore("board", () => {
       .catch((err) => console.log(err));
   };
 
-  return {
-    commBoardList,
-    getCommBoardList,
-    community,
-    getCommunity,
-    communityList,
-    getCommunityList,
-    registBoard,
-  };
+  return { doFavBoard };
 });
