@@ -45,7 +45,6 @@ public class LocationRestController {
 
 	@PostMapping("/regist")
 	public ResponseEntity<?> registLocation(@RequestBody Location location) {
-		System.out.println(location);
 		int result = locationService.registLocation(location);
 		if (result > 0) {
 			return new ResponseEntity<Location>(location, HttpStatus.OK);
