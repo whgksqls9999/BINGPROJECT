@@ -44,7 +44,7 @@
 	<update id="updateBoard" parameterType="Board">
 		UPDATE board
 		SET title = #{title}, content = #{content}, is_modified =
-		CURRENT_TIMESTAMP, fav_cnt = #{fav_cnt}, view_cnt = #{view_cnt}
+		CURRENT_TIMESTAMP, fav_cnt = #{fav_cnt}
 		WHERE board_id = #{board_id}
 	</update>
 

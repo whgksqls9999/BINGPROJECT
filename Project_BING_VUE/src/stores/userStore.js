@@ -112,7 +112,7 @@ export const useUserStore = defineStore("user", () => {
       .delete(`${REST_USER_API}/${removeEmail}`)
       .then((response) => {
         sessionStorage.removeItem("access-token");
-        loginUser.value = null;
+        loginUser.value = '';
         alert("회원님의 탈퇴가 완료되었습니다.");
         router.push({ name: "main" });
       })

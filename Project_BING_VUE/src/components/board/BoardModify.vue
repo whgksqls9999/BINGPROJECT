@@ -5,8 +5,8 @@
         <h3>
           {{
             boardOne.community_id === 1
-              ? "FREEDIVING"
-              : boardOne.community_id === 2
+            ? "FREEDIVING"
+            : boardOne.community_id === 2
               ? "SKINSCUBA"
               : boardOne.community_id
           }}
@@ -29,11 +29,7 @@
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
           <button class="action-button" @click="updateBoard">수정</button>
-          <button
-            class="action-button"
-            id="delete"
-            @click="() => this.$router.go(-1)"
-          >
+          <button class="action-button" id="delete" @click="() => this.$router.go(-1)">
             취소
           </button>
         </div>
@@ -68,15 +64,14 @@ const boardOne = computed(() => boardStore.boardOne);
 const content = ref("");
 const title = ref("");
 //업데이트 요청하기
-const updateBoard = () => {
+const updateBoard =  () => {
   const boardData = {
     content: content.value,
     board_id: idParam.value,
     title: title.value,
-    view_cnt: boardOne.value.view_cnt-1,
   };
   boardOne.reg_date = boardOne.is_modified;
-  boardStore.updateBoard(boardData);
+   boardStore.updateBoard(boardData);
   router.push({
     name: "boardDetail",
     params: { community_id: boardOne.community_id, board_id: idParam.value },
@@ -84,8 +79,11 @@ const updateBoard = () => {
 };
 
 onMounted(async () => {
+  await boardStore.getBoard(idParam.value);
   userStore.getUserEmail();
-  await userStore.getUserByEmail(loginUser.value.email);
+  if (loginUser.value !== '') {
+    await userStore.getUserByEmail(loginUser.value.email);
+  }
   content.value = boardOne.value.content;
   title.value = boardOne.value.title;
   // console.log("Content set in onMounted:", content.value);
@@ -159,6 +157,7 @@ button {
   border-radius: 20px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
+
 .action-button {
   background-color: black;
   font-weight: bold;

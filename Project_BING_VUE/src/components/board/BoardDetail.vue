@@ -153,7 +153,7 @@ const boardDelete = () => {
 };
 onMounted(async () => {
   replyStore.getBoardReplyList(idParam.value);
-  await boardStore.updateViewCnt(idParam.value);
+  // await boardStore.updateViewCnt(idParam.value);
   await boardStore.getBoard(idParam.value);
   if (userStore.loginUser != '') {
     await userStore.getUserByEmail(userStore.loginUser.email);
