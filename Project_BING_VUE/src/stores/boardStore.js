@@ -79,7 +79,7 @@ export const useBoardStore = defineStore("board", () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        alert("수정이 완료되었습니다.");
+        // alert("수정이 완료되었습니다.");
         router.push({
           name: "boardDetail",
           params: {

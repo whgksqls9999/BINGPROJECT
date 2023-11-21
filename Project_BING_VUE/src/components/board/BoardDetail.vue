@@ -18,7 +18,7 @@
       </div>
       <div class="board-detail-container">
         <div class="board-detail-inform">
-          <h4>: {{ boardOne.writer }}</h4>
+          <!-- <h4>: {{ boardOne.writer }}</h4> -->
           <h4>작성자 : {{ boardOne.writer }}</h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
           <h4>작성일 : {{ boardOne.reg_date }}</h4>
@@ -38,6 +38,8 @@
           <button class="action-button" id="delete" @click="boardDelete">
             삭제
           </button>
+          <button @click="doFavBoard">좋아요</button>
+          <button @click="doFavCancel">좋아요취소</button>
           <button class="nav-button">다음</button>
         </div>
       </div>
@@ -86,6 +88,9 @@ import { useUserStore } from "@/stores/userStore.js";
 import { useBoardStore } from "@/stores/boardStore";
 
 import { useFavStore } from "@/stores/favStore.js";
+import { useCommonStore } from "@/stores/commonStore";
+// Store
+const commonStore = useCommonStore();
 
 // route, store 임포트
 const route = useRoute();
@@ -104,6 +109,9 @@ const doFavBoard = () => {
   };
 
   favStore.doFavBoard(favBoard, user.value.nickname);
+  boardStore.getBoard(idParam.value);
+  boardOne.value.fav_cnt++;
+  boardStore.updateBoard(boardOne.value);
 };
 
 // 게시글 찜 취소하기
@@ -128,6 +136,9 @@ const idParam = computed(() => route.params.board_id);
 const boardReplyList = computed(() => replyStore.boardReplyList);
 // boardOne board_id로 선택해 온 게시글 하나, 의존하는 변수 변할때마다 올려줄거임~!
 const boardOne = computed(() => boardStore.boardOne);
+
+
+
 //글 작성자 맞으면 수정 삭제 버튼 띄우기위해서 user 불러오기
 const user = computed(() => userStore.user);
 // 로그인 체크용 변수
@@ -163,6 +174,7 @@ onMounted(async () => {
     user.value.nickname,
     idParam.value
   );
+  commonStore.toggleHeaderFixed(false);
 });
 
 // onUpdated(() => {

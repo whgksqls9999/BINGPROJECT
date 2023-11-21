@@ -42,8 +42,10 @@
 import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref } from "vue";
 import { useUserStore } from "@/stores/userStore.js";
-
 import { useBoardStore } from "@/stores/boardStore";
+import { useCommonStore } from "@/stores/commonStore";
+// Store
+const commonStore = useCommonStore();
 
 // route, store 임포트
 const route = useRoute();
@@ -87,6 +89,7 @@ onMounted(async () => {
   content.value = boardOne.value.content;
   title.value = boardOne.value.title;
   // console.log("Content set in onMounted:", content.value);
+  commonStore.toggleHeaderFixed(false);
 });
 </script>
 
