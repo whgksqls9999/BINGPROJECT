@@ -4,7 +4,7 @@
     <td>
       <RouterLink
         :to="{ name: 'boardDetail', params: { board_id: board.board_id } }"
-        @Click="() => {boardStore.updateViewCnt(board.board_id)}">{{ board.title }}</RouterLink
+        @Click="async () => {await boardStore.updateViewCnt(board.board_id)}">{{ board.title }}</RouterLink
       >
     </td>
     <td>{{ board.writer }}</td>
