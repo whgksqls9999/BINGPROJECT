@@ -7,9 +7,9 @@ public class User {
 	private String gender;
 	private String nickname;
 	private String withdraw_text;
-	
-	public User() {
 
+	public User() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public User(String email, String pw, String name, String gender, String nickname, String withdraw_text) {
@@ -69,7 +69,5 @@ public class User {
 	public void setWithdraw_text(String withdraw_text) {
 		this.withdraw_text = withdraw_text;
 	}
-	
-	
 
 }
