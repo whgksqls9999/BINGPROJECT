@@ -36,13 +36,15 @@ const doFavBoard = () => {
   };
 
   favStore.doFavBoard(favBoard, user.value.nickname);
-
-  console.log(isFavored.value);
 };
 
 // 게시글 찜 취소하기
 const doFavCancel = () => {
-  favStore.doFavBoardCancel();
+  favStore.doFavBoardCancel(
+    isFavored.value,
+    user.value.nickname,
+    idParam.value
+  );
 };
 
 // favBoardList : 해당 유저의 찜 게시글 목록
@@ -76,9 +78,9 @@ onMounted(async () => {
   );
 });
 
-onUpdated(() => {
-  replyStore.getBoardReplyList(idParam.value);
-});
+// onUpdated(() => {
+//   replyStore.getBoardReplyList(idParam.value);
+// });
 </script>
 
 <style scoped>
