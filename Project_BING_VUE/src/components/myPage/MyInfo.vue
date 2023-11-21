@@ -16,6 +16,22 @@
           <div><strong>탈퇴 문구:</strong> {{ user.withdraw_text }}</div>
         </div>
       </div>
+      <div class="myInfo-follow">
+        <table>
+          <thead>
+            <tr>
+              <th>팔로워</th>
+              <th>팔로잉</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ followerList.length }}</td>
+              <td>{{ followingList.length }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="myInfo-series">
         <div class="myInfo-link">
           <RouterLink :to="{ name: 'modifyInfo' }">내 정보 수정하기</RouterLink>
@@ -41,8 +57,14 @@ const emailParam = route.params.email;
 const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
+// 팔로워 정보 가져오기
+const followerList = computed(() => userStore.followerList);
+const followingList = computed(() => userStore.followingList);
+
 onMounted(() => {
   userStore.getUserByEmail(emailParam);
+  userStore.getFollowerList(emailParam);
+  userStore.getFollowingList(emailParam);
 });
 </script>
 <style scoped>
@@ -72,7 +94,21 @@ onMounted(() => {
   align-items: center;
   justify-content: space-around;
   padding: 20px;
+  /* border-bottom: 1px solid #dbdbdb; */
+}
+
+.myInfo-follow {
   border-bottom: 1px solid #dbdbdb;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+  margin-top: -15px;
+}
+
+table {
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 110px 0;
 }
 
 .myInfo-img img {

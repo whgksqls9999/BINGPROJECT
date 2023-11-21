@@ -10,7 +10,7 @@
     <td>{{ board.writer }}</td>
     <td>{{ board.reg_date }}</td>
     <td>{{ board.view_cnt }}</td>
-    <!-- <td>{{ board.fav_cnt }}</td> -->
+    <td>{{ board.fav_cnt }}</td>
   </tr>
 </template>
 
