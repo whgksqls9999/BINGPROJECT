@@ -111,8 +111,6 @@ export const useBoardStore = defineStore("board", () => {
       .catch((err) => console.log(err));
   };
 
-
-
   return {
     commBoardList,
     getCommBoardList,

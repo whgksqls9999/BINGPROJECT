@@ -3,10 +3,18 @@
     <div id="map"></div>
     <div class="board-detail-location-info"></div>
     <span v-if="isLogin">
-      <button class="fav-location-btn" v-if="isFavoredLocation != ''">
+      <button
+        class="fav-location-btn"
+        v-if="isFavoredLocation == ''"
+        @click="doFavLocation"
+      >
         <font-awesome-icon :icon="['fas', 'star']" /> 찜하기
       </button>
-      <button class="fav-cancel-location-btn" v-else>
+      <button
+        class="fav-cancel-location-btn"
+        v-else
+        @click="doFavLocationCancel"
+      >
         <font-awesome-icon :icon="['fas', 'star']" /> 찜취소
       </button>
     </span>
@@ -34,8 +42,43 @@ const loginUser = computed(() => userStore.loginUser);
 const user = computed(() => userStore.user);
 
 // 이미 찜한 장소인지 체크
-const isFavoredLocation = computed(() => userStore.isFavoredLocation);
+const isFavoredLocation = computed(() => favStore.isFavoredLocation);
 
+const doFavLocation = async () => {
+  let favLocation = {
+    favorite_locationId: 0,
+    writername: user.value.nickname,
+    location_id: location.value.location_id,
+  };
+
+  favStore.doFavLocation(favLocation, user.value.nickname);
+  location.value.fav_cnt++;
+  await locationStore.updateLocation(location.value);
+  locationStore.doGetLocation(location.value.location_id);
+};
+
+const doFavLocationCancel = async () => {
+  favStore.doFavLocationCancel(
+    isFavoredLocation.value,
+    user.value.nickname,
+    location.location_id
+  );
+  location.value.fav_cnt--;
+  await locationStore.updateLocation(location.value);
+  locationStore.doGetLocation(location.value.location_id);
+};
+// const doFavBoard = async () => {
+//   let favBoard = {
+//     favorite_boardId: 0,
+//     board_id: idParam.value,
+//     writername: user.value.nickname,
+//   };
+
+//   favStore.doFavBoard(favBoard, user.value.nickname);
+//   boardOne.value.fav_cnt++;
+//   await boardStore.updateBoard(boardOne.value);
+//   boardStore.getBoard(idParam.value);
+// };
 // location_id를 props로 가져오기
 const props = defineProps({
   location: Number,
@@ -124,12 +167,13 @@ onMounted(async () => {
 
   //로그인 상태일 때
   if (isLogin.value) {
-    userStore.getUserEmail(); // 토큰 가져오기
-    userStore.getUserByEmail(loginUser.value.email); // 정보 가져오기
-    favStore.doFavLocationCheck(
+    await userStore.getUserEmail(); // 토큰 가져오기
+    await userStore.getUserByEmail(loginUser.value.email); // 정보 가져오기
+    await favStore.doFavLocationCheck(
       user.value.nickname,
       location.value.location_id
     ); // 이미 찜한 장소인지 체크하기
+    console.log(isFavoredLocation.value);
   }
 
   // 지도 생성하기

@@ -33,9 +33,18 @@ export const useLocationStore = defineStore("location", () => {
       .catch((err) => console.log(err));
   };
 
+  //장소 정보 수정
+  const updateLocation = (location) => {
+    axios
+      .put(`${REST_LOCATION_API}/modify/${location.location_id}`)
+      .then((response) => {})
+      .catch((err) => console.log(err));
+  };
+
   return {
     location,
     doGetLocation,
     doPostLocation,
+    updateLocation,
   };
 });

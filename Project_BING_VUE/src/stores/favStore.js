@@ -77,6 +77,7 @@ export const useFavStore = defineStore("fav", () => {
   const doFavLocationCheck = async (nickname, location_id) => {
     const check = ref(false);
     await getFavLocationList(nickname);
+    console.log(nickname, location_id, favLocationList.value);
     favLocationList.value.forEach((element) => {
       if (element.location_id == location_id) {
         isFavoredLocation.value = element.favorite_locationId;
@@ -109,7 +110,9 @@ export const useFavStore = defineStore("fav", () => {
     location_id
   ) => {
     await axios
-      .delete(`${REST_FAVBOARD_API}/deletefavboard/${favorite_locationId}`)
+      .delete(
+        `${REST_FAVLOCATION_API}/deletefavlocation/${favorite_locationId}`
+      )
       .then((response) => {
         doFavLocationCheck(nickname, location_id);
         alert("장소 찜을 취소했습니다.");
@@ -129,5 +132,6 @@ export const useFavStore = defineStore("fav", () => {
     isFavoredLocation,
     doFavLocationCheck,
     doFavLocationCancel,
+    doFavLocation,
   };
 });

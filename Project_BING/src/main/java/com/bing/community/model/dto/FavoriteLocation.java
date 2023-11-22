@@ -3,11 +3,21 @@ package com.bing.community.model.dto;
 public class FavoriteLocation {
 	private int favorite_locationId;
 	private int location_id;
-	private String user_email;
+	private String writername;
 	private String place_name;
 	private String address_name;
 
 	public FavoriteLocation() {
+	}
+
+	public FavoriteLocation(int favorite_locationId, int location_id, String writername, String place_name,
+			String address_name) {
+		super();
+		this.favorite_locationId = favorite_locationId;
+		this.location_id = location_id;
+		this.writername = writername;
+		this.place_name = place_name;
+		this.address_name = address_name;
 	}
 
 	public int getFavorite_locationId() {
@@ -26,12 +36,12 @@ public class FavoriteLocation {
 		this.location_id = location_id;
 	}
 
-	public String getUser_email() {
-		return user_email;
+	public String getWritername() {
+		return writername;
 	}
 
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
+	public void setWritername(String writername) {
+		this.writername = writername;
 	}
 
 	public String getPlace_name() {
@@ -48,22 +58,6 @@ public class FavoriteLocation {
 
 	public void setAddress_name(String address_name) {
 		this.address_name = address_name;
-	}
-
-	public FavoriteLocation(int favorite_locationId, int location_id, String user_email, String place_name,
-			String address_name) {
-		super();
-		this.favorite_locationId = favorite_locationId;
-		this.location_id = location_id;
-		this.user_email = user_email;
-		this.place_name = place_name;
-		this.address_name = address_name;
-	}
-
-	@Override
-	public String toString() {
-		return "FavoriteLocation [favorite_locationId=" + favorite_locationId + ", location_id=" + location_id
-				+ ", user_email=" + user_email + ", place_name=" + place_name + ", address_name=" + address_name + "]";
 	}
 
 }
