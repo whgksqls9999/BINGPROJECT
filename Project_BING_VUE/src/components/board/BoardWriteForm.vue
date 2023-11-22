@@ -71,7 +71,8 @@ import { useLocationStore } from "@/stores/locationStore.js";
 import { useRoute } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import BoardWriteMap from "@/components/board/BoardWriteMap.vue";
-// Store
+
+// Store, route
 const boardStore = useBoardStore();
 const userStore = useUserStore();
 const locationStore = useLocationStore();

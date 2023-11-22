@@ -134,6 +134,7 @@ const doFavBoard = async () => {
     favorite_boardId: 0,
     board_id: idParam.value,
     writername: user.value.nickname,
+    community_id: boardOne.value.community_id,
   };
 
   favStore.doFavBoard(favBoard, user.value.nickname);
@@ -167,6 +168,7 @@ const idParam = computed(() => route.params.board_id);
 
 // boardRepyList : 댓글 목록
 const boardReplyList = computed(() => replyStore.boardReplyList);
+
 // boardOne board_id로 선택해 온 게시글 하나, 의존하는 변수 변할때마다 올려줄거임~!
 const boardOne = computed(() => boardStore.boardOne);
 
@@ -197,7 +199,7 @@ const boardDelete = () => {
 };
 onMounted(async () => {
   //로그인 체크
-  userStore.doLoginCheck();
+  await userStore.doLoginCheck();
 
   //댓글 가져오기
   replyStore.getBoardReplyList(idParam.value);
