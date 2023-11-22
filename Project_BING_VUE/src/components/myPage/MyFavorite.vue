@@ -27,12 +27,21 @@
           </tr>
         </thead>
         <!--key값.....:key뭘로잡아....-->
-        <tbody v-for="favboard in myFavBoards" :key="favorite_boardId">
+        <tbody v-for="favboard in myFavBoards" :key="favboard.favorite_boardId">
           <tr>
             <td>{{ favboard.favorite_boardId }}</td>
             <!-- <td>{{ favboard.title }}</td> -->
             <td>
-                <RouterLink :to="{name:'boardDetail', params:{community_id:favboard.community_id, board_id:favboard.board_id}}">{{ favboard.title }}</RouterLink>
+              <RouterLink
+                :to="{
+                  name: 'boardDetail',
+                  params: {
+                    community_id: favboard.community_id,
+                    board_id: favboard.board_id,
+                  },
+                }"
+                >{{ favboard.title }}</RouterLink
+              >
             </td>
             <td>{{ favboard.writername }}</td>
             <td>{{ favboard.reg_date }}</td>
@@ -46,8 +55,8 @@
 <script setup>
 import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
-import { useUserStore } from '@/stores/userStore.js';
-import { useBoardStore } from '@/stores/boardStore.js';
+import { useUserStore } from "@/stores/userStore.js";
+import { useBoardStore } from "@/stores/boardStore.js";
 import { useRoute } from "vue-router";
 
 // route, store
@@ -76,15 +85,14 @@ onMounted(async () => {
   // store.getMyFavLocations(); 이것을 살려야 한다 지도 API 必
   await userStore.getUserByEmail(emailParam);
   await store.getMyFavBoards(user.value.nickname);
-  console.log(user.value);
   // console.log(myFavBoards.value);
   // console.log(emailParam);
 });
 </script>
 
 <style scoped>
-a{
-  text-decoration:none;
+a {
+  text-decoration: none;
   color: black;
 }
 .myFavorite-global {
@@ -108,4 +116,5 @@ a{
   font-weight: 500;
   text-align: center;
   border-spacing: 1.3rem;
-}</style>
+}
+</style>
