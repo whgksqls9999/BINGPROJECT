@@ -114,7 +114,11 @@ textarea:focus {
   margin-top: 120px;
   text-align: center;
 }
-
+.board-detail-title input{
+  height: 30px;
+  border-radius: 10px;
+  padding: 8px;
+}
 .board-detail-global {
   border: 3px solid black;
   border-radius: 20px;

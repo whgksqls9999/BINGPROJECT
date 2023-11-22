@@ -65,10 +65,9 @@
               <td>
                 <RouterLink
                   :to="{
-                    name: 'replyDetail',
+                    name: 'boardDetail',
                     params: {
-                      board_id: reply.board_id,
-                      reply_id: reply.reply_id,
+                      community_id:reply.community_id, board_id:reply.board_id
                     },
                   }"
                   >{{ reply.content }}</RouterLink
