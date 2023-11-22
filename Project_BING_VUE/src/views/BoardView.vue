@@ -37,6 +37,7 @@ const boardStore = useBoardStore();
 // 헤더 fixed toggle
 onMounted(() => {
   commonStore.toggleHeaderFixed(false);
+  commonStore.toggleFooterFixed(true);
 });
 
 // community_id 받아오기
