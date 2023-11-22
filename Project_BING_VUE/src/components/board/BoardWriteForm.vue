@@ -23,7 +23,9 @@
             </fieldset>
             <fieldset>
               <legend>주소</legend>
-              <div>{{ location.address_name }}</div>
+              <div>
+                {{ location.address_name.split(" ").splice(0, 3).join(" ") }}
+              </div>
             </fieldset>
             <div>
               <button
