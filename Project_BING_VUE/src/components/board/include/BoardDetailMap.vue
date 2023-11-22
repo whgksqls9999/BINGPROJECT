@@ -3,10 +3,10 @@
     <div id="map"></div>
     <div class="board-detail-location-info"></div>
     <span v-if="isLogin">
-      <button class="fav-location-btn">
+      <button class="fav-location-btn" v-if="isFavoredLocation != ''">
         <font-awesome-icon :icon="['fas', 'star']" /> 찜하기
       </button>
-      <button class="fav-cancel-location-btn">
+      <button class="fav-cancel-location-btn" v-else>
         <font-awesome-icon :icon="['fas', 'star']" /> 찜취소
       </button>
     </span>
@@ -22,12 +22,19 @@ import { useFavStore } from "@/stores/favStore.js";
 // router, store
 const locationStore = useLocationStore();
 const userStore = useUserStore();
+const favStore = useFavStore();
 
 // 유저 로그인 체크
 const isLogin = computed(() => userStore.isLogin);
 
 // 유저 토큰 정보
 const loginUser = computed(() => userStore.loginUser);
+
+//유저 정보
+const user = computed(() => userStore.user);
+
+// 이미 찜한 장소인지 체크
+const isFavoredLocation = computed(() => userStore.isFavoredLocation);
 
 // location_id를 props로 가져오기
 const props = defineProps({
@@ -109,15 +116,22 @@ const placesSearchCB = (data, status, pagination) => {
 };
 
 onMounted(async () => {
+  // 장소 정보 가져오기
+  await locationStore.doGetLocation(props.location);
+
   // 유저 로그인 체크
   userStore.doLoginCheck();
 
-  //로그인 상태라면 토큰 가져오기
+  //로그인 상태일 때
   if (isLogin.value) {
-    userStore.getUserEmail();
+    userStore.getUserEmail(); // 토큰 가져오기
+    userStore.getUserByEmail(loginUser.value.email); // 정보 가져오기
+    favStore.doFavLocationCheck(
+      user.value.nickname,
+      location.value.location_id
+    ); // 이미 찜한 장소인지 체크하기
   }
-  // 장소 정보 가져오기
-  await locationStore.doGetLocation(props.location);
+
   // 지도 생성하기
   if (window.kakao && window.kakao.maps) {
     initMap();

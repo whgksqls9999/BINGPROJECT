@@ -40,7 +40,6 @@ export const useFavStore = defineStore("fav", () => {
   const doFavorCheck = async (nickname, board_id) => {
     const check = ref(false);
     await getFavBoardList(nickname);
-    console.log(nickname, board_id, favBoardList.value);
     favBoardList.value.forEach((element) => {
       if (element.board_id == board_id) {
         isFavored.value = element.favorite_boardId;
@@ -65,12 +64,58 @@ export const useFavStore = defineStore("fav", () => {
   };
 
   // 장소 찜 정보 가져오기
+  const favLocationList = ref([]);
+  const getFavLocationList = async (nickname) => {
+    await axios
+      .get(`${REST_FAVLOCATION_API}/${nickname}`)
+      .then((response) => (favLocationList.value = response.data))
+      .catch((err) => console.log(err));
+  };
 
   // 이미 찜한 장소인지 체크
+  const isFavoredLocation = ref("");
+  const doFavLocationCheck = async (nickname, location_id) => {
+    const check = ref(false);
+    await getFavLocationList(nickname);
+    favLocationList.value.forEach((element) => {
+      if (element.location_id == location_id) {
+        isFavoredLocation.value = element.favorite_locationId;
+        check.value = true;
+      }
+    });
+    if (!check.value) {
+      isFavoredLocation.value = "";
+    }
+  };
 
   // 장소 찜 등록
+  const doFavLocation = async (favLocation, nickname) => {
+    await axios
+      .post(`${REST_FAVLOCATION_API}/addfavlocation`, null, {
+        headers: { "Content-Type": "application/json" },
+        params: favLocation,
+      })
+      .then(() => {
+        doFavLocationCheck(nickname, favLocation.location_id);
+        alert("장소를 찜했습니다.");
+      })
+      .catch((err) => console.log(err));
+  };
 
-  // 장소 찜 삭제
+  // 장소 찜 취소
+  const doFavLocationCancel = async (
+    favorite_locationId,
+    nickname,
+    location_id
+  ) => {
+    await axios
+      .delete(`${REST_FAVBOARD_API}/deletefavboard/${favorite_locationId}`)
+      .then((response) => {
+        doFavLocationCheck(nickname, location_id);
+        alert("장소 찜을 취소했습니다.");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return {
     doFavBoard,
@@ -79,5 +124,10 @@ export const useFavStore = defineStore("fav", () => {
     isFavored,
     doFavorCheck,
     doFavBoardCancel,
+    favLocationList,
+    getFavLocationList,
+    isFavoredLocation,
+    doFavLocationCheck,
+    doFavLocationCancel,
   };
 });
