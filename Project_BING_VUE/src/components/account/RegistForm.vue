@@ -8,11 +8,11 @@
           <label for="">Id</label>
         </div>
         <div class="user-box">
-          <input type="text" v-model="pw" />
+          <input type="password" v-model="pw" />
           <label for="">pw</label>
         </div>
         <div class="user-box">
-          <input type="text" v-model="pwCheck" />
+          <input type="password" v-model="pwCheck" />
           <label for="">pwCheck</label>
         </div>
         <div class="user-box">
@@ -53,6 +53,9 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "@/stores/userStore.js";
+import {useRouter} from 'vue-router';
+
+const router = useRouter();
 
 const email = ref("");
 const pw = ref("");
@@ -123,15 +126,22 @@ const registUser = async () => {
     alert("비밀번호는 8자리 이상, 특수문자를 포함해야 합니다.");
     return;
   }
+
   await userStore.getAllUsers();
   console.log(email.value);
   console.log(users.value);
   console.log(userStore.users);
   if (users.value.length > 0) {
     const userAlready = users.value.some((user) => user.email === email.value);
+    const nicknameAlready = users.value.some((user)=>user.nickname === nickname.value);
     console.log(userAlready);
+    console.log(nicknameAlready);
     if (userAlready) {
-      alert("이미 존재하는 아이디입니다");
+      alert("이미 존재하는 아이디입니다.");
+      return;
+    }
+    if(nicknameAlready){
+      alert('이미 존재하는 닉네임입니다.')
       return;
     }
   }
@@ -145,7 +155,9 @@ const registUser = async () => {
     withdraw_text: withdraw_text.value,
   };
 
-  userStore.registUser(user);
+  await userStore.registUser(user);
+  closeWindow();
+  console.log('메인이지롱')
 };
 </script>
 
@@ -168,6 +180,7 @@ const registUser = async () => {
   left: 20rem;
 } */
 .regist-container {
+
   background-color: rgba(128, 128, 128, 0.4);
   width: 100%;
   height: 100vh;
@@ -176,7 +189,7 @@ const registUser = async () => {
   z-index: 1;
 }
 .regist-form {
-  margin-top: 250px;
+  margin-top: 350px;
   position: fixed;
   top: 10%;
   left: 50%;
