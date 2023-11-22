@@ -78,6 +78,7 @@ const userStore = useUserStore();
 const locationStore = useLocationStore();
 
 onMounted(() => {
+  location.value = "";
   boardStore.getCommBoardList(comm_id);
   userStore.getUserByEmail(writer.email);
 });
@@ -95,7 +96,16 @@ const writer = JSON.parse(
 // 게시글 등록하기
 const doRegistBoard = () => {
   if (category.value === "") {
-    alert("카테고리를 설정해주세요");
+    alert("카테고리를 설정해주세요.");
+    return;
+  } else if (category.value === "장소추천" && location.value == "") {
+    alert("장소를 등록해주세요.");
+    return;
+  } else if (title.value.trim() == "") {
+    alert("제목을 입력해주세요.");
+    return;
+  } else if (content.value.trim() == "") {
+    alert("내용을 입력해주세요.");
     return;
   }
 
@@ -149,9 +159,7 @@ const doSelectPlace = (place, address) => {
 const category = ref("");
 const setCategory = (sel) => {
   category.value = sel;
-  if (sel !== "장소추천") {
-    location.value = "";
-  }
+  location.value = "";
 };
 </script>
 
