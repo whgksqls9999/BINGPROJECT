@@ -21,7 +21,7 @@
         <thead>
           <tr>
             <th>번호</th>
-            <th>내용</th>
+            <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
           </tr>
@@ -30,8 +30,10 @@
         <tbody v-for="favboard in myFavBoards" :key="favorite_boardId">
           <tr>
             <td>{{ favboard.favorite_boardId }}</td>
-            <td>{{ favboard.content }}</td>
-            <!--나중에 Boarddetail구현하고 만들것 <td><RouterLink :to="{name: 'BoardDetail', params:{id: favboard.num}}">{{ favboard.title }}</RouterLink></td> -->
+            <!-- <td>{{ favboard.title }}</td> -->
+            <td>
+                <RouterLink :to="{name:'boardDetail', params:{community_id:favboard.community_id, board_id:favboard.board_id}}">{{ favboard.title }}</RouterLink>
+            </td>
             <td>{{ favboard.writername }}</td>
             <td>{{ favboard.reg_date }}</td>
           </tr>
@@ -44,13 +46,15 @@
 <script setup>
 import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
-import { useUserStore } from "@/stores/userStore.js";
+import { useUserStore } from '@/stores/userStore.js';
+import { useBoardStore } from '@/stores/boardStore.js';
 import { useRoute } from "vue-router";
 
 // route, store
 const route = useRoute();
 const userStore = useUserStore();
 const store = useMyPageStore();
+const boardStore = useBoardStore();
 
 // 유저 정보 받아오기
 const user = computed(() => userStore.user);
@@ -79,6 +83,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+a{
+  text-decoration:none;
+  color: black;
+}
 .myFavorite-global {
   margin-top: 150px;
   display: grid;
@@ -100,5 +108,4 @@ onMounted(async () => {
   font-weight: 500;
   text-align: center;
   border-spacing: 1.3rem;
-}
-</style>
+}</style>

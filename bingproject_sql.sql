@@ -80,7 +80,8 @@ CREATE TABLE favorite_board (
     writername VARCHAR(300) NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
     FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
+  	FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
+
 );
 SELECT * FROM
 favorite_board;

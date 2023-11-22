@@ -30,12 +30,23 @@ export const useUserStore = defineStore("user", () => {
   };
 
   // 유저 목록 가져오기
+  // const users = ref([]);
+  // const getAllUsers = () => {
+  //   axios.get(`${REST_USER_API}/`).then((response) => {
+  //     users.value = response.data;
+  //   });
+  // };
+
+//유저 목록 가져오기 RegistForm에서 await 설정해놔서 여기도 async 해주기
   const users = ref([]);
-  const getAllUsers = () => {
-    axios.get(`${REST_USER_API}/`).then((response) => {
-      users.value = response.data;
-    });
-  };
+const getAllUsers = async () => {
+  try {
+    const response = await axios.get(`${REST_USER_API}/`);
+    users.value = response.data;
+  } catch (error) {
+    console.error('Error while fetching user list:', error);
+  }
+};
 
   // header 출력 폼 결정
   const showForm = ref("");
@@ -67,6 +78,8 @@ export const useUserStore = defineStore("user", () => {
       .catch((err) => console.log(err));
   };
 
+  //닉네임 중복검사
+
   // 로그아웃 요청
   const userLogout = () => {
     sessionStorage.removeItem("access-token");
@@ -74,6 +87,7 @@ export const useUserStore = defineStore("user", () => {
     alert("로그아웃 되었습니다.");
     router.push({ name: "main" });
   };
+
 
   // 회원가입 요청 - 하는중,,
   const registUser = (user) => {
