@@ -76,9 +76,11 @@ SELECT * FROM board;
 CREATE TABLE favorite_board (
     favorite_boardId INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     board_id INT(10) NOT NULL,
+    community_id INT(10) NOT NULL,
     writername VARCHAR(300) NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
-    FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- INSERT INTO favorite_board
 -- VALUES (1,1,'닉네임'),
