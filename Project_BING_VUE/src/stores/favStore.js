@@ -53,7 +53,7 @@ export const useFavStore = defineStore("fav", () => {
     }
   };
 
-  // 찜 취소
+  // 게시글 찜 취소
   const doFavBoardCancel = async (favorite_boardId, nickname, board_id) => {
     await axios
       .delete(`${REST_FAVBOARD_API}/deletefavboard/${favorite_boardId}`)
@@ -63,6 +63,14 @@ export const useFavStore = defineStore("fav", () => {
       })
       .catch((err) => console.log(err));
   };
+
+  // 장소 찜 정보 가져오기
+
+  // 이미 찜한 장소인지 체크
+
+  // 장소 찜 등록
+
+  // 장소 찜 삭제
 
   return {
     doFavBoard,

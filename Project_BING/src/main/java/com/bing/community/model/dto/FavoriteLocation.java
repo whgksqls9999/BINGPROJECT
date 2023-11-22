@@ -4,6 +4,8 @@ public class FavoriteLocation{
 	private int favorite_locationId;
 	private int location_id;
 	private String user_email;
+	private String place_name;
+	private String address_name;
 	
 	public FavoriteLocation() {
 	}
