@@ -19,7 +19,7 @@ VALUES ('ssafy', '1234!!!!', '김싸피', '남', '닉네임', '안녕히계세�
 SELECT * FROM user;
 
 CREATE TABLE location (
-    location_id INT(10) PRIMARY KEY NOT NULL,
+    location_id INT(100) PRIMARY KEY NOT NULL,
     place_name VARCHAR(100) NOT NULL,
     address_name VARCHAR(100) NOT NULL,
     fav_cnt INT(10) DEFAULT 0,
@@ -59,7 +59,7 @@ CREATE TABLE board (
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     view_cnt INT(10) DEFAULT 0, 
-    location_id INT(10),
+    location_id INT(100),
     fav_cnt INT(10) DEFAULT 0,
     FOREIGN KEY (community_id) REFERENCES community(community_id) ON DELETE CASCADE,
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
@@ -89,7 +89,7 @@ favorite_board;
 CREATE TABLE favorite_location (
     favorite_locationId INT(10) AUTO_INCREMENT PRIMARY KEY,
     writername VARCHAR(300) NOT NULL,
-    location_id INT(10) NOT NULL,
+    location_id INT(100) NOT NULL,
     FOREIGN KEY (location_id) REFERENCES location(location_id) ON DELETE CASCADE,
     FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
