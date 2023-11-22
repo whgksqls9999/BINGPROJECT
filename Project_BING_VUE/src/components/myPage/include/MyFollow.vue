@@ -83,7 +83,7 @@ onMounted(() => {});
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
 }
 .my-follow-container {
   position: absolute;
@@ -95,7 +95,7 @@ onMounted(() => {});
   border: 2px solid #dbdbdb;
   padding: 0.3rem;
   border-radius: 0.5rem;
-  z-index: 2;
+  z-index: 3;
 }
 
 .my-follow-box-title {

@@ -2,14 +2,32 @@
   <div class="map-container">
     <div id="map"></div>
     <div class="board-detail-location-info"></div>
+    <span v-if="isLogin">
+      <button class="fav-location-btn">
+        <font-awesome-icon :icon="['fas', 'star']" /> 찜하기
+      </button>
+      <button class="fav-cancel-location-btn">
+        <font-awesome-icon :icon="['fas', 'star']" /> 찜취소
+      </button>
+    </span>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref, computed, onBeforeMount } from "vue";
 import { useLocationStore } from "@/stores/locationStore.js";
+import { useUserStore } from "@/stores/userStore.js";
+import { useFavStore } from "@/stores/favStore.js";
+
 // router, store
 const locationStore = useLocationStore();
+const userStore = useUserStore();
+
+// 유저 로그인 체크
+const isLogin = computed(() => userStore.isLogin);
+
+// 유저 토큰 정보
+const loginUser = computed(() => userStore.loginUser);
 
 // location_id를 props로 가져오기
 const props = defineProps({
@@ -91,6 +109,14 @@ const placesSearchCB = (data, status, pagination) => {
 };
 
 onMounted(async () => {
+  // 유저 로그인 체크
+  userStore.doLoginCheck();
+
+  //로그인 상태라면 토큰 가져오기
+  if (isLogin.value) {
+    userStore.getUserEmail();
+  }
+  // 장소 정보 가져오기
   await locationStore.doGetLocation(props.location);
   // 지도 생성하기
   if (window.kakao && window.kakao.maps) {
@@ -123,5 +149,35 @@ onMounted(async () => {
   border-radius: 20px;
   width: 100%;
   height: 15rem;
+  position: relative;
+}
+
+.fav-cancel-location-btn,
+.fav-location-btn {
+  background-color: white;
+  border-radius: 0.3rem;
+  position: absolute;
+  right: 2.6rem;
+  bottom: 4.83%;
+  border: none;
+  box-shadow: 0 2px 0.1rem #ccc;
+  padding: 5px;
+}
+
+.fav-location-btn {
+  color: rgb(51, 150, 255);
+}
+
+.fav-cancel-location-btn {
+  color: rgb(255, 51, 51);
+}
+
+.fav-location-btn:hover {
+  background-color: rgb(51, 150, 255);
+  color: white;
+}
+.fav-cancel-location-btn:hover {
+  background-color: rgb(255, 51, 51);
+  color: white;
 }
 </style>
