@@ -9,11 +9,11 @@
           <img src="@/assets/군싹.jpeg" />
         </div>
         <div class="myInfo-detail-series">
-          <div><strong>아이디:</strong> {{ user.email }}</div>
-          <div><strong>이름:</strong> {{ user.name }}</div>
-          <div><strong>닉네임:</strong> {{ user.nickname }}</div>
-          <div><strong>성별:</strong> {{ user.gender }}</div>
-          <div><strong>탈퇴 문구:</strong> {{ user.withdraw_text }}</div>
+          <div><strong>아이디 : </strong> {{ user.email }}</div>
+          <div><strong>이름 : </strong> {{ user.name }}</div>
+          <div><strong>닉네임 : </strong> {{ user.nickname }}</div>
+          <div><strong>성별 : </strong> {{ user.gender }}</div>
+          <div><strong>탈퇴 문구 : </strong> {{ user.withdraw_text }}</div>
         </div>
       </div>
       <div class="myInfo-follow">
@@ -140,8 +140,9 @@ onMounted(() => {
 .myInfo-detail {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 20px;
+  justify-content: space-between;
+  padding: 30px;
+  gap: 30px;
   /* border-bottom: 1px solid #dbdbdb; */
 }
 
@@ -161,8 +162,8 @@ table {
 
 .myInfo-img img {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 }
 
 .myInfo-detail-series {

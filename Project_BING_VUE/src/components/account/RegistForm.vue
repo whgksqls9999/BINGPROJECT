@@ -73,7 +73,7 @@ onMounted(() => {
 
 const passwordConfirm = () => {
   if (!pwConfirm.value) {
-    console.log("ADSFSAF");
+    // console.log("ADSFSAF");
     alert("비밀번호가 일치하지 않습니다.");
     return true;
   }
