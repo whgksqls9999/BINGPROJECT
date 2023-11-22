@@ -1,38 +1,29 @@
 <template>
-  <div class="container">
-    <div class="comm-form">
-      <!-- <div class="comm-title"></div> -->
-      <div class="comm-menu">
-        <RouterLink
-          :to="{ name: 'board', params: { community_id: '1' } }"
-          class="freediving"
-          >FREEDIVING</RouterLink
-        >
-        <div class="freediving-desc desc">
-          WELCOME TO <br /><strong style="font-size: 50px">FREEDIVING</strong>
-          WORLD!
-        </div>
-        <RouterLink
-          :to="{ name: 'board', params: { community_id: '2' } }"
-          class="skinscuba"
-          >SKINSCUBA</RouterLink
-        >
-        <div class="skinscuba-desc desc">
-          WELCOME TO <br /><strong style="font-size: 50px">SKINSCUBA</strong>
-          WORLD!
-        </div>
-        <div class="comm-title">SELECT COMMUNITY</div>
-        <!-- <div class="comm-desc"> SHARE YOUR WORLD </div> -->
-      </div>
+  <div>
+    <div class="communitymain-title">
+      <h2>당신의 커뮤니티를 녹여주세요</h2>
+    </div>
+    <div class="container">
+      <RouterLink
+        data-text="freediving"
+        :to="{ name: 'board', params: { community_id: '1' } }"
+        class="freediving link"
+        >FREEDIVING</RouterLink
+      >
+      <br />
+      <RouterLink
+        data-text="skinscuba"
+        :to="{ name: 'board', params: { community_id: '2' } }"
+        class="skinscuba link"
+        >SKINSCUBA</RouterLink
+      >
     </div>
   </div>
 </template>
 
 <script setup>
-
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import { useCommonStore } from "@/stores/commonStore.js";
-
 
 // 헤더 fixed toggle
 const commonStore = useCommonStore();
@@ -40,148 +31,144 @@ onMounted(() => {
   commonStore.toggleHeaderFixed(false);
 });
 
-const fadeout = ref('false');
-
+const fadeout = ref("false");
 </script>
 
 <style scoped>
-body {
-  height: 100vh;
+.communitymain-title {
+  position: absolute;
+  text-align: center;
+  top: 30vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+h2 {
+  z-index: 100;
+  font-size: 2.3rem;
+  opacity: 0;
+  animation: fadeIn 1s forwards, blink 2s infinite; /* fadeIn 애니메이션 + 반짝이는 애니메이션 추가 */
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* glow 효과 설정 */
 }
 
 .container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  /* justify-content: center; */
-  margin-top: 70px;
+  background-image: url("@/assets/커뮤니티배경.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
   padding-top: 20px;
-  text-align: center;
-  height: 90vh;
+  height: 100vh;
 }
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
+
+.link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  text-align: center;
+  font-family: sans-serif;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: #383838;
+  z-index: 0;
+  margin: 0 10px;
+}
+
+.freediving:before,
+.skinscuba:before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: 0.5s;
+  transform-origin: bottom;
+}
+
+.freediving {
+  margin-left: -230px;
+}
+
+.skinscuba {
+  margin-left: 230px;
+}
+.freediving:before {
+  background: #383838;
+  color: #fff;
+  font-weight: 600;
+  transform: translatey(-100%) rotatex(90deg);
+}
+
+.freediving:hover:before {
+  transform: translatey(0) rotatex(0deg);
+}
+
+.skinscuba:before {
+  background: #383838;
+  font-weight: 600;
+  color: #fff;
+  transform: translatey(-100%) rotatex(90deg);
+}
+
+.skinscuba:hover:before {
+  transform: translatey(0) rotatex(0deg);
+}
+
+.link:after {
+  content: attr(data-text);
+  font-weight: 600;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  transition: 0.5s;
+  transform-origin: top;
+}
+
+.link:hover:after {
+  transform: translatey(100%) rotatex(90deg);
+}
+
+/* 추가된 애니메이션 스타일 */
+@keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
 
-@keyframes delayed-fadein {
-  0% {
-    opacity: 0;
-  }
-  33% {
-    opacity: 0;
-  }
+@keyframes blink {
+  0%,
   100% {
     opacity: 1;
   }
-}
-
-* {
-  box-sizing: border-box;
-}
-.desc {
-  position: absolute;
-  top: 100%;
-  margin-top: 1rem;
-  transition: all 0.5s;
-  opacity: 0;
-  font-size: 2rem;
-  width: 50rem;
-  background-color: white;
-  height: 30rem;
-  padding: 1rem;
-  text-align: left;
-}
-
-.freediving-desc {
-  border-top: 1rem solid black;
-  border-left: 1rem solid black;
-}
-.skinscuba-desc {
-  border-top: 1rem solid black;
-  border-left: 1rem solid black;
-}
-
-.freediving:hover + .freediving-desc,
-.skinscuba:hover + .skinscuba-desc {
-  opacity: 1;
-  transform: translateY(1rem);
-}
-
-.freediving:hover ~ .comm-title,
-.skinscuba:hover ~ .comm-title {
-  opacity: 0;
-  transform: translateY(-1rem);
-}
-
-.comm-form {
-  width: 24rem;
-}
-
-.comm-title {
-  padding: 1rem;
-  text-align: left;
-  margin-top: 2rem;
-  border-top: 1rem solid black;
-  border-left: 1rem solid black;
-  top: 100%;
-  position: absolute;
-  margin-bottom: 0.2rem;
-  font-size: 50px;
-  font-weight: bold;
-  width: 50rem;
-  height: 30rem;
-  opacity: 1;
-  transition: all 0.7s ease;
-  animation: fadein 1s;
-}
-
-.comm-menu {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  height: 100%;
-  position: relative;
-}
-
-/* .comm-desc{
-  position: absolute;
-  top: 980%;
-  font-size: 40px;
-  width: 30rem;
-  animation: delayed-fadein 2s;
-} */
-a {
-  text-decoration: none;
-  color: white;
-  background-color: black;
-  border-radius: 2rem;
-  padding: 1rem;
-  transition: all 0.8s ease;
-  position: relative;
-  opacity: 0.85;
-  animation: delayed-fadein 1.5s;
-}
-
-a:hover {
-  background-color: rgb(255, 255, 255);
-  color: black;
-  opacity: 1;
-  box-shadow: 0 0 0.6rem black;
-}
-
-a:active {
-  background-color: black;
-  /* font-size: 20px; */
-  opacity: 0.85;
-  color: white;
-}
-
-* {
-  box-sizing: border-box;
+  50% {
+    opacity: 0;
+  }
 }
 </style>
+
+<!-- 
+/* a {
+  text-decoration: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  width: 150px;
+  height: 30px;
+  text-align: center;
+  padding: 20px;
+  margin: 40px;
+} */ -->

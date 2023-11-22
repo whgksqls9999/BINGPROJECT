@@ -1,22 +1,5 @@
 <template>
   <div class="board-view-container">
-    <!-- <h1>{{ community.community_name }} 게시판입니다.</h1>
-    <div>
-    </div>
-
-    <RouterLink
-      :to="{ name: 'boardDetail', params: { board_id: board.board_id } }"
-      v-for="board in commBoardList"
-      >{{ board.board_id }}번 게시글</RouterLink
-    >
-    <RouterView />
-    <div>
-      <RouterLink
-        :to="{ name: 'boardWrite', params: { community_id: idParam } }"
-        :comm_id="idParam"
-        >글 작성</RouterLink
-      >
-    </div> -->
     <div class="board-view-top">
       <h2>게시글 리스트</h2>
     </div>
@@ -88,7 +71,7 @@ onMounted(() => {
   margin-top: 140px;
   margin-left: auto;
   margin-right: auto;
-  height: 70%;
+  height: 100vh;
   border: 1px solid black;
   width: 90rem;
 }
