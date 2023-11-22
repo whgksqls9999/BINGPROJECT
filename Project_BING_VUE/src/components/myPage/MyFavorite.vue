@@ -9,7 +9,14 @@
       <div class="myFavLocation-map">
         <div id="map"></div>
       </div>
-      <div class="myFavLocation-list-box"></div>
+      <div class="myFavLocation-list-box">
+        <div class="myFavLocation-list-inline">
+          <MyFavLocationItem
+            v-for="favLocation in favLocationList"
+            :favLocation="favLocation"
+          />
+        </div>
+      </div>
       <!--찜한 장소 지도에 MARKER로 뜨겠지? 그거 받아오면 될 듯 아 그럼 또 DB 추가해야됨?-->
     </div>
     <!--게시글-->
@@ -63,6 +70,7 @@ import { useUserStore } from "@/stores/userStore.js";
 import { useBoardStore } from "@/stores/boardStore.js";
 import { useFavStore } from "@/stores/favStore.js";
 import { useRoute } from "vue-router";
+import MyFavLocationItem from "@/components/myPage/include/MyFavLocationItem.vue";
 
 // route, store
 const route = useRoute();
@@ -174,19 +182,6 @@ const displayMarker = (markers) => {
   );
 
   toRaw(map).setBounds(bounds);
-  // let marker = new kakao.maps.Marker({
-  //   map: map,
-  //   position: new kakao.maps.LatLng(place.latitude, place.longitude),
-  // });
-  // infowindow.setContent(
-  //   `<div class="map-info" style="padding:3px;font-size:12px;width:100%;display:flex">
-  //         <div>
-  //           <div style="font-weight: bold; font-size: 14px">${place.place_name}</div>
-  //           <div style="width:160px">${place.address_name}</div>
-  //         </div>
-  //       </div>`
-  // );
-  // infowindow.open(map, marker);
 };
 
 // 키워드 검색 함수
@@ -276,5 +271,14 @@ a {
   height: 13.5rem;
   border: 2px solid #ccc;
   border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myFavLocation-list-inline {
+  width: 35rem;
+  height: 11rem;
+  overflow-y: scroll;
 }
 </style>

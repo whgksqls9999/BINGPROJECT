@@ -94,7 +94,8 @@ const displayMarker = (place) => {
     location.value = place;
     // localStorage.setItem('place',JSON.stringify(place));
     let address = place.address_name.split(" ").splice(0, 3).join(" ");
-    shortAddress.value = address;
+    // shortAddress.value = address;
+    shortAddress.value = place.address_name;
     // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
     infowindow.setContent(
       `<div class="map-info" style="padding:3px;font-size:12px;width:200px;display:flex">
