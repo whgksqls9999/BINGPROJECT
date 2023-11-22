@@ -80,12 +80,9 @@ CREATE TABLE favorite_board (
     writername VARCHAR(300) NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
     FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
+  	FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
+
 );
--- INSERT INTO favorite_board
--- VALUES (1,1,'닉네임'),
--- (2,2,'닉네임2'),
--- (3,2,'닉네임2');
 SELECT * FROM
 favorite_board;
 
@@ -96,7 +93,7 @@ CREATE TABLE favorite_location (
     FOREIGN KEY (location_id) REFERENCES location(location_id) ON DELETE CASCADE,
     FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
+SELECT * FROM favorite_location;
 CREATE TABLE reply (
     reply_id INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     board_id INT(10) NOT NULL,
@@ -107,6 +104,7 @@ CREATE TABLE reply (
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 -- Reply 데이터
 INSERT INTO reply (board_id, writer, content, reg_date, is_modified)
 VALUES (1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
