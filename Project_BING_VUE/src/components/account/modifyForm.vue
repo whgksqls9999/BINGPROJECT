@@ -75,10 +75,10 @@ const nickname = ref("");
 const withdraw_text = ref("");
 
 const user = computed(() => userStore.user);
+const users = computed(()=>userStore.users);
 
 //비밀번호 일치하는지 검사
 const pwConfirm = computed(() => pw.value === pwCheck.value);
-const users = userStore.getAllUsers();
 
 const isPwValid = (pw) => {
   return pw.length >= 8 && /[!@#$%^&*(),.?":{}|<>]/g.test(pw);
@@ -115,9 +115,7 @@ const modifyUser = () => {
   //   }
   // }
 
-  userStore.getAllUsers();
-
-  const userAlready = userStore.users.some((user)=>user.email !== user.value.email && user.nickname === nickname.value)
+  const userAlready = users.value.some((u)=>u.nickname !== user.value.nickname && u.nickname === nickname.value)
   if(userAlready){
     alert('이미 존재하는 닉네임입니다.')
     return;
@@ -126,6 +124,7 @@ const modifyUser = () => {
 };
 
 onMounted(() => {
+  userStore.getAllUsers();
   emailParam.value = route.params.email;
   userStore.getUserByEmail(emailParam.value);
   //초기값
