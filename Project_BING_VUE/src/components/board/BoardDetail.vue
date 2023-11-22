@@ -55,7 +55,7 @@
           </button>
           <span v-if="isLogin != null">
             <button
-              v-if="isFavored != ''"
+              v-if="isFavored == ''"
               @click="doFavBoard"
               class="fav-button"
             >
