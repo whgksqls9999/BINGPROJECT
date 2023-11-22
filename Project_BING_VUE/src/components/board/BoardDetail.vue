@@ -93,8 +93,12 @@
                 <td>{{ reply.content }}</td>
                 <td>{{ reply.writer }}</td>
                 <td>{{ reply.reg_date }}</td>
-                <button @click="modifyReply">수정</button>
-                <button>삭제</button>
+                <div class="reply-button-item">
+                  <button class="button1" @click="modifyReply">수정</button>
+                  <button class="button2" @click="removeReply(reply)">
+                    삭제
+                  </button>
+                </div>
               </tr>
             </tbody>
           </table>
@@ -181,7 +185,7 @@ const user = computed(() => userStore.user);
 // 글 작성자 체크
 const isWriter = ref(false);
 
-
+// const reply = computed(() => replyStore.reply);
 //수정 누르면 수정 form으로 이동
 const boardModifyPush = () => {
   router.push({
@@ -201,19 +205,25 @@ const boardDelete = () => {
 const replyContent = ref("");
 
 //댓글 작성하기
-const registReply = () =>{
+const registReply = () => {
   const reply = {
     board_id: boardOne.value.board_id,
     community_id: boardOne.value.community_id,
-    writer : user.value.nickname,
-    content : replyContent.value,
+    writer: user.value.nickname,
+    content: replyContent.value,
     reg_date: new Date().toISOString(),
-  }
+  };
 
   replyStore.registReply(reply);
-}
+  replyContent.value = "";
+};
 
-
+//댓글 삭제하기
+const removeReply = (reply) => {
+  console.log(reply.reply_id);
+  replyStore.removeReply(reply.reply_id);
+  replyStore.getBoardReplyList(reply.board_id);
+};
 
 onMounted(async () => {
   //로그인 체크
@@ -343,7 +353,6 @@ button {
   background-color: rgb(216, 67, 67);
   color: white;
 }
-
 .reply-item {
   margin-top: 10px;
 }
@@ -378,7 +387,7 @@ table {
 }
 
 th {
-  text-align: left;
+  text-align: center;
 }
 
 thead {
@@ -395,6 +404,7 @@ th {
 }
 
 td {
+  text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-left: 1em;
   background: #ffffff;
@@ -446,8 +456,39 @@ td {
     border-bottom: 1px solid #e5e5e5;
   }
 }
+.reply-button-item {
+  margin-top: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
 
-.comment-container {
+.reply-button-item button {
+  height: 30px;
+  width: 80%;
+}
+
+.reply-button-item .button1 {
+  color: white;
+  background-color: black;
+}
+.reply-button-item .button1:hover {
+  color: black;
+  background-color: white;
+}
+.reply-button-item .button2 {
+  color: white;
+  background-color: rgb(216, 67, 67);
+}
+.reply-button-item .button2:hover {
+  color: rgb(216, 67, 67);
+  background-color: white;
+}
+
+.reply-button-item .comment-container {
   display: flex;
   flex-direction: column;
   gap: 8px;

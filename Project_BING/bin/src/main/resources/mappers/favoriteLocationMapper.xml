@@ -12,9 +12,9 @@
 	</select>
 	
 	<!-- 장소 찜 등록하기 -->
-	<insert id="insertFavoriteLoction" parameterType="FavoriteLocation">
-		INSERT INTO favorite_loction(favorite_locationId, location_id, user_email)
-		VALUES(#{favorite_locationId},#{location_id},#{user_email})
+	<insert id="insertFavoriteLocation" parameterType="FavoriteLocation">
+		INSERT INTO favorite_location(favorite_locationId, location_id, writername)
+		VALUES(#{favorite_locationId},#{location_id},#{writername})
 	</insert>
 	
 	<!-- 장소 찜 삭제하기 -->
