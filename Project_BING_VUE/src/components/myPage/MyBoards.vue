@@ -3,7 +3,7 @@
   <div class="myboard-global">
     <!--게시글-->
     <div class="myboard-title">
-      <h2>✍ {{ nickname }}님의 게시글 목록</h2>
+      <h2>✍ {{ user.nickname }}님의 게시글 목록</h2>
       <br />
       <div class="myboard-container">
         <h3 v-if="myBoards.length == 0">작성한 게시글 목록이 없습니다.</h3>
@@ -29,7 +29,11 @@
                       board_id: board.board_id,
                     },
                   }"
-                  @click="async () => {await boardStore.updateViewCnt(board.board_id)}"
+                  @click="
+                    async () => {
+                      await boardStore.updateViewCnt(board.board_id);
+                    }
+                  "
                   >{{ board.title }}</RouterLink
                 >
               </td>
@@ -42,7 +46,7 @@
     </div>
     <!--댓글-->
     <div class="myreply-title">
-      <h2>📋 {{ nickname }}님의 댓글 목록</h2>
+      <h2>📋 {{ user.nickname }}님의 댓글 목록</h2>
       <br />
       <div class="myreply-container">
         <h3 v-if="myReplys.length == 0">작성한 댓글 목록이 없습니다.</h3>
@@ -88,33 +92,38 @@ import { useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore";
 import { useCommonStore } from "@/stores/commonStore";
 
+// store, route
 const boardStore = useBoardStore();
-
-// 헤더 fixed toggle
 const commonStore = useCommonStore();
+const userStore = useUserStore();
+const route = useRoute();
 
 // 유저 닉네임 받아오기
-const route = useRoute();
-const userStore = useUserStore();
 const emailParam = route.params.email;
-
 const store = useMyPageStore();
+
+// 내 글 목록
 const myBoards = computed(() => {
   return store.myBoards;
 });
 
+// 내 댓글 목록
 const myReplys = computed(() => {
   return store.myReplys;
 });
 
+// 내 정보
+const user = computed(() => userStore.user);
+
+// 내 닉네임
 const nickname = computed(() => {
   return userStore.user.nickname;
 });
 
-onMounted(() => {
-  userStore.getUserByEmail(emailParam);
-  store.getMyBoards(nickname.value);
-  store.getMyReplys(nickname.value);
+onMounted(async () => {
+  await userStore.getUserByEmail(emailParam);
+  store.getMyBoards(user.value.nickname);
+  store.getMyReplys(user.value.nickname);
   commonStore.toggleHeaderFixed(false);
 });
 </script>
