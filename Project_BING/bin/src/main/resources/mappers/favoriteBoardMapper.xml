@@ -12,9 +12,12 @@
 	</select> -->
     <select id="pickUserBoard" parameterType="String"
         resultType="FavoriteBoard">
-        SELECT * FROM board as b
-        INNER JOIN favorite_board as fb ON b.board_id = fb.board_id
-        WHERE fb.writername = #{writername}
+        <!-- SELECT * FROM
+        board A
+        WHERE A.board_id IN (SELECT board_id FROM FAVORITE_BOARD WHERE #{writername}=writername) -->
+        SELECT * FROM favorite_board fb
+        INNER JOIN board b
+        ON fb.board_id = b.board_id
     </select>
     
     <!-- 게시글 찜 등록하기 -->

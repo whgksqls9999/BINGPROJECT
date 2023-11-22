@@ -88,6 +88,7 @@ button {
   justify-content: space-between;
   background-color: transparent;
   padding: 0 10px;
+  z-index: 2;
 }
 
 .header-project-name {

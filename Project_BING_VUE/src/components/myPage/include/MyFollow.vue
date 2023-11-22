@@ -1,6 +1,5 @@
 <template>
-  <div class="my-follow-container-outer">
-  </div>
+  <div class="my-follow-container-outer"></div>
   <div class="my-follow-container">
     <div class="my-follow-box">
       <div class="my-follow-box-title">
@@ -10,7 +9,12 @@
         </div>
       </div>
       <div class="my-follow-box-list">
-        <MyFollowItem v-for="person in followList" :person="person" :type="type" @renew-follow="renewFollow"/>
+        <MyFollowItem
+          v-for="person in followList"
+          :person="person"
+          :type="type"
+          @renew-follow="renewFollow"
+        />
       </div>
     </div>
   </div>
@@ -18,9 +22,9 @@
 
 <script setup>
 import { useUserStore } from "@/stores/userStore.js";
-import { useFavStore } from '@/stores/favStore.js';
+import { useFavStore } from "@/stores/favStore.js";
 import MyFollowItem from "./MyFollowItem.vue";
-import {computed,onMounted, ref, watch} from 'vue';
+import { computed, onMounted, ref, watch } from "vue";
 
 // store, emit
 const userStore = useUserStore();
@@ -29,12 +33,13 @@ const emit = defineEmits(["closeWindow"]);
 
 const props = defineProps({
   toggle: Array,
-  email:String,
+  email: String,
   type: String,
 });
 
 const followingList = computed(() => {
-  return userStore.followingList});
+  return userStore.followingList;
+});
 const followerList = computed(() => userStore.followerList);
 const followList = ref(props.toggle);
 
@@ -42,24 +47,20 @@ const followList = ref(props.toggle);
 const renewFollow = async () => {
   await userStore.getFollowingList(props.email);
   followList.value = followingList.value;
-}
-
+};
 
 // 팔로우 목록 창 닫기
 const closeWindow = () => {
   emit("closeWindow");
 };
 
-
-if(props.type == 'Follower'){
+if (props.type == "Follower") {
   followList.value = followerList.value;
-} else if (props.type == 'Following'){
+} else if (props.type == "Following") {
   followList.value = followingList.value;
 }
 
-onMounted(() => {
-  console.log(followList.value);
-})
+onMounted(() => {});
 
 // onMounted(() => {
 //   userStore.getFollowingList(props.email);
@@ -74,7 +75,7 @@ onMounted(() => {
   padding: 0;
 }
 
-.my-follow-container-outer{
+.my-follow-container-outer {
   z-index: 3;
   height: 100vh;
   width: 100vw;
@@ -82,7 +83,7 @@ onMounted(() => {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
 }
 .my-follow-container {
   position: absolute;
@@ -94,7 +95,7 @@ onMounted(() => {
   border: 2px solid #dbdbdb;
   padding: 0.3rem;
   border-radius: 0.5rem;
-  z-index: 2;
+  z-index: 3;
 }
 
 .my-follow-box-title {

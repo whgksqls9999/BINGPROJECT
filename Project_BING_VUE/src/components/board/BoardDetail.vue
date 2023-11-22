@@ -5,8 +5,8 @@
         <h3>
           {{
             boardOne.community_id === 1
-            ? "FREEDIVING"
-            : boardOne.community_id === 2
+              ? "FREEDIVING"
+              : boardOne.community_id === 2
               ? "SKINSCUBA"
               : boardOne.community_id
           }}
@@ -27,20 +27,43 @@
         <div class="board-detail-content">
           <p>{{ boardOne.content }}</p>
         </div>
-        <div class="board-detail-location" v-if="boardOne.header === '장소추천'">
+        <div
+          class="board-detail-location"
+          v-if="boardOne.header === '장소추천'"
+        >
           <!--지도뿌리기-->
-          <img src="@/assets/PHOTO_0057.jpg" />
+          <BoardDetailMap :location="boardOne.location_id" />
+          <!-- <img src="@/assets/PHOTO_0057.jpg" /> -->
         </div>
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
           <button class="nav-button">이전</button>
-          <button class="action-button" @click="boardModifyPush" v-if="isWriter">수정</button>
-          <button class="action-button" id="delete" @click="boardDelete" v-if="isWriter">
+          <button
+            class="action-button"
+            @click="boardModifyPush"
+            v-if="isWriter"
+          >
+            수정
+          </button>
+          <button
+            class="action-button"
+            id="delete"
+            @click="boardDelete"
+            v-if="isWriter"
+          >
             삭제
           </button>
           <span v-if="isLogin != null">
-            <button v-if="isFavored == ''" @click="doFavBoard" class="fav-button">좋아요</button>
-            <button v-else @click="doFavCancel" class="fav-cancel-button">좋아요</button>
+            <button
+              v-if="isFavored == ''"
+              @click="doFavBoard"
+              class="fav-button"
+            >
+              좋아요
+            </button>
+            <button v-else @click="doFavCancel" class="fav-cancel-button">
+              좋아요
+            </button>
           </span>
           <button class="nav-button">다음</button>
         </div>
@@ -59,7 +82,11 @@
                 <th>작성일</th>
               </tr>
             </thead>
-            <tbody v-for="reply in boardReplyList" :key="reply.id" class="reply-item">
+            <tbody
+              v-for="reply in boardReplyList"
+              :key="reply.id"
+              class="reply-item"
+            >
               <tr>
                 <td>{{ reply.reply_id }}</td>
                 <td>{{ reply.content }}</td>
@@ -83,14 +110,13 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, onUpdated, ref} from "vue";
+import { computed, onMounted, onUpdated, ref } from "vue";
 import { useReplyStore } from "@/stores/replyStore.js";
 import { useUserStore } from "@/stores/userStore.js";
-
 import { useBoardStore } from "@/stores/boardStore";
-
 import { useFavStore } from "@/stores/favStore.js";
 import { useCommonStore } from "@/stores/commonStore";
+import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 // Store
 const commonStore = useCommonStore();
 
@@ -127,6 +153,8 @@ const doFavCancel = async () => {
   await boardStore.updateBoard(boardOne.value);
   boardStore.getBoard(idParam.value);
 };
+// 로그인 체크용 변수
+const isLogin = computed(() => userStore.isLogin);
 
 // favBoardList : 해당 유저의 찜 게시글 목록
 const favBoardList = computed(() => favStore.favBoardList);
@@ -148,9 +176,6 @@ const user = computed(() => userStore.user);
 // 글 작성자 체크
 const isWriter = ref(false);
 
-// 로그인 체크용 변수
-const isLogin = computed(() => userStore.isLogin);
-
 // 댓글 작성 관련 //
 const replyContent = ref("");
 
@@ -171,19 +196,34 @@ const boardDelete = () => {
   boardStore.deleteBoard(idParam.value);
 };
 onMounted(async () => {
+  //로그인 체크
+  userStore.doLoginCheck();
+
+  //댓글 가져오기
   replyStore.getBoardReplyList(idParam.value);
   // await boardStore.updateViewCnt(idParam.value);
+
+  //게시글 정보 가져오기
   await boardStore.getBoard(idParam.value);
-  if (userStore.loginUser != '') {
+
+  // 로그인시 - 유저 정보 가져오기
+  if (isLogin.value) {
     await userStore.getUserByEmail(userStore.loginUser.email);
   }
-  await favStore.getFavBoardList(userStore.user.nickname);
-  userStore.isFavored = await favStore.doFavorCheck(
-    user.value.nickname,
-    idParam.value
-  );
+
+  // 유저 게시글 찜 정보 가져오기
+  if (isLogin.value) {
+    await favStore.getFavBoardList(userStore.user.nickname);
+  }
+
+  // 해당 글을 이미 찜했는지 안했는지 체크
+  await favStore.doFavorCheck(user.value.nickname, idParam.value);
+
+  // 헤더 색 검정색
   commonStore.toggleHeaderFixed(false);
+  // 로그인 상태인지 체크
   userStore.doLoginCheck();
+  // 작성자인지 아닌지 체크
   isWriter.value = user.value.nickname == boardOne.value.writer;
 });
 
@@ -341,7 +381,6 @@ td {
 }
 
 @media all and (max-width: 768px) {
-
   table,
   thead,
   tbody,
@@ -423,9 +462,8 @@ input {
   color: black;
 }
 
-
 .fav-cancel-button:hover,
-.fav-button{
+.fav-button {
   background-color: rgb(255, 255, 255);
   font-weight: bold;
   color: pink;
@@ -435,7 +473,7 @@ input {
 }
 
 .fav-button:hover,
-.fav-cancel-button{
+.fav-cancel-button {
   background-color: pink;
   font-weight: bold;
   color: white;

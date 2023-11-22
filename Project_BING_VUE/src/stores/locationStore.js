@@ -8,8 +8,8 @@ export const useLocationStore = defineStore("location", () => {
 
   // 장소 정보 가져오기
   const location = ref("");
-  const doGetLocation = (location_id) => {
-    axios.get(`${REST_LOCATION_API}/${location_id}`).then((response) => {
+  const doGetLocation = async (location_id) => {
+    await axios.get(`${REST_LOCATION_API}/${location_id}`).then((response) => {
       location.value = response.data;
     });
   };
@@ -22,7 +22,7 @@ export const useLocationStore = defineStore("location", () => {
       address_name: location.address_name,
       longitude: location.x,
       latitude: location.y,
-    }
+    };
     axios
       .post(`${REST_LOCATION_API}/regist`, newLocation, {
         headers: {

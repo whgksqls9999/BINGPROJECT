@@ -7,7 +7,7 @@ import com.bing.community.model.dto.FavoriteLocation;
 public interface FavoriteLocationDao {
 
 	//사용자 장소 찜 목록 가져오기
-	List<FavoriteLocation> pickUserLocation(String user_email);
+	List<FavoriteLocation> pickUserLocation(String writername);
 	
 	//장소 찜 등록하기
 	int insertFavoriteLocation(FavoriteLocation favlocation);

@@ -87,8 +87,8 @@ const displayMarker = (place) => {
     map: map,
     position: new kakao.maps.LatLng(place.y, place.x),
   });
-  marker.id = 15217157;
-  
+  // marker.id = 15217157;
+
   // 마커에 클릭이벤트를 등록합니다
   kakao.maps.event.addListener(marker, "click", function () {
     location.value = place;
@@ -162,7 +162,7 @@ onMounted(() => {
   border-radius: 1rem;
   width: 30rem;
   height: 30rem;
-  margin-top: -20rem;
+  /* margin-top: -20rem; */
   box-shadow: 0 0 0.3rem grey;
 }
 
@@ -200,5 +200,4 @@ onMounted(() => {
   margin-top: 0.5rem;
   width: 3rem;
 }
-
 </style>
