@@ -219,10 +219,9 @@ const registReply = () => {
 };
 
 //댓글 삭제하기
-const removeReply = (reply) => {
-  console.log(reply.reply_id);
-  replyStore.removeReply(reply.reply_id);
-  replyStore.getBoardReplyList(reply.board_id);
+const removeReply = async (reply) => {
+  await replyStore.removeReply(reply.reply_id);
+  await replyStore.getBoardReplyList(reply.board_id);
 };
 
 onMounted(async () => {

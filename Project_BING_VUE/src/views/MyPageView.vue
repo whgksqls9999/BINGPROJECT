@@ -26,12 +26,17 @@ import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useCommonStore } from "@/stores/commonStore.js";
 
+// store
+const commonStore = useCommonStore();
+
+// footer fixed toggle
 
 // 헤더 fixed toggle
-const commonStore = useCommonStore();
 onMounted(() => {
   commonStore.toggleHeaderFixed(false);
+  commonStore.toggleFooterFixed(true);
 });
+
 const route = useRoute();
 const isNavOpen = ref(false);
 const nicknameParam = route.params.nickname;

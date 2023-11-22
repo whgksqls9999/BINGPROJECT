@@ -12,8 +12,10 @@ import { onBeforeRouteLeave } from "vue-router";
 
 // 헤더 fixed toggle
 const commonStore = useCommonStore();
+
 onMounted(() => {
   commonStore.toggleHeaderFixed(true);
+  commonStore.toggleFooterFixed(false);
 });
 onBeforeRouteLeave(() => {
   commonStore.toggleHeaderFixed(false);

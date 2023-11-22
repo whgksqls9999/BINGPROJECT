@@ -15,6 +15,7 @@ const commonStore = useCommonStore();
 // 헤더 fixed toggle
 onMounted(() => {
   commonStore.toggleHeaderFixed(false);
+  commonStore.toggleFooterFixed(true);
 });
 </script>
 

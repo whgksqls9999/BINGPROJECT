@@ -29,6 +29,7 @@ import { useCommonStore } from "@/stores/commonStore.js";
 const commonStore = useCommonStore();
 onMounted(() => {
   commonStore.toggleHeaderFixed(false);
+  commonStore.toggleFooterFixed(false);
 });
 
 const fadeout = ref("false");
