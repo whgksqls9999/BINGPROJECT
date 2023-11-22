@@ -25,9 +25,9 @@
 
 	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO user(email, pw, name, gender, nickname)
+		INSERT INTO user(email, pw, name, gender, nickname, withdraw_text)
 		VALUES(#{email}, #{pw}, #{name}, #{gender},
-		#{nickname})
+		#{nickname}, #{withdraw_text})
 	</insert>
 
 	<!-- 회원 정보 수정 -->
@@ -35,7 +35,7 @@
 		UPDATE user
 		SET pw = #{pw},
 		name = #{name}, gender = #{gender}, nickname = #{nickname},
-		height = #{height}, weight = #{weight}
+		withdraw_text = #{withdraw_text}
 		WHERE email = #{email}
 	</update>
 

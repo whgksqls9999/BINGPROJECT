@@ -78,14 +78,14 @@ const followListToggle = ref("");
 const followType = ref("");
 
 // 팔로워 리스트 열기
-const doOpenFollowerList = async() => {
+const doOpenFollowerList = async () => {
   await userStore.getFollowingList(emailParam);
   followListToggle.value = followerList.value;
   followType.value = "Follower";
 };
 
 // 팔로잉 리스트 열기
-const doOpenFollowingList = async() => {
+const doOpenFollowingList = async () => {
   await userStore.getFollowerList(emailParam);
   followListToggle.value = followingList.value;
   followType.value = "Following";
@@ -106,7 +106,7 @@ const doCloseFollowList = () => {
 const doRenewFollowing = async () => {
   await userStore.getFollowingList(emailParam);
   followListToggle.value = followingList.value;
-}
+};
 
 onMounted(() => {
   userStore.getUserByEmail(emailParam);

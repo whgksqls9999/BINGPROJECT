@@ -44,7 +44,7 @@
 <script setup>
 import { onMounted, computed, ref } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
-import { useUserStore} from '@/stores/userStore.js';
+import { useUserStore } from "@/stores/userStore.js";
 import { useRoute } from "vue-router";
 
 // route, store
@@ -68,7 +68,7 @@ const myFavBoards = computed(() => {
   return store.myFavBoards;
 });
 
-onMounted(async() => {
+onMounted(async () => {
   // store.getMyFavLocations(); 이것을 살려야 한다 지도 API 必
   await userStore.getUserByEmail(emailParam);
   await store.getMyFavBoards(user.value.nickname);
@@ -95,7 +95,7 @@ onMounted(async() => {
 }
 
 .myFavoriteBoard-table {
-  color: white;
+  color: black;
   font-size: 1.3rem;
   font-weight: 500;
   text-align: center;
