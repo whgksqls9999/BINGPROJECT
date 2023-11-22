@@ -1,5 +1,8 @@
 <template>
-  <div class="body"></div>
+  <div class="body">
+    <h2>Section One Text Block Reveal</h2>
+    <h3>Text</h3>
+  </div>
 </template>
 
 <script setup>

@@ -5,8 +5,10 @@
 <mapper namespace="com.bing.community.model.dao.FavoriteLocationDao">
 	<!-- 사용자 장소 찜 목록 가져오기 -->
 	<select id="pickUserLocation" parameterType="String" resultType="FavoriteLocation">
-		SELECT * FROM favorite_location
-		WHERE user_email = #{user_email}
+		SELECT * FROM favorite_location fl
+		INNER JOIN location l
+		ON fl.location_id = l.location_id
+		WHERE fl.writername = #{writername}
 	</select>
 	
 	<!-- 장소 찜 등록하기 -->

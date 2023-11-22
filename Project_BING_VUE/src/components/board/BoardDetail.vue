@@ -80,6 +80,7 @@
                 <th>내용</th>
                 <th>작성자</th>
                 <th>작성일</th>
+                <th></th>
               </tr>
             </thead>
             <tbody
@@ -92,6 +93,8 @@
                 <td>{{ reply.content }}</td>
                 <td>{{ reply.writer }}</td>
                 <td>{{ reply.reg_date }}</td>
+                <button @click="modifyReply">수정</button>
+                <button>삭제</button>
               </tr>
             </tbody>
           </table>
@@ -100,7 +103,7 @@
           <h3>댓글 작성란</h3>
           <div class="comment-input">
             <input type="text" v-model="replyContent" />
-            <button @click="submitReply">등록하기</button>
+            <button @click="registReply">등록하기</button>
           </div>
         </div>
       </div>
@@ -176,10 +179,6 @@ const user = computed(() => userStore.user);
 // 글 작성자 체크
 const isWriter = ref(false);
 
-// 댓글 작성 관련 //
-const replyContent = ref("");
-
-//게시글 관련
 
 //수정 누르면 수정 form으로 이동
 const boardModifyPush = () => {
@@ -195,6 +194,25 @@ const boardModifyPush = () => {
 const boardDelete = () => {
   boardStore.deleteBoard(idParam.value);
 };
+
+// 댓글 작성 관련 //
+const replyContent = ref("");
+
+//댓글 작성하기
+const registReply = () =>{
+  const reply = {
+    board_id: boardOne.value.board_id,
+    community_id: boardOne.value.community_id,
+    writer : user.value.nickname,
+    content : replyContent.value,
+    reg_date: new Date().toISOString(),
+  }
+
+  replyStore.registReply(reply);
+}
+
+
+
 onMounted(async () => {
   //로그인 체크
   userStore.doLoginCheck();
@@ -434,9 +452,10 @@ td {
 }
 
 .comment-container input {
+  padding: 8px;
   border-radius: 14px;
   width: 80%;
-  height: 30px;
+  height: 35px;
   font-size: 18px;
 }
 
@@ -449,12 +468,14 @@ input {
 }
 
 .comment-input button {
+  /* padding: 8px; */
+  margin: 8px;
   font-size: 16px;
   font-weight: 600;
   background-color: rgba(173, 202, 219, 0.7);
   width: 12%;
   color: #ffffff;
-  height: 32px;
+  height: 35px;
 }
 
 .comment-input button:hover {
@@ -466,7 +487,7 @@ input {
 .fav-button {
   background-color: rgb(255, 255, 255);
   font-weight: bold;
-  color: pink;
+  color: rgb(216, 67, 67);
   padding: 8px 16px;
   margin-right: 5px;
   cursor: pointer;
@@ -474,7 +495,7 @@ input {
 
 .fav-button:hover,
 .fav-cancel-button {
-  background-color: pink;
+  background-color: rgb(216, 67, 67);
   font-weight: bold;
   color: white;
   padding: 8px 16px;

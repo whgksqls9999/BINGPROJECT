@@ -57,7 +57,7 @@ public class ReplyRestController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<?> signUp(Reply reply) {
+	public ResponseEntity<?> signUp(@RequestBody Reply reply) {
 		int result = replyService.registReply(reply);
 		if (result > 0) {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);

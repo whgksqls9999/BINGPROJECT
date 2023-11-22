@@ -18,6 +18,7 @@
         SELECT * FROM favorite_board fb
         INNER JOIN board b
         ON fb.board_id = b.board_id
+        WHERE fb.writername = #{writername}
     </select>
     
     <!-- 게시글 찜 등록하기 -->

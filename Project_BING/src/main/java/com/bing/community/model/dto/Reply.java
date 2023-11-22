@@ -3,6 +3,7 @@ package com.bing.community.model.dto;
 public class Reply {
 	private int reply_id;
 	private int board_id;
+	private int community_id;
 	private String writer;
 	private String content;
 	private String reg_date;
@@ -16,6 +17,18 @@ public class Reply {
 
 	public Reply() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Reply(int reply_id, int board_id, int community_id, String writer, String content, String reg_date,
+			String is_modified) {
+		super();
+		this.reply_id = reply_id;
+		this.board_id = board_id;
+		this.community_id = community_id;
+		this.writer = writer;
+		this.content = content;
+		this.reg_date = reg_date;
+		this.is_modified = is_modified;
 	}
 
 	public int getReply_id() {
@@ -32,6 +45,14 @@ public class Reply {
 
 	public void setBoard_id(int board_id) {
 		this.board_id = board_id;
+	}
+
+	public int getCommunity_id() {
+		return community_id;
+	}
+
+	public void setCommunity_id(int community_id) {
+		this.community_id = community_id;
 	}
 
 	public String getWriter() {
@@ -66,13 +87,5 @@ public class Reply {
 		this.is_modified = is_modified;
 	}
 
-	public Reply(int reply_id, int board_id, String writer, String content, String reg_date, String is_modified) {
-		super();
-		this.reply_id = reply_id;
-		this.board_id = board_id;
-		this.writer = writer;
-		this.content = content;
-		this.reg_date = reg_date;
-		this.is_modified = is_modified;
-	}
+
 }
