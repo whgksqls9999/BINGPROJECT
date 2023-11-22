@@ -1,7 +1,7 @@
 <template>
   <div class="footer-container">
     <div class="footer-copyright">
-      <p>&copy; 2023, JO HANBIN, KIM EUNJI. All right reserved</p>
+      <p>&copy; 2023, KIM EUNJI, JO HANBIN. All right reserved</p>
     </div>
     <div class="footer-link">
       <a href="https://blog.naver.com/skkkkkr_"

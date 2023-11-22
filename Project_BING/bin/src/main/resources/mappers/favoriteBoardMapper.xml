@@ -24,8 +24,8 @@
     <!-- 게시글 찜 등록하기 -->
     <insert id="insertFavoriteBoard" parameterType="FavoriteBoard">
         INSERT INTO
-        favorite_board(favorite_boardId, board_id, writername)
-        VALUES(#{favorite_boardId},#{board_id},#{writername})
+        favorite_board(favorite_boardId, board_id, writername, community_id)
+        VALUES(#{favorite_boardId},#{board_id},#{writername}, #{community_id})
     </insert>
 
 	<!-- 게시글 찜 삭제하기 -->

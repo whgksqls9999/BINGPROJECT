@@ -30,8 +30,8 @@
 	<!-- 댓글 등록 -->
 	<insert id="insertReply" parameterType="Reply">
 		INSERT INTO
-		reply(board_id, writer, content, reg_date, is_modified)
-		VALUES(#{board_id}, #{writer}, #{content}, CURRENT_TIMESTAMP,
+		reply(board_id, community_id, writer, content, reg_date, is_modified)
+		VALUES(#{board_id}, #{community_id}, #{writer}, #{content}, CURRENT_TIMESTAMP,
 		CURRENT_TIMESTAMP)
 	</insert>
 
