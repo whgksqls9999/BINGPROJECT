@@ -32,7 +32,8 @@
           v-if="boardOne.header === '장소추천'"
         >
           <!--지도뿌리기-->
-          <img src="@/assets/PHOTO_0057.jpg" />
+          <BoardDetailMap :location="boardOne.location_id" />
+          <!-- <img src="@/assets/PHOTO_0057.jpg" /> -->
         </div>
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
@@ -112,11 +113,10 @@ import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, onUpdated, ref } from "vue";
 import { useReplyStore } from "@/stores/replyStore.js";
 import { useUserStore } from "@/stores/userStore.js";
-
 import { useBoardStore } from "@/stores/boardStore";
-
 import { useFavStore } from "@/stores/favStore.js";
 import { useCommonStore } from "@/stores/commonStore";
+import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 // Store
 const commonStore = useCommonStore();
 
@@ -205,7 +205,6 @@ onMounted(async () => {
     // 유저 정보 가져오고
     await userStore.getUserByEmail(userStore.loginUser.email);
   }
-  console.log(user.value);
   // 유저 게시글 찜 정보 가져오기
   await favStore.getFavBoardList(userStore.user.nickname);
   // 해당 글을 이미 찜했는지 안했는지 체크
@@ -214,7 +213,6 @@ onMounted(async () => {
     idParam.value
   );
 
-  console.log(isFavored.value);
   // 헤더 색 검정색
   commonStore.toggleHeaderFixed(false);
   // 로그인 상태인지 체크

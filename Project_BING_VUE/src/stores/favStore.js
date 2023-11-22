@@ -54,8 +54,8 @@ export const useFavStore = defineStore("fav", () => {
   };
 
   // 찜 취소
-  const doFavBoardCancel = (favorite_boardId, nickname, board_id) => {
-    axios
+  const doFavBoardCancel = async (favorite_boardId, nickname, board_id) => {
+    await axios
       .delete(`${REST_FAVBOARD_API}/deletefavboard/${favorite_boardId}`)
       .then((response) => {
         doFavorCheck(nickname, board_id);
