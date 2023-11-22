@@ -78,7 +78,7 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 2px;
   background: #383838;
-  z-index: 1;
+  z-index: 0;
   margin: 0 10px;
 }
 
