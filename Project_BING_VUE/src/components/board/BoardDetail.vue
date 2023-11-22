@@ -55,7 +55,7 @@
           </button>
           <span v-if="isLogin != null">
             <button
-              v-if="isFavored == ''"
+              v-if="isFavored != ''"
               @click="doFavBoard"
               class="fav-button"
             >
@@ -153,6 +153,8 @@ const doFavCancel = async () => {
   await boardStore.updateBoard(boardOne.value);
   boardStore.getBoard(idParam.value);
 };
+// 로그인 체크용 변수
+const isLogin = computed(() => userStore.isLogin);
 
 // favBoardList : 해당 유저의 찜 게시글 목록
 const favBoardList = computed(() => favStore.favBoardList);
@@ -174,9 +176,6 @@ const user = computed(() => userStore.user);
 // 글 작성자 체크
 const isWriter = ref(false);
 
-// 로그인 체크용 변수
-const isLogin = computed(() => userStore.isLogin);
-
 // 댓글 작성 관련 //
 const replyContent = ref("");
 
@@ -197,21 +196,28 @@ const boardDelete = () => {
   boardStore.deleteBoard(idParam.value);
 };
 onMounted(async () => {
+  //로그인 체크
+  userStore.doLoginCheck();
+
+  //댓글 가져오기
   replyStore.getBoardReplyList(idParam.value);
   // await boardStore.updateViewCnt(idParam.value);
+
+  //게시글 정보 가져오기
   await boardStore.getBoard(idParam.value);
-  // 로그인 상태라면
-  if (userStore.loginUser != "") {
-    // 유저 정보 가져오고
+
+  // 로그인시 - 유저 정보 가져오기
+  if (isLogin.value) {
     await userStore.getUserByEmail(userStore.loginUser.email);
   }
+
   // 유저 게시글 찜 정보 가져오기
-  await favStore.getFavBoardList(userStore.user.nickname);
+  if (isLogin.value) {
+    await favStore.getFavBoardList(userStore.user.nickname);
+  }
+
   // 해당 글을 이미 찜했는지 안했는지 체크
-  userStore.isFavored = await favStore.doFavorCheck(
-    user.value.nickname,
-    idParam.value
-  );
+  await favStore.doFavorCheck(user.value.nickname, idParam.value);
 
   // 헤더 색 검정색
   commonStore.toggleHeaderFixed(false);

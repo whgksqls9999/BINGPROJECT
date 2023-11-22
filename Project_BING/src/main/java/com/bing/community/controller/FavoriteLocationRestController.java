@@ -47,7 +47,7 @@ public class FavoriteLocationRestController {
 	}
 
 	// 장소 찜 삭제하기
-	@DeleteMapping("deletefavlocation")
+	@DeleteMapping("deletefavlocation/{favorite_locationId}")
 	public ResponseEntity<?> removeFavoriteLocation(@PathVariable int favorite_locationId) {
 		int result = favLocationService.deleteFavoriteLocation(favorite_locationId);
 

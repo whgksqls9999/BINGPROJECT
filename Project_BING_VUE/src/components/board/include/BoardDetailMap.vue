@@ -22,12 +22,19 @@ import { useFavStore } from "@/stores/favStore.js";
 // router, store
 const locationStore = useLocationStore();
 const userStore = useUserStore();
+const favStore = useFavStore();
 
 // 유저 로그인 체크
 const isLogin = computed(() => userStore.isLogin);
 
 // 유저 토큰 정보
 const loginUser = computed(() => userStore.loginUser);
+
+//유저 정보
+const user = computed(() => userStore.user);
+
+// 이미 찜한 장소인지 체크
+// const is
 
 // location_id를 props로 가져오기
 const props = defineProps({
@@ -116,8 +123,17 @@ onMounted(async () => {
   if (isLogin.value) {
     userStore.getUserEmail();
   }
+
+  // 유저 정보 가져오기
+  userStore.getUserByEmail(loginUser.value.email);
+
   // 장소 정보 가져오기
   await locationStore.doGetLocation(props.location);
+
+  // 장소 찜 여부 체크
+  favStore.doFavLocationCheck(user.value.nickname, location.value.location_id);
+  console.log();
+
   // 지도 생성하기
   if (window.kakao && window.kakao.maps) {
     initMap();

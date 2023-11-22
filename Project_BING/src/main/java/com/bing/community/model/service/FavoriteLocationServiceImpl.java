@@ -14,8 +14,8 @@ public class FavoriteLocationServiceImpl implements FavoriteLocationService{
 	FavoriteLocationDao favLocationDao;
 
 	@Override
-	public List<FavoriteLocation> pickUserLocation(String user_email) {
-		return favLocationDao.pickUserLocation(user_email);
+	public List<FavoriteLocation> pickUserLocation(String writername) {
+		return favLocationDao.pickUserLocation(writername);
 	}
 
 	@Override
