@@ -6,18 +6,22 @@ public class FavoriteLocation {
 	private String writername;
 	private String place_name;
 	private String address_name;
+	private String longitude;
+	private String latitude;
 
 	public FavoriteLocation() {
 	}
 
 	public FavoriteLocation(int favorite_locationId, int location_id, String writername, String place_name,
-			String address_name) {
+			String address_name, String longitude, String latitude) {
 		super();
 		this.favorite_locationId = favorite_locationId;
 		this.location_id = location_id;
 		this.writername = writername;
 		this.place_name = place_name;
 		this.address_name = address_name;
+		this.longitude = longitude;
+		this.latitude = latitude;
 	}
 
 	public int getFavorite_locationId() {
@@ -58,6 +62,22 @@ public class FavoriteLocation {
 
 	public void setAddress_name(String address_name) {
 		this.address_name = address_name;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 }
