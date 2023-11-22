@@ -80,10 +80,10 @@ CREATE TABLE favorite_board (
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
     FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
-INSERT INTO favorite_board
-VALUES (1,1,'닉네임'),
-(2,2,'닉네임2'),
-(3,2,'닉네임2');
+-- INSERT INTO favorite_board
+-- VALUES (1,1,'닉네임'),
+-- (2,2,'닉네임2'),
+-- (3,2,'닉네임2');
 SELECT * FROM
 favorite_board;
 

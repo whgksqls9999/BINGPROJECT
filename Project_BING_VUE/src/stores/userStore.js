@@ -14,15 +14,17 @@ export const useUserStore = defineStore("user", () => {
 
   // 유저 정보 가져오기(닉네임)
   const user = ref({});
-  const getUser = (nickname) => {
-    axios.get(`${REST_USER_API}/nickname/${nickname}`).then((response) => {
-      user.value = response.data;
-    });
+  const getUser = async (nickname) => {
+    await axios
+      .get(`${REST_USER_API}/nickname/${nickname}`)
+      .then((response) => {
+        user.value = response.data;
+      });
   };
 
   // 유저 정보 가져오기(이메일)
-  const getUserByEmail = (email) => {
-    axios
+  const getUserByEmail = async (email) => {
+    await axios
       .get(`${REST_USER_API}/email/${email}`)
       .then((response) => (user.value = response.data));
   };
@@ -90,9 +92,9 @@ export const useUserStore = defineStore("user", () => {
   };
 
   // 로그인 체크
-  const isLogin = ref('');
+  const isLogin = ref("");
   const doLoginCheck = () => {
-    isLogin.value = sessionStorage.getItem('access-token');
+    isLogin.value = sessionStorage.getItem("access-token");
     return sessionStorage.getItem("access-token");
   };
 
@@ -114,7 +116,7 @@ export const useUserStore = defineStore("user", () => {
       .delete(`${REST_USER_API}/${removeEmail}`)
       .then((response) => {
         sessionStorage.removeItem("access-token");
-        loginUser.value = '';
+        loginUser.value = "";
         alert("회원님의 탈퇴가 완료되었습니다.");
         router.push({ name: "main" });
       })
@@ -152,14 +154,14 @@ export const useUserStore = defineStore("user", () => {
       .catch((err) => console.log(err));
   };
 
-    // 세션에서 유저 이메일 가져오기
-    const getUserEmail = () => {
-      if (!sessionStorage.getItem("access-token")) return;
-      loginUser.value = JSON.parse(
-        atob(sessionStorage.getItem("access-token").split(".")[1])
-      );
-      return loginUser.value.email;
-    };
+  // 세션에서 유저 이메일 가져오기
+  const getUserEmail = () => {
+    if (!sessionStorage.getItem("access-token")) return;
+    loginUser.value = JSON.parse(
+      atob(sessionStorage.getItem("access-token").split(".")[1])
+    );
+    return loginUser.value.email;
+  };
 
   return {
     userLogin,
@@ -182,6 +184,6 @@ export const useUserStore = defineStore("user", () => {
     followingList,
     doFollowCancel,
     getUserEmail,
-    isLogin
+    isLogin,
   };
 });

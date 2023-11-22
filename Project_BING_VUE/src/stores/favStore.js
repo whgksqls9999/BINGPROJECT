@@ -40,6 +40,7 @@ export const useFavStore = defineStore("fav", () => {
   const doFavorCheck = async (nickname, board_id) => {
     const check = ref(false);
     await getFavBoardList(nickname);
+    console.log(nickname, board_id, favBoardList.value);
     favBoardList.value.forEach((element) => {
       if (element.board_id == board_id) {
         isFavored.value = element.favorite_boardId;
@@ -48,7 +49,7 @@ export const useFavStore = defineStore("fav", () => {
       }
     });
     if (!check.value) {
-      isFavored.value = '';
+      isFavored.value = "";
     }
   };
 
