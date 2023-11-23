@@ -111,6 +111,18 @@ export const useBoardStore = defineStore("board", () => {
       .catch((err) => console.log(err));
   };
 
+  // 게시글 검색
+  const searchBoard = async (searchCondition) => {
+    const response = await axios
+      .get(`${REST_BOARD_API}/search`, {
+        headers: { "Content-Type": "application/json" },
+        params: searchCondition,
+      })
+      .catch((err) => console.log(err));
+    console.log(response.data);
+    commBoardList.value = response.data;
+  };
+
   return {
     commBoardList,
     getCommBoardList,
@@ -124,5 +136,6 @@ export const useBoardStore = defineStore("board", () => {
     boardOne,
     deleteBoard,
     updateViewCnt,
+    searchBoard,
   };
 });
