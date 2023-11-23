@@ -37,7 +37,7 @@
         </div>
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
-          <button class="nav-button">이전</button>
+          <button @click="prePage" class="nav-button">이전</button>
           <button
             class="action-button"
             @click="boardModifyPush"
@@ -65,7 +65,7 @@
               좋아요
             </button>
           </span>
-          <button class="nav-button">다음</button>
+          <button @click="nextPage" class="nav-button">다음</button>
         </div>
       </div>
       <div class="board-detail-reply-container">
@@ -83,24 +83,9 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody
-              v-for="reply in boardReplyList"
+              <BoardDetailReply  v-for="reply in boardReplyList"
               :key="reply.id"
-              class="reply-item"
-            >
-              <tr>
-                <td>{{ reply.reply_id }}</td>
-                <td>{{ reply.content }}</td>
-                <td>{{ reply.writer }}</td>
-                <td>{{ reply.reg_date }}</td>
-                <div class="reply-button-item">
-                  <button class="button1" @click="modifyReply">수정</button>
-                  <button class="button2" @click="removeReply(reply)">
-                    삭제
-                  </button>
-                </div>
-              </tr>
-            </tbody>
+              class="reply-item" :reply="reply" :user="user"/>
           </table>
         </div>
         <div v-if="isLogin" class="comment-container">
@@ -124,6 +109,7 @@ import { useBoardStore } from "@/stores/boardStore";
 import { useFavStore } from "@/stores/favStore.js";
 import { useCommonStore } from "@/stores/commonStore";
 import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
+import BoardDetailReply from '@/components/board/include/BoardDetailReply.vue';
 // Store
 const commonStore = useCommonStore();
 
@@ -179,11 +165,17 @@ const boardReplyList = computed(() => replyStore.boardReplyList);
 // boardOne board_id로 선택해 온 게시글 하나, 의존하는 변수 변할때마다 올려줄거임~!
 const boardOne = computed(() => boardStore.boardOne);
 
+//board 다 불러오기
+const commBoardList = computed(()=>boardStore.commBoardList)
+
+
 //글 작성자 맞으면 수정 삭제 버튼 띄우기위해서 user 불러오기
 const user = computed(() => userStore.user);
 
 // 글 작성자 체크
 const isWriter = ref(false);
+
+
 
 // const reply = computed(() => replyStore.reply);
 //수정 누르면 수정 form으로 이동
@@ -206,30 +198,75 @@ const replyContent = ref("");
 
 //댓글 작성하기
 const registReply = () => {
-  const reply = {
-    board_id: boardOne.value.board_id,
-    community_id: boardOne.value.community_id,
-    writer: user.value.nickname,
-    content: replyContent.value,
-    reg_date: new Date().toISOString(),
-  };
+    const reply = {
+        board_id: boardOne.value.board_id,
+        community_id: boardOne.value.community_id,
+        writer: user.value.nickname,
+        content: replyContent.value,
+        reg_date: new Date().toISOString(),
+    };
 
-  replyStore.registReply(reply);
-  replyContent.value = "";
+    if(replyContent.value===""){
+      alert('내용을 입력해주세요!')
+      return;
+    }
+
+    replyStore.registReply(reply);
+    replyContent.value = "";
 };
 
-//댓글 삭제하기
-const removeReply = async (reply) => {
-  await replyStore.removeReply(reply.reply_id);
-  await replyStore.getBoardReplyList(reply.board_id);
+const prePage = async () =>{
+  if(boardOne.value.num===1){
+    alert('이전 게시글이 없습니다.')
+    return;
+  }
+
+  const preBoardIndex = boardOne.value.num-2;
+  const preBoard = commBoardList.value[preBoardIndex];
+  
+  await router.push({
+    name:'boardDetail',
+    params:{ community_id: preBoard.community_id, board_id:preBoard.board_id},
+    
+  })
+  
+  await boardStore.getBoard(preBoard.board_id)
+  await replyStore.getBoardReplyList(preBoard.board_id);
+}
+
+const nextPage = async () => {
+  console.log(boardOne.value.num)
+  console.log("ddd", commBoardList.value )
+  if (boardOne.value.num === commBoardList.value.length) {
+    alert('다음 게시글이 없습니다.');
+    return;
+  }
+
+  const nextBoardIndex = boardOne.value.num;
+  const nextBoard = commBoardList.value[nextBoardIndex];
+
+  if (!nextBoard) {
+    alert('다음 게시글이 없습니다.');
+    return;
+  }
+
+  await router.push({
+    name: 'boardDetail',
+    params: { community_id: nextBoard.community_id, board_id: nextBoard.board_id },
+  });
+
+  await boardStore.getBoard(nextBoard.board_id);
+  await replyStore.getBoardReplyList(nextBoard.board_id);
 };
+
+
 
 onMounted(async () => {
   //로그인 체크
   await userStore.doLoginCheck();
 
   //댓글 가져오기
-  replyStore.getBoardReplyList(idParam.value);
+  await replyStore.getBoardReplyList(idParam.value);
   // await boardStore.updateViewCnt(idParam.value);
 
   //게시글 정보 가져오기
@@ -244,17 +281,18 @@ onMounted(async () => {
   if (isLogin.value) {
     await favStore.getFavBoardList(userStore.user.nickname);
   }
+  await boardStore.getBoardAll();
 
   // 해당 글을 이미 찜했는지 안했는지 체크
   await favStore.doFavorCheck(user.value.nickname, idParam.value);
 
+  await boardStore.getCommBoardList(boardOne.value.community_id);
   // 헤더 색 검정색
   commonStore.toggleHeaderFixed(false);
   // 로그인 상태인지 체크
   userStore.doLoginCheck();
   // 작성자인지 아닌지 체크
   isWriter.value = user.value.nickname == boardOne.value.writer;
-
   console.log("보드아이디", boardOne.value.board_id);
   console.log("해당 보드의 로케이션 아이디", boardOne.value.location_id);
 });
@@ -287,7 +325,7 @@ onMounted(async () => {
   margin-top: 20px;
 }
 
-board-detail-location {
+.board-detail-location {
   width: 100%;
   border-radius: 30px;
   border: 2px solid rgb(168, 165, 165);
@@ -322,6 +360,7 @@ button {
   border-style: none;
   border-radius: 20px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-button {
@@ -462,7 +501,7 @@ td {
   margin-top: 10px;
   margin-right: 10px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   text-align: center;
   gap: 8px;
@@ -470,7 +509,7 @@ td {
 
 .reply-button-item button {
   height: 30px;
-  width: 80%;
+  width: 50px;
 }
 
 .reply-button-item .button1 {
@@ -505,7 +544,9 @@ td {
 }
 
 input {
+  height: 33px;
   margin-right: 27px;
+  padding: 0 10px;
 }
 
 .comment-input {
