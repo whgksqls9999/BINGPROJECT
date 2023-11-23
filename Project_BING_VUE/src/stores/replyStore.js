@@ -36,6 +36,7 @@ export const useReplyStore = defineStore("reply", () => {
         headers: { "Content-Type": "application/json" },
       })
       .then(() => {
+        //작성 다 끝나고 나서 불러오기
         getBoardReplyList(reply.board_id);
       })
       .catch((err) => {
@@ -56,6 +57,22 @@ export const useReplyStore = defineStore("reply", () => {
       console.log(error);
     }
   };
+
+  //댓글 수정하기
+  const updateReply = async (reply) =>{
+    await axios
+    .put(`${REST_REPLY_API}/${reply.reply_id}`,reply,{
+headers : {"Content-Type" : "application/json"},
+    })
+    .then((response)=>{
+      console.log(response)
+      getBoardReplyList(reply.board_id)
+    }).catch((err)=>{
+      console.log(err)
+    })
+
+  }
+
   return {
     boardReplyList,
     getBoardReplyList,
@@ -63,5 +80,6 @@ export const useReplyStore = defineStore("reply", () => {
     removeReply,
     reply,
     getReply,
+    updateReply,
   };
 });
