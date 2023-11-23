@@ -19,7 +19,7 @@
       <div class="board-detail-container">
         <div class="board-detail-inform">
           <!-- <h4>: {{ boardOne.writer }}</h4> -->
-          <h4 @click="doInfoPopup(boardOne.writer)">
+          <h4 @click="doInfoPopup(boardOne.writer)" class="board-writer">
             작성자 : {{ boardOne.writer }}
           </h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
@@ -440,9 +440,10 @@ button {
 }
 
 .board-writer {
-  margin-top: 20px;
+  /* margin-top: 20px;
   font-style: italic;
-  color: #555;
+  color: #555; */
+  cursor: pointer;
 }
 
 .board-detail-table {

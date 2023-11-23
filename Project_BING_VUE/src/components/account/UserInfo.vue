@@ -9,10 +9,16 @@
           <div>{{ selectedUser.nickname }}</div>
           <div>{{ selectedUser.email }}</div>
           <div v-if="selfCheck">
-            <button v-if="isFollowed == ''" @click="doFollow">
-              팔로우하기
+            <button
+              v-if="isFollowed == ''"
+              @click="doFollow"
+              class="follow-btn"
+            >
+              ❤ 팔로우
             </button>
-            <button v-else @click="doFollowCancel">팔로우취소</button>
+            <button v-else @click="doFollowCancel" class="follow-cancel-btn">
+              ❤ 팔로우
+            </button>
           </div>
         </div>
       </div>
@@ -167,5 +173,34 @@ watch(() => {
 }
 
 .userinfo-close-btn {
+}
+
+.follow-cancel-btn,
+.follow-btn {
+  position: absolute;
+  box-shadow: 0 2px 0.1rem #ccc;
+  background-color: white;
+  border-radius: 0.3rem;
+  border: none;
+  font-size: 15px;
+  color: pink;
+  transition: all 0.3s;
+  padding: 0.4 0.5rem;
+  left: 3.4rem;
+  top: 6rem;
+}
+
+.follow-btn:hover,
+.follow-cancel-btn,
+.follow-cancel-btn:active {
+  color: white;
+  background-color: pink;
+}
+
+.follow-cancel-btn:active,
+.follow-btn,
+.follow-btn:active {
+  color: pink;
+  background-color: white;
 }
 </style>
