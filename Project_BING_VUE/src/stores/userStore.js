@@ -24,9 +24,9 @@ export const useUserStore = defineStore("user", () => {
 
   // 유저 정보 가져오기(이메일)
   const getUserByEmail = async (email) => {
-    await axios
-      .get(`${REST_USER_API}/email/${email}`)
-      .then((response) => (user.value = response.data));
+    await axios.get(`${REST_USER_API}/email/${email}`).then((response) => {
+      user.value = response.data;
+    });
   };
 
   // 유저 목록 가져오기
@@ -37,16 +37,16 @@ export const useUserStore = defineStore("user", () => {
   //   });
   // };
 
-//유저 목록 가져오기 RegistForm에서 await 설정해놔서 여기도 async 해주기
+  //유저 목록 가져오기 RegistForm에서 await 설정해놔서 여기도 async 해주기
   const users = ref([]);
-const getAllUsers = async () => {
-  try {
-    const response = await axios.get(`${REST_USER_API}/`);
-    users.value = response.data;
-  } catch (error) {
-    console.error('Error while fetching user list:', error);
-  }
-};
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get(`${REST_USER_API}/`);
+      users.value = response.data;
+    } catch (error) {
+      console.error("Error while fetching user list:", error);
+    }
+  };
 
   // header 출력 폼 결정
   const showForm = ref("");
@@ -87,7 +87,6 @@ const getAllUsers = async () => {
     alert("로그아웃 되었습니다.");
     router.push({ name: "main" });
   };
-
 
   // 회원가입 요청 - 하는중,,
   const registUser = (user) => {
@@ -141,8 +140,8 @@ const getAllUsers = async () => {
 
   // 팔로워 정보 가져오기
   const followerList = ref([]);
-  const getFollowerList = (email) => {
-    axios.get(`${REST_FOLLOW_API}/${email}/follower`).then((response) => {
+  const getFollowerList = async (email) => {
+    await axios.get(`${REST_FOLLOW_API}/${email}/follower`).then((response) => {
       followerList.value = response.data;
     });
   };
@@ -168,6 +167,18 @@ const getAllUsers = async () => {
       .catch((err) => console.log(err));
   };
 
+  // 팔로잉하기
+  const doFollow = async (follow, email) => {
+    console.log(follow, email);
+    const response = await axios
+      .post(`${REST_FOLLOW_API}/`, follow, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .catch((err) => console.log(err));
+    getFollowerList(email);
+    getFollowingList(email);
+  };
+
   // 세션에서 유저 이메일 가져오기
   const getUserEmail = () => {
     if (!sessionStorage.getItem("access-token")) return;
@@ -177,6 +188,22 @@ const getAllUsers = async () => {
     return loginUser.value.email;
   };
 
+  //다른 사람 가져오기
+  const selectedUser = ref("");
+  const getOtherUser = async (nickname) => {
+    await axios
+      .get(`${REST_USER_API}/nickname/${nickname}`)
+      .then((response) => {
+        selectedUser.value = response.data;
+      });
+  };
+
+  // 다른 사람 가져오기(이메일)
+  const getOtherUserByEmail = async (email) => {
+    await axios.get(`${REST_USER_API}/email/${email}`).then((response) => {
+      selectedUser.value = response.data;
+    });
+  };
   return {
     userLogin,
     loginUser,
@@ -199,5 +226,9 @@ const getAllUsers = async () => {
     doFollowCancel,
     getUserEmail,
     isLogin,
+    getOtherUser,
+    getOtherUserByEmail,
+    selectedUser,
+    doFollow,
   };
 });

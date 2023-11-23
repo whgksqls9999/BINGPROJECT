@@ -43,8 +43,8 @@ export const useMyPageStore = defineStore("mypage", () => {
 
   //내가 찜한 게시글
   const myFavBoards = ref([]);
-  const getMyFavBoards = (user_email) => {
-    axios({
+  const getMyFavBoards = async (user_email) => {
+    await axios({
       url: `${REST_MYPAGE_API}/pickfavboard/${user_email}`,
       method: "GET",
     }).then((response) => {

@@ -23,15 +23,30 @@ import BoardListItem from "@/components/board/BoardListItem.vue";
 
 const props = defineProps({
   boardList: Array,
+  // default: () => [],
 });
 </script>
 
 <style scoped>
 .board-list-container {
-  width: 50rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
 }
+
 table {
+  padding: 10px;
+  columns: #f5f5f5;
   width: 100%;
   text-align: center;
+  /* border-spacing: 0 5px 0 5px; */
+  border-collapse: collapse;
+}
+
+th {
+  padding: 10px;
+  background-color: gray;
+  color: #f5f5f5;
 }
 </style>

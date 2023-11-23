@@ -23,7 +23,9 @@
             </fieldset>
             <fieldset>
               <legend>주소</legend>
-              <div>{{ location.address_name }}</div>
+              <div>
+                {{ location.address_name.split(" ").splice(0, 3).join(" ") }}
+              </div>
             </fieldset>
             <div>
               <button
@@ -71,12 +73,14 @@ import { useLocationStore } from "@/stores/locationStore.js";
 import { useRoute } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import BoardWriteMap from "@/components/board/BoardWriteMap.vue";
-// Store
+
+// Store, route
 const boardStore = useBoardStore();
 const userStore = useUserStore();
 const locationStore = useLocationStore();
 
 onMounted(() => {
+  location.value = "";
   boardStore.getCommBoardList(comm_id);
   userStore.getUserByEmail(writer.email);
 });
@@ -94,7 +98,16 @@ const writer = JSON.parse(
 // 게시글 등록하기
 const doRegistBoard = () => {
   if (category.value === "") {
-    alert("카테고리를 설정해주세요");
+    alert("카테고리를 설정해주세요.");
+    return;
+  } else if (category.value === "장소추천" && location.value == "") {
+    alert("장소를 등록해주세요.");
+    return;
+  } else if (title.value.trim() == "") {
+    alert("제목을 입력해주세요.");
+    return;
+  } else if (content.value.trim() == "") {
+    alert("내용을 입력해주세요.");
     return;
   }
 
@@ -148,9 +161,7 @@ const doSelectPlace = (place, address) => {
 const category = ref("");
 const setCategory = (sel) => {
   category.value = sel;
-  if (sel !== "장소추천") {
-    location.value = "";
-  }
+  location.value = "";
 };
 </script>
 
@@ -205,7 +216,7 @@ const setCategory = (sel) => {
 
 input,
 textarea {
-  border-radius: 30px;
+  border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 0.2rem grey;
   width: 100%;

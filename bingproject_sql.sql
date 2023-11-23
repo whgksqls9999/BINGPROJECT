@@ -9,17 +9,18 @@ CREATE TABLE user (
     name VARCHAR(300) NOT NULL,
     gender VARCHAR(30) NOT NULL,
     nickname VARCHAR(300) NOT NULL UNIQUE,
-    withdraw_text VARCHAR(1000) NOT NULL
+    withdraw_text VARCHAR(1000) NOT NULL,
+    img INT(10) NOT NULL
 );
 -- User 데이터
-INSERT INTO user (email,pw,name,gender,nickname,withdraw_text)
-VALUES ('ssafy', '1234', '김싸피', '남', '닉네임', '안녕히계세요 여러분 저는 사회의 굴레 벗어나고 어쩌구'),
-('ssafy2','1234','이싸피','남','닉네임2','안녕히계세요'),
-('ssafy3','1234','이싸피','남','닉네임3','빠잉'); 
+INSERT INTO user (email,pw,name,gender,nickname,withdraw_text, img)
+VALUES ('ssafy', '1234!!!!', '김싸피', '남', '닉네임', '안녕히계세요 여러분 저는 사회의 굴레 벗어나고 어쩌구',1),
+('ssafy2','1234','이싸피','남','닉네임2','안녕히계세요',2),
+('ssafy3','1234','이싸피','남','닉네임3','빠잉',3); 
 SELECT * FROM user;
 
 CREATE TABLE location (
-    location_id INT(10) PRIMARY KEY NOT NULL,
+    location_id INT(100) PRIMARY KEY NOT NULL,
     place_name VARCHAR(100) NOT NULL,
     address_name VARCHAR(100) NOT NULL,
     fav_cnt INT(10) DEFAULT 0,
@@ -29,12 +30,6 @@ CREATE TABLE location (
 
 INSERT INTO location (location_id, place_name, address_name, fav_cnt, longitude, latitude)
 VALUES (1, '장소이름','주소',0,00.0000,00.0000);
--- Location 데이터
--- INSERT INTO location (location_id, place_name, address_name)
--- VALUES (1, '장소 이름', '주소'),
--- (2, '장소 이름2', '주소2'),
--- (3, '장소 이름3', '주소3'),
--- (4, '장소 이름4', '주소4');
 SELECT * FROM location;
 
 CREATE TABLE community (
@@ -59,7 +54,7 @@ CREATE TABLE board (
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     view_cnt INT(10) DEFAULT 0, 
-    location_id INT(10),
+    location_id INT(100),
     fav_cnt INT(10) DEFAULT 0,
     FOREIGN KEY (community_id) REFERENCES community(community_id) ON DELETE CASCADE,
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
@@ -70,7 +65,23 @@ VALUES (1, 1,'자유','제목1','닉네임','내용1'),
 (1, 2,'자유','제목2','닉네임','내용2'),
 (1, 3,'자유','제목3','닉네임','내용3'),
 (2, 1,'자유','제목4','닉네임2','내용4'),
-(2, 2,'자유','제목5','닉네임','내용5');
+(2, 2,'자유','제목5','닉네임','내용5'),
+(1, 4,'자유','제목3','닉네임','내용3'),
+(1, 5,'자유','제목3','닉네임','내용3'),
+(1, 6,'자유','제목3','닉네임','내용3'),
+(1, 7,'자유','제목3','닉네임','내용3'),
+(1, 8,'자유','제목3','닉네임','내용3'),
+(1, 9,'자유','제목3','닉네임','내용3'),
+(1, 10,'자유','제목3','닉네임','내용3'),
+(1, 11,'자유','제목3','닉네임','내용3'),
+(1, 12,'자유','제목3','닉네임','내용3'),
+(1, 13,'자유','제목3','닉네임','내용3'),
+(1, 14,'자유','제목3','닉네임','내용3'),
+(1, 15,'자유','제목3','닉네임','내용3'),
+(1, 16,'자유','제목3','닉네임','내용3'),
+(1, 17,'자유','제목3','닉네임','내용3'),
+(1, 3,'자유','제목3','닉네임','내용3'),
+(1, 3,'자유','제목3','닉네임','내용3');
 SELECT * FROM board;
 
 CREATE TABLE favorite_board (
@@ -80,7 +91,8 @@ CREATE TABLE favorite_board (
     writername VARCHAR(300) NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
     FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
+  	FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
+
 );
 INSERT INTO favorite_board
 VALUES (1,1,1,'닉네임'),
@@ -92,11 +104,11 @@ favorite_board;
 CREATE TABLE favorite_location (
     favorite_locationId INT(10) AUTO_INCREMENT PRIMARY KEY,
     writername VARCHAR(300) NOT NULL,
-    location_id INT(10) NOT NULL,
+    location_id INT(100) NOT NULL,
     FOREIGN KEY (location_id) REFERENCES location(location_id) ON DELETE CASCADE,
     FOREIGN KEY (writername) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
+SELECT * FROM favorite_location;
 CREATE TABLE reply (
     reply_id INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     board_id INT(10) NOT NULL,
@@ -108,6 +120,7 @@ CREATE TABLE reply (
     FOREIGN KEY (board_id) REFERENCES board(board_id) ON DELETE CASCADE,
     FOREIGN KEY (writer) REFERENCES user(nickname) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 -- Reply 데이터
 INSERT INTO reply (board_id, community_id, writer, content, reg_date, is_modified)
 VALUES (1, 1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

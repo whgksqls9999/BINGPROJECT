@@ -154,5 +154,15 @@ public class Board {
 	public void setFav_cnt(int fav_cnt) {
 		this.fav_cnt = fav_cnt;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Board [board_id=" + board_id + ", community_id=" + community_id + ", num=" + num + ", view_cnt="
+				+ view_cnt + ", header=" + header + ", title=" + title + ", writer=" + writer + ", content=" + content
+				+ ", reg_date=" + reg_date + ", is_modified=" + is_modified + ", location_id=" + location_id
+				+ ", fav_cnt=" + fav_cnt + "]";
+	}
+	
 	
 }

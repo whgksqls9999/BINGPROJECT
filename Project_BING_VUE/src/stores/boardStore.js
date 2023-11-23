@@ -32,17 +32,28 @@ export const useBoardStore = defineStore("board", () => {
 
   // 커뮤니티 게시글 가져오기
   const commBoardList = ref([]);
-  const getCommBoardList = (community_id) => {
-    axios({
+  const getCommBoardList = async (community_id) => {
+    await axios({
       url: `${REST_BOARD_API}/comm/${community_id}`,
-      mathod: "GET",
+      method: "GET",
     }).then((response) => {
       commBoardList.value = response.data;
       // sessionStorage.setItem(
       // btoa("commBoardList"),
       // btoa(JSON.stringify(commBoardList.value))
       // );
-      console.log();
+      console.log(commBoardList);
+    });
+  };
+
+  const boardAll = ref([]);
+  const getBoardAll = async () => {
+    await axios({
+      url: `${REST_BOARD_API}/`,
+      method: "GET",
+    }).then((response) => {
+      boardAll.value = response.data;
+      console.log(boardAll.value);
     });
   };
 
@@ -111,7 +122,17 @@ export const useBoardStore = defineStore("board", () => {
       .catch((err) => console.log(err));
   };
 
-
+  // 게시글 검색
+  const searchBoard = async (searchCondition) => {
+    const response = await axios
+      .get(`${REST_BOARD_API}/search`, {
+        headers: { "Content-Type": "application/json" },
+        params: searchCondition,
+      })
+      .catch((err) => console.log(err));
+    console.log(response.data);
+    commBoardList.value = response.data;
+  };
 
   return {
     commBoardList,
@@ -126,5 +147,8 @@ export const useBoardStore = defineStore("board", () => {
     boardOne,
     deleteBoard,
     updateViewCnt,
+    boardAll,
+    getBoardAll,
+    searchBoard,
   };
 });

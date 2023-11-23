@@ -67,9 +67,9 @@
 	<select id="searchBoard" parameterType="SearchCondition"
 		resultType="Board">
 		SELECT * FROM board
+		WHERE community_id = #{community_id} 
 		<if test="key != 'none'">
-			WHERE ${key} LIKE CONCAT ('%',#{word},'%')
+			AND ${key} LIKE CONCAT ('%',#{word},'%')
 		</if>
-
 	</select>
 </mapper>
