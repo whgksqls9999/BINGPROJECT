@@ -34,7 +34,9 @@
           {{ followingList.length }}
         </div>
       </div>
-      <button class="userinfo-close-btn" @click="doClose">닫기</button>
+      <button class="userinfo-close-btn" @click="doClose">
+        <font-awesome-icon :icon="['fas', 'xmark']" />
+      </button>
     </div>
   </div>
 </template>
@@ -149,6 +151,18 @@ watch(() => {
   background-color: white;
   border: 2px solid #ccc;
   padding: 1rem;
+  animation: fadein 0.3s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
 }
 
 .userinfo-box-top {
@@ -173,6 +187,12 @@ watch(() => {
 }
 
 .userinfo-close-btn {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  left: 7rem;
+  top: 13rem;
 }
 
 .follow-cancel-btn,
