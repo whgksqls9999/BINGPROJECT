@@ -100,6 +100,7 @@ onMounted(() => {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
+  overflow-x: hidden;
 }
 
 .board-view-community-title {

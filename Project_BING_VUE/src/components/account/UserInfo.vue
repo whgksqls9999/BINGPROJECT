@@ -144,20 +144,23 @@ watch(() => {
 
 .userinfo-box {
   position: absolute;
+  position: relative;
   width: 15rem;
   height: 10rem;
-  top: 15rem;
-  left: 35rem;
+  top: 25%;
+  left: calc(50% - 7.5rem);
   background-color: white;
   border: 2px solid #ccc;
   padding: 1rem;
-  animation: fadein 0.3s;
+  animation: fadein 0.3s ease;
+  border-radius: 1rem;
+  box-shadow: 0 2px 0.3rem black;
 }
 
 @keyframes fadein {
   from {
     opacity: 0;
-    transform: translateY(-1rem);
+    transform: translateY(1rem);
   }
   to {
     opacity: 1;
@@ -184,6 +187,7 @@ watch(() => {
   display: flex;
   justify-content: space-evenly;
   text-align: center;
+  font-weight: bold;
 }
 
 .userinfo-close-btn {
@@ -191,10 +195,19 @@ watch(() => {
   background-color: transparent;
   border: none;
   font-size: 30px;
-  left: 7rem;
+  left: 7.5rem;
   top: 13rem;
+  animation: fadein 0.6s ease;
+  animation: move 4s infinite ease;
 }
 
+@keyframes move {
+  from, to{
+    transform: translateY(0);
+  } 50%{
+    transform: translateY(3px);
+  }
+}
 .follow-cancel-btn,
 .follow-btn {
   position: absolute;
