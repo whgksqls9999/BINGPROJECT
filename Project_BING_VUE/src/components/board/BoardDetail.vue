@@ -1,25 +1,27 @@
 <template>
   <div class="board-detail">
     <div class="board-detail-global">
-      <div class="board-detail-category">
-        <h3>
-          {{
-            boardOne.community_id === 1
-              ? "FREEDIVING"
-              : boardOne.community_id === 2
-              ? "SKINSCUBA"
-              : boardOne.community_id
-          }}
-        </h3>
-        <p>{{ boardOne.header }}</p>
-      </div>
-      <div class="board-detail-title">
-        <h3>{{ boardOne.title }}</h3>
+      <div class="board-padding-remove">
+        <div class="board-detail-category">
+          <h3>
+            {{
+              boardOne.community_id === 1
+                ? "FREEDIVING"
+                : boardOne.community_id === 2
+                ? "SKINSCUBA"
+                : boardOne.community_id
+            }}
+          </h3>
+          <p>{{ boardOne.header }}</p>
+        </div>
+        <div class="board-detail-title">
+          <h3>{{ boardOne.title }}</h3>
+        </div>
       </div>
       <div class="board-detail-container">
         <div class="board-detail-inform">
           <!-- <h4>: {{ boardOne.writer }}</h4> -->
-          <h4>작성자 : {{ boardOne.writer}}</h4>
+          <h4>작성자 : {{ boardOne.writer }}</h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
           <h4>작성일 : {{ boardOne.reg_date }}</h4>
           <h4>좋아요 수 : {{ boardOne.fav_cnt }}</h4>
@@ -37,21 +39,13 @@
         </div>
         <div class="board-detail-buttons">
           <!-- 이전, 수정, 삭제, 다음 버튼 -->
-          <button @click="prePage" class="nav-button">이전</button>
+          <button @click="prePage" class="nav-button">&lt;</button>
           <button
             class="action-button"
             @click="boardModifyPush"
             v-if="isWriter"
           >
-            수정
-          </button>
-          <button
-            class="action-button"
-            id="delete"
-            @click="boardDelete"
-            v-if="isWriter"
-          >
-            삭제
+            EDIT
           </button>
           <span v-if="isLogin != null">
             <button
@@ -59,13 +53,22 @@
               @click="doFavBoard"
               class="fav-button"
             >
-              좋아요
+              <strong>LIKE</strong>
             </button>
             <button v-else @click="doFavCancel" class="fav-cancel-button">
-              좋아요
+              🧡
             </button>
           </span>
-          <button @click="nextPage" class="nav-button">다음</button>
+
+          <button
+            class="action-button"
+            id="delete"
+            @click="boardDelete"
+            v-if="isWriter"
+          >
+            DELETE
+          </button>
+          <button @click="nextPage" class="nav-button">&gt;</button>
         </div>
       </div>
       <div class="board-detail-reply-container">
@@ -83,16 +86,20 @@
                 <th></th>
               </tr>
             </thead>
-              <BoardDetailReply  v-for="reply in boardReplyList"
+            <BoardDetailReply
+              v-for="reply in boardReplyList"
               :key="reply.id"
-              class="reply-item" :reply="reply" :user="user"/>
+              class="reply-item"
+              :reply="reply"
+              :user="user"
+            />
           </table>
         </div>
         <div v-if="isLogin" class="comment-container">
-          <h3>댓글 작성란</h3>
+          <h3>REPLY</h3>
           <div class="comment-input">
             <input type="text" v-model="replyContent" />
-            <button @click="registReply">등록하기</button>
+            <button @click="registReply">SUBMIT</button>
           </div>
         </div>
       </div>
@@ -109,7 +116,7 @@ import { useBoardStore } from "@/stores/boardStore";
 import { useFavStore } from "@/stores/favStore.js";
 import { useCommonStore } from "@/stores/commonStore";
 import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
-import BoardDetailReply from '@/components/board/include/BoardDetailReply.vue';
+import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
 // Store
 const commonStore = useCommonStore();
 
@@ -166,16 +173,13 @@ const boardReplyList = computed(() => replyStore.boardReplyList);
 const boardOne = computed(() => boardStore.boardOne);
 
 //board 다 불러오기
-const commBoardList = computed(()=>boardStore.commBoardList)
-
+const commBoardList = computed(() => boardStore.commBoardList);
 
 //글 작성자 맞으면 수정 삭제 버튼 띄우기위해서 user 불러오기
 const user = computed(() => userStore.user);
 
 // 글 작성자 체크
 const isWriter = ref(false);
-
-
 
 // const reply = computed(() => replyStore.reply);
 //수정 누르면 수정 form으로 이동
@@ -198,47 +202,49 @@ const replyContent = ref("");
 
 //댓글 작성하기
 const registReply = () => {
-    const reply = {
-        board_id: boardOne.value.board_id,
-        community_id: boardOne.value.community_id,
-        writer: user.value.nickname,
-        content: replyContent.value,
-        reg_date: new Date().toISOString(),
-    };
+  const reply = {
+    board_id: boardOne.value.board_id,
+    community_id: boardOne.value.community_id,
+    writer: user.value.nickname,
+    content: replyContent.value,
+    reg_date: new Date().toISOString(),
+  };
 
-    if(replyContent.value===""){
-      alert('내용을 입력해주세요!')
-      return;
-    }
-
-    replyStore.registReply(reply);
-    replyContent.value = "";
-};
-
-const prePage = async () =>{
-  if(boardOne.value.num===1){
-    alert('이전 게시글이 없습니다.')
+  if (replyContent.value === "") {
+    alert("내용을 입력해주세요!");
     return;
   }
 
-  const preBoardIndex = boardOne.value.num-2;
+  replyStore.registReply(reply);
+  replyContent.value = "";
+};
+
+const prePage = async () => {
+  if (boardOne.value.num === 1) {
+    alert("이전 게시글이 없습니다.");
+    return;
+  }
+
+  const preBoardIndex = boardOne.value.num - 2;
   const preBoard = commBoardList.value[preBoardIndex];
-  
+
   await router.push({
-    name:'boardDetail',
-    params:{ community_id: preBoard.community_id, board_id:preBoard.board_id},
-    
-  })
-  
-  await boardStore.getBoard(preBoard.board_id)
+    name: "boardDetail",
+    params: {
+      community_id: preBoard.community_id,
+      board_id: preBoard.board_id,
+    },
+  });
+
+  await boardStore.getBoard(preBoard.board_id);
   await replyStore.getBoardReplyList(preBoard.board_id);
-}
+};
 
 const nextPage = async () => {
-  console.log(boardOne.value.num)
-  console.log("ddd", commBoardList.value )
+  console.log(boardOne.value.num);
+  console.log("ddd", commBoardList.value);
   if (boardOne.value.num === commBoardList.value.length) {
-    alert('다음 게시글이 없습니다.');
+    alert("다음 게시글이 없습니다.");
     return;
   }
 
@@ -246,20 +252,21 @@ const nextPage = async () => {
   const nextBoard = commBoardList.value[nextBoardIndex];
 
   if (!nextBoard) {
-    alert('다음 게시글이 없습니다.');
+    alert("다음 게시글이 없습니다.");
     return;
   }
 
   await router.push({
-    name: 'boardDetail',
-    params: { community_id: nextBoard.community_id, board_id: nextBoard.board_id },
+    name: "boardDetail",
+    params: {
+      community_id: nextBoard.community_id,
+      board_id: nextBoard.board_id,
+    },
   });
 
   await boardStore.getBoard(nextBoard.board_id);
   await replyStore.getBoardReplyList(nextBoard.board_id);
 };
-
-
 
 onMounted(async () => {
   //로그인 체크
@@ -293,7 +300,6 @@ onMounted(async () => {
   userStore.doLoginCheck();
   // 작성자인지 아닌지 체크
   isWriter.value = user.value.nickname == boardOne.value.writer;
-  
 });
 
 // onUpdated(() => {
@@ -308,19 +314,39 @@ onMounted(async () => {
   justify-content: center;
   text-align: center;
   height: 110vh;
+  background-image: url("@/assets/프리다이빙.png");
+  background-position: center;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
 }
 
 .board-detail-global {
+  position: relative;
   /* background: linear-gradient(-7deg, rgba(180, 202, 221, .7), rgba(0, 0, 0, .7)); */
-  background-color: whitesmoke;
+  background-color: rgba(245, 245, 245, 0.75);
   /* border: 3px solid black; */
   border-radius: 20px;
   padding: 10px 20px;
   width: 60%;
   height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+.board-padding-remove {
+  margin: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(51, 51, 51);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 100%;
+  height: 13%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: #e5e5e5;
+  /* z-index: -1; */
 }
 
 .board-detail-container {
@@ -329,7 +355,7 @@ onMounted(async () => {
   border-radius: 20px;
   /* border-style: none; */
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 130px;
 }
 
 .board-detail-location {
@@ -350,7 +376,7 @@ onMounted(async () => {
   width: 100%;
   height: 30vh;
   margin-bottom: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .board-detail-inform {
@@ -363,7 +389,11 @@ onMounted(async () => {
 }
 
 .board-detail-buttons {
+  margin-left: 5%;
   margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 button {
@@ -374,35 +404,39 @@ button {
 }
 
 .nav-button {
-  background-color: rgba(0,0,0, 0.7);
-  color:white;
+  background-color: transparent;
+  border-style: none;
+  box-shadow: none;
   font-weight: bold;
+  color: black;
   padding: 8px 16px;
   margin-right: 5px;
   cursor: pointer;
+  font-size: 1.3rem;
 }
 
 .nav-button:hover {
-  background-color: black;
-}
-
-.action-button {
-  background-color: black;
-  font-weight: bold;
-  color: white;
-  padding: 8px 16px;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-.action-button:hover {
   background-color: rgba(255, 255, 255, 0.7);
   color: black;
 }
 
+.action-button {
+  background-color: transparent;
+  font-weight: bold;
+  color: rgb(83, 83, 83);
+  padding: 8px 16px;
+  margin-right: 5px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: none;
+}
+
+.action-button:hover {
+  color: rgba(61, 184, 61, 0.577);
+}
+
 #delete:hover {
-  background-color: rgb(216, 67, 67);
-  color: white;
+  color: rgb(216, 67, 67);
 }
 .reply-item {
   margin-top: 10px;
@@ -435,7 +469,6 @@ table {
   border-collapse: collapse;
   border-radius: 5px;
   overflow: hidden;
-
 }
 
 th {
@@ -446,7 +479,7 @@ thead {
   font-size: 15px;
   font-weight: bold;
   color: #fff;
-  background-color: rgba(0,0,0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 td,
@@ -508,6 +541,7 @@ td {
     border-bottom: 1px solid #e5e5e5;
   }
 }
+
 .reply-button-item {
   margin-top: 10px;
   margin-right: 10px;
@@ -569,35 +603,36 @@ input {
   margin: 8px;
   font-size: 16px;
   font-weight: 600;
-  background-color: rgba(0,0,0, 0.7);
-  width: 12%;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 5rem;
   color: #ffffff;
   height: 35px;
 }
 
 .comment-input button:hover {
   background-color: black;
-
 }
 
 .fav-cancel-button:hover,
 .fav-button {
-  background-color: rgb(255, 255, 255);
-  font-weight: bold;
-  color: rgb(216, 67, 67);
+  border-style: none;
+  box-shadow: none;
+  background-color: transparent;
   padding: 8px 16px;
   margin-right: 5px;
   cursor: pointer;
+  font-size: 1.3rem;
 }
-
 .fav-button:hover,
 .fav-cancel-button {
-  background-color: rgb(216, 67, 67);
-  font-weight: bold;
-  color: white;
+  border-style: none;
+  box-shadow: none;
+  /* background-color: white; */
+  font-size: 1.3rem;
   padding: 8px 16px;
   margin-right: 5px;
   cursor: pointer;
+  /* background-color: rgb(216, 67, 67); */
 }
 </style>
 <!-- .comment-container {

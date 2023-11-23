@@ -1,25 +1,42 @@
 <template>
   <div class="board-view-global">
     <div class="board-view-community-title">
-      <h1>let's MELT <span>{{ idParam == 1 ? 'FREEDIVING' : (idParam == 2 ? 'SKINSCUBA' : '') }}</span> COMMUNITY</h1>
+      <h1>
+        let's MELT
+        <span>{{
+          idParam == 1 ? "FREEDIVING" : idParam == 2 ? "SKINSCUBA" : ""
+        }}</span>
+        COMMUNITY
+      </h1>
     </div>
     <div class="board-view-container">
       <div class="board-view-top">
-        <h2>게시글 리스트</h2>
+        <h2>LIST</h2>
       </div>
       <div class="board-view-middle">
         <div class="board-view-left">
-          <RouterLink class="category-button free" :to="{ name: 'board', params: { community_id: 1 } }">FREEDIVING</RouterLink>
-          <RouterLink class="category-button skin" :to="{ name: 'board', params: { community_id: 2 } }">SKINSCUBA</RouterLink>
+          <RouterLink
+            class="category-button free"
+            :to="{ name: 'board', params: { community_id: 1 } }"
+            >FREEDIVING</RouterLink
+          >
+          <RouterLink
+            class="category-button skin"
+            :to="{ name: 'board', params: { community_id: 2 } }"
+            >SKINSCUBA</RouterLink
+          >
         </div>
         <div class="board-view-center">
           <BoardList :board-list="commBoardList" />
         </div>
       </div>
     </div>
-    <br>
+    <br />
     <div class="board-view-right">
-      <RouterLink :to="{ name: 'boardWrite', params: { community_id: idParam } }" :comm_id="idParam">
+      <RouterLink
+        :to="{ name: 'boardWrite', params: { community_id: idParam } }"
+        :comm_id="idParam"
+      >
         <div class="write-icon">
           <font-awesome-icon :icon="['fas', 'pen-to-square']" />
         </div>
@@ -39,7 +56,6 @@ import { watch } from "vue";
 // Store
 const commonStore = useCommonStore();
 const boardStore = useBoardStore();
-
 
 // 헤더 fixed toggle
 onMounted(() => {
@@ -69,8 +85,8 @@ const community = computed(() => {
 
 //라우터링크 누를때마다 리스트 갱신
 watch(() => {
-  boardStore.getCommBoardList(idParam.value)
-})
+  boardStore.getCommBoardList(idParam.value);
+});
 onMounted(() => {
   boardStore.getCommBoardList(idParam.value);
   boardStore.getCommunity(idParam.value);
@@ -79,8 +95,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.board-view-global {
+  background-image: url("@/assets/커뮤니티배경.png");
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .board-view-community-title span {
-  background: linear-gradient(0deg, rgba(173, 202, 219, 1) 0%, rgba(255, 255, 255, 0) 41%);
+  background: linear-gradient(
+    0deg,
+    rgba(173, 202, 219, 1) 0%,
+    rgba(255, 255, 255, 0) 41%
+  );
 }
 
 .board-view-global {
@@ -96,7 +122,6 @@ onMounted(() => {
 }
 
 .board-view-container {
-
   margin-top: 70px;
   margin-left: auto;
   margin-right: auto;
@@ -108,11 +133,13 @@ onMounted(() => {
 }
 
 .board-view-top {
-  background-color: #333;
+  background-color: rgba(51, 51, 51, 0.8);
   color: white;
   text-align: center;
   padding: 10px;
   border-bottom: 1px solid #555;
+  width: 20%;
+  border-top-right-radius: 10px;
 }
 
 .board-view-middle {
@@ -125,7 +152,7 @@ onMounted(() => {
   justify-self: center;
   align-items: center;
   width: 20%;
-  background-color: #f5f5f5;
+  background-color: rgba(245, 245, 245, 0.8);
   padding: 10px;
 }
 
@@ -152,10 +179,8 @@ onMounted(() => {
 }
 
 .category-button:hover {
-
   margin-top: 10px;
   margin-bottom: 3px;
-
 }
 
 .category-button.free:hover {
@@ -167,7 +192,7 @@ onMounted(() => {
 }
 
 .board-view-center {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.75);
   flex-grow: 1;
   padding: 10px;
 }
@@ -198,7 +223,6 @@ onMounted(() => {
   font-size: 30px;
   width: 100%;
   text-align: center;
-
 }
 
 a {
