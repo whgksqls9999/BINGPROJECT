@@ -94,6 +94,10 @@ CREATE TABLE favorite_board (
   	FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
 
 );
+INSERT INTO favorite_board
+VALUES (1,1,1,'닉네임'),
+(2,2,1,'닉네임2'),
+(3,2,2,'닉네임2');
 SELECT * FROM
 favorite_board;
 
@@ -108,6 +112,7 @@ SELECT * FROM favorite_location;
 CREATE TABLE reply (
     reply_id INT(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     board_id INT(10) NOT NULL,
+    community_id INT(10) NOT NULL,
     writer VARCHAR(300) NOT NULL,
     content TEXT NOT NULL,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -117,11 +122,11 @@ CREATE TABLE reply (
 );
 
 -- Reply 데이터
-INSERT INTO reply (board_id, writer, content, reg_date, is_modified)
-VALUES (1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(1, '닉네임2', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(1, '닉네임2', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO reply (board_id, community_id, writer, content, reg_date, is_modified)
+VALUES (1, 1, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 1, '닉네임2', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 2, '닉네임2', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 2, '닉네임', '댓글내용1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 SELECT * FROM reply;
 
 CREATE TABLE follow (
