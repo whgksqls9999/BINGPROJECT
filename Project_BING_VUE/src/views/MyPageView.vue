@@ -53,7 +53,7 @@ const nicknameParam = route.params.nickname;
   background-image: url("@/assets/tutle.png");
   background-position: center;
   background-size: cover;
-  height: 100vh;
+  height: 120vh;
 }
 .myrouter-container {
   /* margin-left: 160px; */
@@ -65,11 +65,11 @@ const nicknameParam = route.params.nickname;
 .menu-route {
   margin-top: 70px;
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 160px; /* Set the width of the sidebar */
+  width: 220px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 2; /* Stay on top */
   top: 0; /* Stay at the top */
-  left: -10rem;
+  left: -220px;
   background-color: rgba(0, 0, 0, 0.7); /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 50px;
@@ -88,7 +88,7 @@ const nicknameParam = route.params.nickname;
 
 .menu-hovering:hover + .menu-route,
 .menu-route:hover {
-  transform: translateX(10rem);
+  transform: translateX(220px);
 }
 
 .menu-hovering:hover,

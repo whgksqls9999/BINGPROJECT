@@ -50,6 +50,7 @@ onMounted(() => {
   overflow: hidden;
   position: relative;
   box-shadow: 0 0 10px black;
+  opacity: 0.9;
 }
 
 .title {

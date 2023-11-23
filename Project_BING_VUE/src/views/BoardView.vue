@@ -209,6 +209,8 @@ onMounted(() => {
   background-color: rgba(255, 255, 255, 0.75);
   flex-grow: 1;
   padding: 10px;
+  overflow-y: scroll;
+  height: 27rem;
 }
 
 .board-view-right {
