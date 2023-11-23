@@ -48,7 +48,7 @@ onMounted(() => {
       end: "0% 20%",
       scrub: 5,
       opacity: 0,
-      markers: true,
+      // markers: true,
     },
     opacity: 1,
     x: 20,
@@ -61,7 +61,7 @@ onMounted(() => {
       end: "0% 20%",
       scrub: 3,
       opacity: 0,
-      markers: true,
+      // markers: true,
       width:400
     },
     opacity: 1,
@@ -76,7 +76,7 @@ onMounted(() => {
       end: "0% 20%",
       scrub: 6,
       opacity: 0,
-      markers: true,
+      // markers: true,
       width:400
     },
     opacity: 1,
@@ -89,7 +89,7 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 1,
-      markers: true,
+      // markers: true,
     },
     opacity: 1,
     x: -3
@@ -101,7 +101,7 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 0,
-      markers: true,
+      // markers: true,
     },
     y: -50
   });
@@ -112,7 +112,7 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 0,
-      markers: true,
+      // markers: true,
     },
     y: -50
   });
