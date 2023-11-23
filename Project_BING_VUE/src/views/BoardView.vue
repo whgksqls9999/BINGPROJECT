@@ -1,7 +1,32 @@
 <template>
   <div class="board-view-container">
+    <div class="board-view-search">
+      <select v-model="key">
+        <option value="title">제목</option>
+        <option value="writer">닉네임</option>
+      </select>
+      <input type="text" v-model="word" @keyup.enter="doSearch" />
+      <button @click="doSearch">
+        <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+      </button>
+      <button
+        @click="
+          () => {
+            commBoardList.sort((a, b) => b.num - a.num);
+          }
+        "
+      >
+        번호 내림차순 정렬
+      </button>
+    </div>
     <div class="board-view-top">
       <h2>게시글 리스트</h2>
+    </div>
+    <div>
+      <select name="" id="">
+        <option value="">글번호</option>
+        <option value="">조회수</option>
+      </select>
     </div>
     <div class="board-view-middle">
       <div class="board-view-left">
@@ -27,7 +52,7 @@
 import { RouterView, RouterLink, useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore.js";
 import { useCommonStore } from "../stores/commonStore";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import BoardList from "@/components/board/BoardList.vue";
 
 // Store
@@ -49,6 +74,20 @@ const idParam = route.params.community_id;
 // const elseCommunityList = communityList.value.filter(
 //   (element) => element.community_id != idParam
 // );
+
+// 검색
+const searchedBoardList = computed(() => boardStore.searchedBoardList);
+const key = ref("title");
+const word = ref("");
+const doSearch = () => {
+  let searchCondition = {
+    key: key.value,
+    word: word.value,
+    community_id: idParam,
+  };
+
+  boardStore.searchBoard(searchCondition);
+};
 
 // 게시글 리스트 받아오기
 const commBoardList = computed(() => {
