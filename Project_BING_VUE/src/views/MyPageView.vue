@@ -1,6 +1,9 @@
 <template>
   <!-- <h2>마이페이지</h2> -->
   <div class="menu-global">
+    <div class="menu-hovering">
+      <font-awesome-icon :icon="['fas', 'bars']" />
+    </div>
     <div class="menu-route">
       <RouterLink id="home" :to="{ name: 'main' }">홈</RouterLink>
       <RouterLink id="myInfo" :to="{ name: 'myInfo' }">나의 정보</RouterLink>
@@ -59,14 +62,44 @@ const nicknameParam = route.params.nickname;
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 160px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
+  z-index: 2; /* Stay on top */
   top: 0; /* Stay at the top */
-  left: 0;
+  left: -10rem;
   background-color: rgba(0, 0, 0, 0.7); /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
+  padding-top: 50px;
+  transition: all 0.8s ease;
 }
 
+.menu-hovering {
+  position: fixed;
+  top: 80px;
+  left: 10px;
+  font-size: 2rem;
+  animation: menu-hovering 2s ease infinite;
+  transition: all 0.5s ease;
+  z-index: 3;
+}
+
+.menu-hovering:hover + .menu-route,
+.menu-route:hover {
+  transform: translateX(10rem);
+}
+
+.menu-hovering:hover,
+.menu-route:hover ~ .menu-hovering {
+  transform: rotate(90deg);
+}
+
+@keyframes menu-hovering {
+  from,
+  to {
+    color: black;
+  }
+  50% {
+    color: rgb(80, 80, 80);
+  }
+}
 .menu-route a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;

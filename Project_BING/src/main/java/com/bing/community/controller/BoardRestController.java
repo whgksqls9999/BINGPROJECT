@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bing.community.model.dto.Board;
+import com.bing.community.model.dto.SearchCondition;
 import com.bing.community.model.service.BoardService;
 
 import io.swagger.annotations.Api;
@@ -102,6 +103,18 @@ public class BoardRestController {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	
+	// 검색
+	@GetMapping("/search")
+	public ResponseEntity<?> searchBoard(SearchCondition con){
+		List<Board> list = boardService.searchBoard(con);
+		System.out.println(con);
+		System.out.println(list);
+		if (list.size() == 0 || list == null) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
+		}
+	}
 }
 // class끝

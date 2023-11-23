@@ -49,7 +49,7 @@
 import { RouterView, RouterLink, useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore.js";
 import { useCommonStore } from "../stores/commonStore";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import BoardList from "@/components/board/BoardList.vue";
 import { watch } from "vue";
 
@@ -72,6 +72,19 @@ const idParam = computed(() => route.params.community_id);
 // const elseCommunityList = communityList.value.filter(
 //   (element) => element.community_id != idParam
 // );
+
+// 검색
+const key = ref("title");
+const word = ref("");
+const doSearch = () => {
+  let searchCondition = {
+    key: key.value,
+    word: word.value,
+    community_id: idParam,
+  };
+
+  boardStore.searchBoard(searchCondition);
+};
 
 // 게시글 리스트 받아오기
 const commBoardList = computed(() => {
@@ -113,6 +126,7 @@ onMounted(() => {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
+  overflow-x: hidden;
 }
 
 .board-view-community-title {

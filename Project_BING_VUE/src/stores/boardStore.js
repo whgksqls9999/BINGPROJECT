@@ -47,15 +47,15 @@ export const useBoardStore = defineStore("board", () => {
   };
 
   const boardAll = ref([]);
-  const getBoardAll = async()=>{
+  const getBoardAll = async () => {
     await axios({
-      url:`${REST_BOARD_API}/`,
-      method:'GET',
-    }).then((response)=>{
+      url: `${REST_BOARD_API}/`,
+      method: "GET",
+    }).then((response) => {
       boardAll.value = response.data;
-      console.log(boardAll.value)
-    })
-  }
+      console.log(boardAll.value);
+    });
+  };
 
   //게시글 눌렀을 때 가져오기
   const boardOne = ref({});
@@ -122,6 +122,18 @@ export const useBoardStore = defineStore("board", () => {
       .catch((err) => console.log(err));
   };
 
+  // 게시글 검색
+  const searchBoard = async (searchCondition) => {
+    const response = await axios
+      .get(`${REST_BOARD_API}/search`, {
+        headers: { "Content-Type": "application/json" },
+        params: searchCondition,
+      })
+      .catch((err) => console.log(err));
+    console.log(response.data);
+    commBoardList.value = response.data;
+  };
+
   return {
     commBoardList,
     getCommBoardList,
@@ -136,6 +148,7 @@ export const useBoardStore = defineStore("board", () => {
     deleteBoard,
     updateViewCnt,
     boardAll,
-    getBoardAll
+    getBoardAll,
+    searchBoard,
   };
 });

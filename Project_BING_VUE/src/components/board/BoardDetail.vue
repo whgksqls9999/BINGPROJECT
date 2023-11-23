@@ -21,7 +21,10 @@
       <div class="board-detail-container">
         <div class="board-detail-inform">
           <!-- <h4>: {{ boardOne.writer }}</h4> -->
-          <h4>작성자 : {{ boardOne.writer }}</h4>
+
+          <h4 @click="doInfoPopup(boardOne.writer)" class="board-writer">
+            작성자 : {{ boardOne.writer }}
+          </h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
           <h4>작성일 : {{ boardOne.reg_date }}</h4>
           <h4>좋아요 수 : {{ boardOne.fav_cnt }}</h4>
@@ -105,6 +108,11 @@
       </div>
     </div>
   </div>
+  <UserInfo
+    :selected="isPopup"
+    :class="{ show: isPopup == '' }"
+    @close-window="doClose"
+  />
 </template>
 
 <script setup>
@@ -117,6 +125,8 @@ import { useFavStore } from "@/stores/favStore.js";
 import { useCommonStore } from "@/stores/commonStore";
 import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
+import UserInfo from "../account/UserInfo.vue";
+
 // Store
 const commonStore = useCommonStore();
 
@@ -238,6 +248,8 @@ const prePage = async () => {
 
   await boardStore.getBoard(preBoard.board_id);
   await replyStore.getBoardReplyList(preBoard.board_id);
+  await onMountCheckBoard();
+
 };
 
 const nextPage = async () => {
@@ -266,6 +278,26 @@ const nextPage = async () => {
 
   await boardStore.getBoard(nextBoard.board_id);
   await replyStore.getBoardReplyList(nextBoard.board_id);
+  await onMountCheckBoard();
+};
+
+const onMountCheckBoard = async () => {
+  // 로그인시 - 유저 정보 가져오기
+  if (isLogin.value) {
+    await userStore.getUserByEmail(userStore.loginUser.email);
+  }
+
+  // 유저 게시글 찜 정보 가져오기
+  if (isLogin.value) {
+    await favStore.getFavBoardList(userStore.user.nickname);
+    // 해당 글을 이미 찜했는지 안했는지 체크
+    await favStore.doFavorCheck(user.value.nickname, idParam.value);
+  }
+
+  await boardStore.getCommBoardList(boardOne.value.community_id);
+
+  // 작성자인지 아닌지 체크
+  isWriter.value = user.value.nickname == boardOne.value.writer;
 };
 
 onMounted(async () => {
@@ -296,12 +328,22 @@ onMounted(async () => {
   await boardStore.getCommBoardList(boardOne.value.community_id);
   // 헤더 색 검정색
   commonStore.toggleHeaderFixed(false);
-  // 로그인 상태인지 체크
-  userStore.doLoginCheck();
+
   // 작성자인지 아닌지 체크
   isWriter.value = user.value.nickname == boardOne.value.writer;
+
+  commonStore.toggleFooterFixed(true);
+
 });
 
+// 작성자 정보 확인하기
+const isPopup = ref("");
+const doInfoPopup = (writername) => {
+  isPopup.value = writername;
+};
+const doClose = () => {
+  isPopup.value = "";
+};
 // onUpdated(() => {
 //   replyStore.getBoardReplyList(idParam.value);
 // });
@@ -443,9 +485,10 @@ button {
 }
 
 .board-writer {
-  margin-top: 20px;
+  /* margin-top: 20px;
   font-style: italic;
-  color: #555;
+  color: #555; */
+  cursor: pointer;
 }
 
 .board-detail-table {
@@ -633,6 +676,10 @@ input {
   margin-right: 5px;
   cursor: pointer;
   /* background-color: rgb(216, 67, 67); */
+}
+
+.show {
+  display: none;
 }
 </style>
 <!-- .comment-container {

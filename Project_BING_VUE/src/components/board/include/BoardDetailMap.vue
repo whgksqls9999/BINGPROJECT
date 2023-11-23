@@ -24,13 +24,17 @@
 <script setup>
 import { onMounted, ref, computed, onBeforeMount } from "vue";
 import { useLocationStore } from "@/stores/locationStore.js";
+import { useBoardStore } from "@/stores/boardStore.js";
 import { useUserStore } from "@/stores/userStore.js";
 import { useFavStore } from "@/stores/favStore.js";
+import { useRoute } from "vue-router";
 
 // router, store
 const locationStore = useLocationStore();
+const boardStore = useBoardStore();
 const userStore = useUserStore();
 const favStore = useFavStore();
+const route = useRoute();
 
 // 유저 로그인 체크
 const isLogin = computed(() => userStore.isLogin);
@@ -40,6 +44,12 @@ const loginUser = computed(() => userStore.loginUser);
 
 //유저 정보
 const user = computed(() => userStore.user);
+
+// 게시글 정보
+const boardOne = computed(() => boardStore.boardOne);
+
+// 게시글 id
+const idParam = computed(() => route.params.board_id);
 
 // 이미 찜한 장소인지 체크
 const isFavoredLocation = computed(() => favStore.isFavoredLocation);
@@ -130,7 +140,6 @@ const displayMarker = (place) => {
     map: map,
     position: new kakao.maps.LatLng(place.latitude, place.longitude),
   });
-  console.log(infowindow);
   infowindow.setContent(
     `<div class="map-info" style="padding:3px;font-size:12px;width:100%;display:flex">
           <div>
@@ -159,8 +168,12 @@ const placesSearchCB = (data, status, pagination) => {
 };
 
 onMounted(async () => {
+  // 게시글 정보 갱신하기
+  await boardStore.getBoard(idParam.value);
+
+  console.log("게시글에서 받아온 보드아이디", boardOne.value.board_id);
   // 장소 정보 가져오기
-  await locationStore.doGetLocation(props.location);
+  await locationStore.doGetLocation(boardOne.value.location_id);
 
   // 유저 로그인 체크
   userStore.doLoginCheck();
@@ -173,7 +186,6 @@ onMounted(async () => {
       user.value.nickname,
       location.value.location_id
     ); // 이미 찜한 장소인지 체크하기
-    console.log(isFavoredLocation.value);
   }
 
   // 지도 생성하기
@@ -189,6 +201,8 @@ onMounted(async () => {
     }); //헤드태그에 추가
     document.head.appendChild(script);
   }
+
+  console.log("불러와진 장소의 아이디", location.value.location_id);
 });
 </script>
 
@@ -227,7 +241,8 @@ onMounted(async () => {
 }
 
 .fav-cancel-location-btn {
-  color: rgb(255, 51, 51);
+  background-color: rgb(255, 51, 51);
+  color: white;
 }
 
 .fav-location-btn:hover {
@@ -235,7 +250,7 @@ onMounted(async () => {
   color: white;
 }
 .fav-cancel-location-btn:hover {
-  background-color: rgb(255, 51, 51);
-  color: white;
+  background-color: white;
+  color: rgb(255, 51, 51);
 }
 </style>

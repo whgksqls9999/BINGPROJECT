@@ -216,7 +216,7 @@ const setCategory = (sel) => {
 
 input,
 textarea {
-  border-radius: 30px;
+  border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 0.2rem grey;
   width: 100%;

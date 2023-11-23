@@ -24,9 +24,9 @@ export const useUserStore = defineStore("user", () => {
 
   // 유저 정보 가져오기(이메일)
   const getUserByEmail = async (email) => {
-    await axios
-      .get(`${REST_USER_API}/email/${email}`)
-      .then((response) => (user.value = response.data));
+    await axios.get(`${REST_USER_API}/email/${email}`).then((response) => {
+      user.value = response.data;
+    });
   };
 
   // 유저 목록 가져오기
@@ -140,8 +140,8 @@ export const useUserStore = defineStore("user", () => {
 
   // 팔로워 정보 가져오기
   const followerList = ref([]);
-  const getFollowerList = (email) => {
-    axios.get(`${REST_FOLLOW_API}/${email}/follower`).then((response) => {
+  const getFollowerList = async (email) => {
+    await axios.get(`${REST_FOLLOW_API}/${email}/follower`).then((response) => {
       followerList.value = response.data;
     });
   };
@@ -167,6 +167,18 @@ export const useUserStore = defineStore("user", () => {
       .catch((err) => console.log(err));
   };
 
+  // 팔로잉하기
+  const doFollow = async (follow, email) => {
+    console.log(follow, email);
+    const response = await axios
+      .post(`${REST_FOLLOW_API}/`, follow, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .catch((err) => console.log(err));
+    getFollowerList(email);
+    getFollowingList(email);
+  };
+
   // 세션에서 유저 이메일 가져오기
   const getUserEmail = () => {
     if (!sessionStorage.getItem("access-token")) return;
@@ -176,6 +188,22 @@ export const useUserStore = defineStore("user", () => {
     return loginUser.value.email;
   };
 
+  //다른 사람 가져오기
+  const selectedUser = ref("");
+  const getOtherUser = async (nickname) => {
+    await axios
+      .get(`${REST_USER_API}/nickname/${nickname}`)
+      .then((response) => {
+        selectedUser.value = response.data;
+      });
+  };
+
+  // 다른 사람 가져오기(이메일)
+  const getOtherUserByEmail = async (email) => {
+    await axios.get(`${REST_USER_API}/email/${email}`).then((response) => {
+      selectedUser.value = response.data;
+    });
+  };
   return {
     userLogin,
     loginUser,
@@ -198,5 +226,9 @@ export const useUserStore = defineStore("user", () => {
     doFollowCancel,
     getUserEmail,
     isLogin,
+    getOtherUser,
+    getOtherUserByEmail,
+    selectedUser,
+    doFollow,
   };
 });
