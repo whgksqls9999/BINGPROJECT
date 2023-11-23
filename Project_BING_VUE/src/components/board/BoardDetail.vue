@@ -1,6 +1,6 @@
 <template>
-  <div class="board-detail">
-    <div class="board-detail-global">
+  <div class="board-detail" :class="{extend:boardOne.header == '장소추천'}">
+    <div class="board-detail-global" :class="{extends:boardOne.header == '장소추천'}">
       <div class="board-padding-remove">
         <div class="board-detail-category">
           <h3>
@@ -680,6 +680,13 @@ input {
 
 .show {
   display: none;
+}
+
+.extend{
+  height: 150vh;
+}
+.extends{
+  height: 130vh;
 }
 </style>
 <!-- .comment-container {
