@@ -15,7 +15,8 @@
         <label for="">내용</label>
         <textarea type="text" v-model="content" />
         <div class="location-select" @click="doSelectLocation">
-          <div v-if="!location" class="map-image"></div>
+          <!-- <div v-if="!location" class="map-image"></div> -->
+          <div v-if="!location" class="map-image"><font-awesome-icon :icon="['fas', 'map-location-dot']" /></div>
           <div v-else>
             <fieldset>
               <legend>장소명</legend>
@@ -27,7 +28,7 @@
                 {{ location.address_name.split(" ").splice(0, 3).join(" ") }}
               </div>
             </fieldset>
-            <div>
+            <!-- <div> -->
               <button
                 @click.stop="
                   () => {
@@ -38,7 +39,7 @@
               >
                 장소 삭제
               </button>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
         <!-- <div class="map" > -->
@@ -199,7 +200,7 @@ const setCategory = (sel) => {
 }
 
 .container {
-  width: 100vw;
+  /* width: 100vw; */
   height: 100%;
   display: flex;
   justify-content: center;
@@ -210,14 +211,16 @@ const setCategory = (sel) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40rem;
+  width: 100%;
   gap: 1rem;
+  padding-top: 5rem;
 }
 
 input,
 textarea {
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 2px solid rgb(146, 142, 142);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   box-shadow: 0 1px 0.2rem grey;
   width: 100%;
   padding: 0.3rem;
@@ -282,8 +285,8 @@ textarea {
 
 .location-select {
   border-radius: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 0.2rem grey;
+  border: 2px solid rgb(146, 142, 142);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   width: 40%;
   padding: 0.4rem;
   margin-left: 1rem;
@@ -298,7 +301,7 @@ textarea {
 
 .category {
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  /* border: 1px solid rgba(51,51,51); */
   border-radius: 0.5rem;
   box-shadow: 0 1px 0.2rem grey;
   height: 3rem;
@@ -308,16 +311,14 @@ textarea {
   display: flex;
   overflow: hidden;
   align-items: center;
-  background-color: black;
+  background-color: rgba(51,51,51);
   color: white;
   /* cursor: pointer; */
 }
 
 .category:hover {
-  width: 23rem;
-  background-color: rgba(0, 0, 0, 0.9);
+  width: 25rem;
   box-shadow: 0 1px 0.5rem black;
-  animation: background-glow 2s infinite ease;
 }
 
 .category span {
@@ -334,11 +335,18 @@ textarea {
 
 .categories button {
   padding: 0.2rem;
-  width: 3rem;
+  width: 4rem;
   border: none;
   border-radius: 0.3rem;
-  margin: 0 0.3rem;
+  margin: 0 0.1rem;
   transition: all 0.2s;
+  background-color: transparent;
+  color: #ccc;
+}
+
+.categories button:hover{
+  color: white;
+  font-weight: bold;
 }
 
 .categories button:active {
@@ -352,17 +360,24 @@ fieldset {
 
 /* 지도 이미지*/
 .map-image {
-  background-image: url("@/assets/board/map.png");
-  background-size: 65%;
-  background-position: 50%;
+  /* background-image: url("@/assets/board/map.png");
+  background-size: 50%;
+  background-position: 50%; */
   width: 100%;
   height: 100%;
-  transition: opacity 0.1s;
+  transition: opacity 0.3s;
   opacity: 0.6;
+  color: rgba(51,51,51);
+  font-size: 8rem;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+
 }
 
 .map-image:hover {
   opacity: 1;
+  color: rgba(51,51,51);
 }
 
 .map-image:active {
@@ -370,23 +385,37 @@ fieldset {
 }
 
 .location-delete {
-  margin-top: 10px;
+  margin-top: 5px;
+  background-color: rgb(51,51,51);
+  color: #ccc;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.location-delete:hover {
+  background-color: rgb(40, 40, 40);
 }
 
 .submit-btn {
-  background-color: skyblue;
+  background-color: rgba(51,51,51);
   border: none;
   border-radius: 0.5rem;
-  box-shadow: 0 1px 0.2rem grey;
   width: 4rem;
   color: white;
   transition: all 0.5s;
 }
 
 .submit-btn:hover {
-  background-color: rgba(135, 207, 235, 0.1);
-  box-shadow: 0 2px 0.4rem skyblue;
-  color: skyblue;
+  box-shadow: 0 1px 0.2rem grey;
   font-weight: bold;
+  animation: glow 1s infinite ease;
+}
+
+@keyframes glow{
+  from, to {
+    box-shadow: 0 1px 0.2rem grey;
+  } 50% {
+    box-shadow: 0 1px 0.5rem grey;
+  }
 }
 </style>
