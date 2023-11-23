@@ -26,13 +26,13 @@
             <span></span>
             <span></span>
             <span></span>
-            로그인
+            SIGN IN
           </button>
           <button @click="closeWindow">
             <span></span>
             <span></span>
             <span></span>
-            닫기
+            CLOSE
           </button>
         </div>
       </form>

@@ -5,13 +5,11 @@
       <font-awesome-icon :icon="['fas', 'bars']" />
     </div>
     <div class="menu-route">
-      <RouterLink id="home" :to="{ name: 'main' }">홈</RouterLink>
-      <RouterLink id="myInfo" :to="{ name: 'myInfo' }">나의 정보</RouterLink>
-      <RouterLink id="myBoards" :to="{ name: 'myBoards' }"
-        >나의 글 목록</RouterLink
-      >
+      <RouterLink id="home" :to="{ name: 'main' }">HOME</RouterLink>
+      <RouterLink id="myInfo" :to="{ name: 'myInfo' }">MY INFO</RouterLink>
+      <RouterLink id="myBoards" :to="{ name: 'myBoards' }">MY BOARD</RouterLink>
       <RouterLink id="myFavorite" :to="{ name: 'myFavorite' }"
-        >나의 찜 목록</RouterLink
+        >MY FAVORITE</RouterLink
       >
     </div>
     <transition name="fade" mode="out-in">
@@ -50,8 +48,15 @@ const nicknameParam = route.params.nickname;
   box-sizing: border-box;
   font-weight: lighter;
 }
+.menu-global {
+  margin-top: 70px;
+  background-image: url("@/assets/tutle.png");
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
 .myrouter-container {
-  margin-left: 160px;
+  /* margin-left: 160px; */
   display: flex;
   flex-direction: column;
   /* justify-content: center; */

@@ -2,46 +2,46 @@
   <div class="myInfo-global">
     <div class="myInfo-container">
       <div class="myInfo-title">
-        <h2>{{ user.nickname }}님의 정보</h2>
+        <h2>I n f o r m a t i o n</h2>
       </div>
       <div class="myInfo-detail">
         <div class="myInfo-img">
           <img src="@/assets/군싹.jpeg" />
+          <div class="myInfo-follow">
+            <table>
+              <thead>
+                <tr>
+                  <th class="following" @click="doOpenFollowingList">팔로잉</th>
+                  <th class="follower" @click="doOpenFollowerList">팔로워</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="following" @click="doOpenFollowingList">
+                    {{ followingList.length }}
+                  </td>
+                  <td class="follower" @click="doOpenFollowerList">
+                    {{ followerList.length }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="myInfo-detail-series">
-          <div><strong>아이디 : </strong> {{ user.email }}</div>
-          <div><strong>이름 : </strong> {{ user.name }}</div>
-          <div><strong>닉네임 : </strong> {{ user.nickname }}</div>
-          <div><strong>성별 : </strong> {{ user.gender }}</div>
-          <div><strong>탈퇴 문구 : </strong> {{ user.withdraw_text }}</div>
+          <div><strong>ID : </strong> {{ user.email }}</div>
+          <div><strong>NAME : </strong> {{ user.name }}</div>
+          <div><strong>NICKNAME : </strong> {{ user.nickname }}</div>
+          <div><strong>GENDER : </strong> {{ user.gender }}</div>
+          <div><strong>WITHDRAW TEXT : </strong> {{ user.withdraw_text }}</div>
         </div>
-      </div>
-      <div class="myInfo-follow">
-        <table>
-          <thead>
-            <tr>
-              <th class="following" @click="doOpenFollowingList">팔로잉</th>
-              <th class="follower" @click="doOpenFollowerList">팔로워</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="following" @click="doOpenFollowingList">
-                {{ followingList.length }}
-              </td>
-              <td class="follower" @click="doOpenFollowerList">
-                {{ followerList.length }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
       <div class="myInfo-series">
         <div class="myInfo-link">
-          <RouterLink :to="{ name: 'modifyInfo' }">내 정보 수정하기</RouterLink>
+          <RouterLink :to="{ name: 'modifyInfo' }">CHANGE INFO</RouterLink>
         </div>
         <div class="myInfo-withdraw">
-          <RouterLink :to="{ name: 'withdraw' }">해빙 탈퇴하기</RouterLink>
+          <RouterLink :to="{ name: 'withdraw' }">LEAVE</RouterLink>
         </div>
       </div>
       <MyFollow
@@ -123,10 +123,11 @@ onMounted(() => {
 }
 
 .myInfo-container {
-  border: 3px solid #dbdbdb;
-  border-radius: 8px;
-  width: 500px;
-  background-color: white;
+  border: none;
+  border-radius: 20px;
+  width: 90%;
+  color: #dbdbdb;
+  background-color: rgba(0, 0, 0, 0.7);
   position: relative;
 }
 
@@ -151,15 +152,24 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   padding-bottom: 0.5rem;
-  margin-top: -15px;
+  margin-top: 15px;
 }
 
 table {
+  width: 150px;
+  /* padding-top: 20px; */
+  /* padding-bottom: 10px; */
   text-align: center;
   border-collapse: separate;
-  border-spacing: 110px 0;
+  border-spacing: 3px;
+  border-top: 1px solid #dbdbdb;
 }
-
+.myInfo-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .myInfo-img img {
   border-radius: 50%;
   width: 150px;
@@ -167,6 +177,7 @@ table {
 }
 
 .myInfo-detail-series {
+  letter-spacing: 2px;
   display: flex;
   flex-direction: column;
   margin-left: 20px;
@@ -187,9 +198,9 @@ table {
 .myInfo-withdraw a {
   text-decoration: none;
   padding: 10px;
-  border: 1px solid #dbdbdb;
+  /* border: 1px solid #dbdbdb; */
   border-radius: 5px;
-  color: #262626;
+  color: #dbdbdb;
 }
 
 .myInfo-link a:hover {
@@ -197,13 +208,14 @@ table {
   color: white;
 }
 .myInfo-withdraw a:hover {
-  color: whitesmoke;
+  color: #dbdbdb;
   background-color: rgb(216, 67, 67);
 }
 
 .follower,
 .following {
   cursor: pointer;
+  color: #dbdbdb;
 }
 </style>
 
