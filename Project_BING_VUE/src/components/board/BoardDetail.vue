@@ -326,8 +326,8 @@ onMounted(async () => {
 
   // 작성자인지 아닌지 체크
   isWriter.value = user.value.nickname == boardOne.value.writer;
-  console.log("보드아이디", boardOne.value.board_id);
-  console.log("해당 보드의 로케이션 아이디", boardOne.value.location_id);
+  
+  commonStore.toggleFooterFixed(true);
 });
 
 // 작성자 정보 확인하기

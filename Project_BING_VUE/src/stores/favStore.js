@@ -19,7 +19,6 @@ export const useFavStore = defineStore("fav", () => {
       })
       .then(() => {
         doFavorCheck(nickname, favBoard.board_id);
-        alert("게시글을 찜했습니다.");
       })
       .catch((err) => console.log(err));
   };
@@ -58,7 +57,6 @@ export const useFavStore = defineStore("fav", () => {
       .delete(`${REST_FAVBOARD_API}/deletefavboard/${favorite_boardId}`)
       .then((response) => {
         doFavorCheck(nickname, board_id);
-        alert("게시글 찜을 취소했습니다.");
       })
       .catch((err) => console.log(err));
   };
@@ -97,7 +95,6 @@ export const useFavStore = defineStore("fav", () => {
       })
       .then(() => {
         doFavLocationCheck(nickname, favLocation.location_id);
-        alert("장소를 찜했습니다.");
       })
       .catch((err) => console.log(err));
   };
@@ -114,7 +111,6 @@ export const useFavStore = defineStore("fav", () => {
       )
       .then((response) => {
         doFavLocationCheck(nickname, location_id);
-        alert("장소 찜을 취소했습니다.");
       })
       .catch((err) => console.log(err));
   };
