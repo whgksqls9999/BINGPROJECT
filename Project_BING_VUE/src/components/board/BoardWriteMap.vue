@@ -1,16 +1,15 @@
 <template>
   <div class="container" @click="doDetectClick">
     <div class="map">
+      <div class="map-cap">Select Place</div>
       <div id="map"></div>
       <div class="map-form">
-        <input
-          type="text"
-          placeholder="찾고자 하는 장소를 입력해주세요."
-          v-model="keyword"
-          @keyup.enter="search"
-        />
-        <button @click="search">검색</button>
-        <button @click="doCloseWindow">닫기</button>
+        <input type="text" placeholder="찾고자 하는 장소를 입력해주세요." v-model="keyword" @keyup.enter="search" />
+        <div class="btns">
+          <button @click="search" class="search-btn"> 검색
+          </button>
+          <button @click="doCloseWindow">닫기</button>
+        </div>
       </div>
     </div>
   </div>
@@ -122,7 +121,6 @@ const placesSearchCB = (data, status, pagination) => {
       displayMarker(data[i]);
       bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
     }
-
     //  검색 위치 기준으로 지도 범위 재설정
     map.setBounds(bounds);
   }
@@ -134,9 +132,8 @@ onMounted(() => {
     initMap();
   } else {
     const script = document.createElement("script"); // autoload=false 스크립트를 동적으로 로드하기 위해서 사용
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
-      import.meta.env.VITE_KAKAO_API_KEY
-    }&libraries=services`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
+      }&libraries=services`;
     script.addEventListener("load", () => {
       kakao.maps.load(initMap);
     }); //헤드태그에 추가
@@ -151,10 +148,12 @@ onMounted(() => {
   flex-direction: column;
   display: flex;
   top: 0;
+  width: 100%;
   height: 100%;
   z-index: 1;
-  background-color: rgba(128, 128, 128, 0.6);
+  background-color: rgba(128, 128, 128, 0.5);
 }
+
 .map {
   display: flex;
   flex-direction: column;
@@ -162,10 +161,48 @@ onMounted(() => {
   background-color: white;
   border-radius: 1rem;
   width: 30rem;
-  height: 30rem;
+  height: 38rem;
   /* margin-top: -20rem; */
-  box-shadow: 0 0 0.3rem grey;
+  animation: fadein 1s;
+  box-shadow: 0 1px 0.2rem grey;
+  overflow: hidden;
 }
+
+.map-cap{
+  display: flex;
+  background-color: rgba(51, 51, 51, 1);
+  width: 100%;
+  height: 4rem;
+  color: #fff;
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+button {
+  background-color: rgba(51, 51, 51);
+  color: white;
+  border-radius: 10px;
+  margin: 0 5px;
+}
+
+button:hover{
+  background-color: rgba(40,40,40);
+}
+
 
 #map {
   width: 400px;
