@@ -5,10 +5,11 @@
         <TheWeather />
       </div>
       <div class="header-project-name">
-        <p>HABING</p>
+        <RouterLink :to="{ name: 'main' }" @click="scrollInit"
+          >HABING</RouterLink
+        >
       </div>
       <div class="header-router-container">
-        <RouterLink :to="{ name: 'main' }" @click="scrollInit">HOME</RouterLink>
         <RouterLink :to="{ name: 'community' }">COMMUNITY</RouterLink>
         <button v-if="!loginUser" @click="changeForm(1)">SIGN IN</button>
         <button v-if="!loginUser" @click="changeForm(2)">SIGN UP</button>

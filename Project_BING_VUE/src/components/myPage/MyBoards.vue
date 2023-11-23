@@ -3,9 +3,11 @@
   <div class="myboard-global">
     <!--게시글-->
     <div class="myboard-title">
-      <h2>✍ {{ user.nickname }}님의 게시글 목록</h2>
-      <br />
       <div class="myboard-container">
+        <div class="myboard-container-title">
+          <h2>✍ {{ user.nickname }}님의 게시글 목록</h2>
+          <br />
+        </div>
         <h3 v-if="myBoards.length == 0">작성한 게시글 목록이 없습니다.</h3>
         <table class="myboard-table" v-else>
           <thead>
@@ -46,16 +48,17 @@
     </div>
     <!--댓글-->
     <div class="myreply-title">
-      <h2>📋 {{ user.nickname }}님의 댓글 목록</h2>
-      <br />
       <div class="myreply-container">
+        <div class="myreply-container-title">
+          <h2>📋 {{ user.nickname }}님의 댓글 목록</h2>
+          <br />
+        </div>
         <h3 v-if="myReplys.length == 0">작성한 댓글 목록이 없습니다.</h3>
         <table class="myreply-table" v-else>
           <thead>
             <tr>
               <th>번호</th>
               <th>내용</th>
-              <th>작성자</th>
               <th>작성일</th>
             </tr>
           </thead>
@@ -74,7 +77,6 @@
                   >{{ reply.content }}</RouterLink
                 >
               </td>
-              <td>{{ reply.writer }}</td>
               <td>{{ reply.reg_date }}</td>
             </tr>
           </tbody>
@@ -135,23 +137,27 @@ a {
   color: black;
 }
 .myboard-global {
-  margin-top: 150px;
+  margin-top: 40px;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  row-gap: 100px;
+  row-gap: 50px;
 }
 h2 {
   font-family: Orbit;
 }
 .myboard-container,
 .myreply-container {
+  width: 100%;
+  background-color: rgba(245, 245, 245, 0.8);
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 10px;
-  /* border-radius: 30px; */
-  border-top: 3px solid black;
-  border-left: 3px solid black;
+  padding: 7px;
+  border-radius: 20px;
+  overflow-y: scroll;
+  max-height: 400px;
 }
+
 .myboard-table,
 .myreply-table {
   color: rgb(63, 60, 60);

@@ -8,7 +8,11 @@
           <label for="">Id</label>
         </div>
         <div class="user-box">
-          <input type="password" v-model="pw" placeholder="비밀번호는 8자리 이상, 특수문자를 포함해야 합니다."/>
+          <input
+            type="password"
+            v-model="pw"
+            placeholder="비밀번호는 8자리 이상, 특수문자를 포함해야 합니다."
+          />
           <label for="">pw</label>
         </div>
         <div class="user-box">
@@ -40,13 +44,13 @@
             <span></span>
             <span></span>
             <span></span>
-            등록하기
+            SUBMIT
           </button>
           <button @click="closeWindow">
             <span></span>
             <span></span>
             <span></span>
-            취소하기
+            CANCEL
           </button>
         </div>
       </form>
@@ -57,7 +61,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "@/stores/userStore.js";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
@@ -93,13 +97,13 @@ const isPwValid = (pwd) => {
 
 const closeWindow = () => {
   userStore.changeForm(0);
-}
+};
 
 const deleteClick = (e) => {
   if (e.target.className === "regist-container") {
     closeWindow();
   }
-}
+};
 
 // const cancleRegist = () =>{
 //   email.value === "",
@@ -137,7 +141,9 @@ const registUser = async () => {
   console.log(userStore.users);
   if (users.value.length > 0) {
     const userAlready = users.value.some((user) => user.email === email.value);
-    const nicknameAlready = users.value.some((user) => user.nickname === nickname.value);
+    const nicknameAlready = users.value.some(
+      (user) => user.nickname === nickname.value
+    );
     console.log(userAlready);
     console.log(nicknameAlready);
     if (userAlready) {
@@ -145,7 +151,7 @@ const registUser = async () => {
       return;
     }
     if (nicknameAlready) {
-      alert('이미 존재하는 닉네임입니다.')
+      alert("이미 존재하는 닉네임입니다.");
       return;
     }
   }
@@ -161,7 +167,7 @@ const registUser = async () => {
 
   await userStore.registUser(user);
   closeWindow();
-  console.log('메인이지롱')
+  console.log("메인이지롱");
 };
 </script>
 
@@ -184,7 +190,6 @@ const registUser = async () => {
   left: 20rem;
 } */
 .regist-container {
-
   background-color: rgba(128, 128, 128, 0.4);
   width: 100%;
   height: 100vh;
@@ -234,7 +239,8 @@ const registUser = async () => {
 .regist-form .user-box input::placeholder,
 .regist-form .user-box select::placeholder {
   font-size: 13px; /* 원하는 크기로 조절하세요. */
-  color: rgba(182, 234, 236, .6)}
+  color: rgba(182, 234, 236, 0.6);
+}
 
 .regist-form .user-box select {
   width: 100%;
@@ -259,22 +265,22 @@ const registUser = async () => {
   transition: 0.5s;
 }
 
-.regist-form .user-box input:focus~label,
-.regist-form .user-box input:valid~label {
+.regist-form .user-box input:focus ~ label,
+.regist-form .user-box input:valid ~ label {
   top: -20px;
   left: 0;
   color: #b6eaec;
   font-size: 12px;
 }
-.regist-form .user-box select:focus~label,
-.regist-form .user-box select:valid~label {
+.regist-form .user-box select:focus ~ label,
+.regist-form .user-box select:valid ~ label {
   top: -20px;
   left: 0;
   color: #b6eaec;
   font-size: 12px;
 }
 
-.regist-form .user-box select option{
+.regist-form .user-box select option {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -283,7 +289,7 @@ const registUser = async () => {
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
-  background: rgb(0,0,0);
+  background: rgb(0, 0, 0);
   max-height: 100px;
 }
 .regist-form form button {
@@ -408,4 +414,5 @@ button {
   border-style: none;
   color: white;
   font-family: "Noto Sans KR";
-}</style>
+}
+</style>
