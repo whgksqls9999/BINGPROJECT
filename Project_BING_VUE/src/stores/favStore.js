@@ -77,7 +77,6 @@ export const useFavStore = defineStore("fav", () => {
   const doFavLocationCheck = async (nickname, location_id) => {
     const check = ref(false);
     await getFavLocationList(nickname);
-    console.log(nickname, location_id, favLocationList.value);
     favLocationList.value.forEach((element) => {
       if (element.location_id == location_id) {
         isFavoredLocation.value = element.favorite_locationId;

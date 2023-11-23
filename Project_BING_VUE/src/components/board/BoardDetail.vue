@@ -19,7 +19,9 @@
       <div class="board-detail-container">
         <div class="board-detail-inform">
           <!-- <h4>: {{ boardOne.writer }}</h4> -->
-          <h4>작성자 : {{ boardOne.writer}}</h4>
+          <h4 @click="doInfoPopup(boardOne.writer)" class="board-writer">
+            작성자 : {{ boardOne.writer }}
+          </h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
           <h4>작성일 : {{ boardOne.reg_date }}</h4>
           <h4>좋아요 수 : {{ boardOne.fav_cnt }}</h4>
@@ -83,9 +85,13 @@
                 <th></th>
               </tr>
             </thead>
-              <BoardDetailReply  v-for="reply in boardReplyList"
+            <BoardDetailReply
+              v-for="reply in boardReplyList"
               :key="reply.id"
-              class="reply-item" :reply="reply" :user="user"/>
+              class="reply-item"
+              :reply="reply"
+              :user="user"
+            />
           </table>
         </div>
         <div v-if="isLogin" class="comment-container">
@@ -98,6 +104,11 @@
       </div>
     </div>
   </div>
+  <UserInfo
+    :selected="isPopup"
+    :class="{ show: isPopup == '' }"
+    @close-window="doClose"
+  />
 </template>
 
 <script setup>
@@ -109,7 +120,9 @@ import { useBoardStore } from "@/stores/boardStore";
 import { useFavStore } from "@/stores/favStore.js";
 import { useCommonStore } from "@/stores/commonStore";
 import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
-import BoardDetailReply from '@/components/board/include/BoardDetailReply.vue';
+import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
+import UserInfo from "../account/UserInfo.vue";
+
 // Store
 const commonStore = useCommonStore();
 
@@ -166,16 +179,13 @@ const boardReplyList = computed(() => replyStore.boardReplyList);
 const boardOne = computed(() => boardStore.boardOne);
 
 //board 다 불러오기
-const commBoardList = computed(()=>boardStore.commBoardList)
-
+const commBoardList = computed(() => boardStore.commBoardList);
 
 //글 작성자 맞으면 수정 삭제 버튼 띄우기위해서 user 불러오기
 const user = computed(() => userStore.user);
 
 // 글 작성자 체크
 const isWriter = ref(false);
-
-
 
 // const reply = computed(() => replyStore.reply);
 //수정 누르면 수정 form으로 이동
@@ -198,47 +208,50 @@ const replyContent = ref("");
 
 //댓글 작성하기
 const registReply = () => {
-    const reply = {
-        board_id: boardOne.value.board_id,
-        community_id: boardOne.value.community_id,
-        writer: user.value.nickname,
-        content: replyContent.value,
-        reg_date: new Date().toISOString(),
-    };
+  const reply = {
+    board_id: boardOne.value.board_id,
+    community_id: boardOne.value.community_id,
+    writer: user.value.nickname,
+    content: replyContent.value,
+    reg_date: new Date().toISOString(),
+  };
 
-    if(replyContent.value===""){
-      alert('내용을 입력해주세요!')
-      return;
-    }
-
-    replyStore.registReply(reply);
-    replyContent.value = "";
-};
-
-const prePage = async () =>{
-  if(boardOne.value.num===1){
-    alert('이전 게시글이 없습니다.')
+  if (replyContent.value === "") {
+    alert("내용을 입력해주세요!");
     return;
   }
 
-  const preBoardIndex = boardOne.value.num-2;
+  replyStore.registReply(reply);
+  replyContent.value = "";
+};
+
+const prePage = async () => {
+  if (boardOne.value.num === 1) {
+    alert("이전 게시글이 없습니다.");
+    return;
+  }
+
+  const preBoardIndex = boardOne.value.num - 2;
   const preBoard = commBoardList.value[preBoardIndex];
-  
+
   await router.push({
-    name:'boardDetail',
-    params:{ community_id: preBoard.community_id, board_id:preBoard.board_id},
-    
-  })
-  
-  await boardStore.getBoard(preBoard.board_id)
+    name: "boardDetail",
+    params: {
+      community_id: preBoard.community_id,
+      board_id: preBoard.board_id,
+    },
+  });
+
+  await boardStore.getBoard(preBoard.board_id);
   await replyStore.getBoardReplyList(preBoard.board_id);
-}
+  await onMountCheckBoard();
+};
 
 const nextPage = async () => {
-  console.log(boardOne.value.num)
-  console.log("ddd", commBoardList.value )
+  console.log(boardOne.value.num);
+  console.log("ddd", commBoardList.value);
   if (boardOne.value.num === commBoardList.value.length) {
-    alert('다음 게시글이 없습니다.');
+    alert("다음 게시글이 없습니다.");
     return;
   }
 
@@ -246,20 +259,41 @@ const nextPage = async () => {
   const nextBoard = commBoardList.value[nextBoardIndex];
 
   if (!nextBoard) {
-    alert('다음 게시글이 없습니다.');
+    alert("다음 게시글이 없습니다.");
     return;
   }
 
   await router.push({
-    name: 'boardDetail',
-    params: { community_id: nextBoard.community_id, board_id: nextBoard.board_id },
+    name: "boardDetail",
+    params: {
+      community_id: nextBoard.community_id,
+      board_id: nextBoard.board_id,
+    },
   });
 
   await boardStore.getBoard(nextBoard.board_id);
   await replyStore.getBoardReplyList(nextBoard.board_id);
+  await onMountCheckBoard();
 };
 
+const onMountCheckBoard = async () => {
+  // 로그인시 - 유저 정보 가져오기
+  if (isLogin.value) {
+    await userStore.getUserByEmail(userStore.loginUser.email);
+  }
 
+  // 유저 게시글 찜 정보 가져오기
+  if (isLogin.value) {
+    await favStore.getFavBoardList(userStore.user.nickname);
+    // 해당 글을 이미 찜했는지 안했는지 체크
+    await favStore.doFavorCheck(user.value.nickname, idParam.value);
+  }
+
+  await boardStore.getCommBoardList(boardOne.value.community_id);
+
+  // 작성자인지 아닌지 체크
+  isWriter.value = user.value.nickname == boardOne.value.writer;
+};
 
 onMounted(async () => {
   //로그인 체크
@@ -289,13 +323,21 @@ onMounted(async () => {
   await boardStore.getCommBoardList(boardOne.value.community_id);
   // 헤더 색 검정색
   commonStore.toggleHeaderFixed(false);
-  // 로그인 상태인지 체크
-  userStore.doLoginCheck();
+
   // 작성자인지 아닌지 체크
   isWriter.value = user.value.nickname == boardOne.value.writer;
-  
+  console.log("보드아이디", boardOne.value.board_id);
+  console.log("해당 보드의 로케이션 아이디", boardOne.value.location_id);
 });
 
+// 작성자 정보 확인하기
+const isPopup = ref("");
+const doInfoPopup = (writername) => {
+  isPopup.value = writername;
+};
+const doClose = () => {
+  isPopup.value = "";
+};
 // onUpdated(() => {
 //   replyStore.getBoardReplyList(idParam.value);
 // });
@@ -409,9 +451,10 @@ button {
 }
 
 .board-writer {
-  margin-top: 20px;
+  /* margin-top: 20px;
   font-style: italic;
-  color: #555;
+  color: #555; */
+  cursor: pointer;
 }
 
 .board-detail-table {
@@ -598,6 +641,10 @@ input {
   padding: 8px 16px;
   margin-right: 5px;
   cursor: pointer;
+}
+
+.show {
+  display: none;
 }
 </style>
 <!-- .comment-container {
