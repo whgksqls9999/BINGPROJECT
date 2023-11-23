@@ -2,29 +2,30 @@
   <!--장소 게시글 한번에-->
   <div class="myFavorite-global">
     <div class="myFavLocation-container">
-      <h2>{{ user.nickname }}님의 찜한 장소 목록</h2>
-      <!-- <h3 v-if="favLocationList.length == 0">
+      <div class="window-cap">
+        <h2>{{ user.nickname }}님의 찜한 장소 목록</h2>
+      </div>
+      <div class="no-favList" v-if="favLocationList.length == 0">
         {{ user.nickname }}님이 찜한 장소가 없습니다.
-      </h3> -->
-      <div class="myFavLocation-map">
+      </div>
+      <div v-else class="myFavLocation-map">
         <div id="map"></div>
       </div>
-      <div class="myFavLocation-list-box">
+      <div  v-if="favLocationList.length > 0" class="myFavLocation-list-box">
         <div class="myFavLocation-list-inline">
-          <MyFavLocationItem
-            v-for="favLocation in favLocationList"
-            :favLocation="favLocation"
-          />
+          <MyFavLocationItem v-for="favLocation in favLocationList" :favLocation="favLocation" />
         </div>
       </div>
       <!--찜한 장소 지도에 MARKER로 뜨겠지? 그거 받아오면 될 듯 아 그럼 또 DB 추가해야됨?-->
     </div>
     <!--게시글-->
     <div class="myFavoriteBoard-container">
-      <h2>{{ user.nickname }}님의 찜한 게시글 목록</h2>
-      <h3 v-if="favBoardList.length == 0">
+      <div class="window-cap">
+        <h2>{{ user.nickname }}님의 찜한 게시글 목록</h2>
+      </div>
+      <div class="no-favList" v-if="favBoardList.length == 0">
         {{ user.nickname }}님이 찜한 게시글이 없습니다.
-      </h3>
+      </div>
       <table v-else class="myFavoriteBoard-table">
         <thead>
           <tr>
@@ -35,24 +36,18 @@
           </tr>
         </thead>
         <!--key값.....:key뭘로잡아....-->
-        <tbody
-          v-for="favboard in favBoardList"
-          :key="favboard.favorite_boardId"
-        >
+        <tbody v-for="favboard in favBoardList" :key="favboard.favorite_boardId">
           <tr>
             <td>{{ favboard.favorite_boardId }}</td>
             <!-- <td>{{ favboard.title }}</td> -->
             <td>
-              <RouterLink
-                :to="{
-                  name: 'boardDetail',
-                  params: {
-                    community_id: favboard.community_id,
-                    board_id: favboard.board_id,
-                  },
-                }"
-                >{{ favboard.title }}</RouterLink
-              >
+              <RouterLink :to="{
+                name: 'boardDetail',
+                params: {
+                  community_id: favboard.community_id,
+                  board_id: favboard.board_id,
+                },
+              }">{{ favboard.title }}</RouterLink>
             </td>
             <td @click="doInfoPopup(favboard.writername)" class="writer">
               {{ favboard.writername }}
@@ -63,11 +58,7 @@
       </table>
     </div>
   </div>
-  <UserInfo
-    :selected="isPopup"
-    :class="{ show: isPopup == '' }"
-    @close-window="doClose"
-  />
+  <UserInfo :selected="isPopup" :class="{ show: isPopup == '' }" @close-window="doClose" />
 </template>
 
 <script setup>
@@ -118,20 +109,13 @@ onMounted(async () => {
     location.latitude,
     location.longitude,
   ]);
-
-  console.log(markerPosition.value);
-
-  console.log(favLocationList.value);
-  console.log(favBoardList.value);
-
   // 지도 생성하기
   if (window.kakao && window.kakao.maps) {
     initMap();
   } else {
     const script = document.createElement("script"); // autoload=false 스크립트를 동적으로 로드하기 위해서 사용
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
-      import.meta.env.VITE_KAKAO_API_KEY
-    }&libraries=services`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
+      }&libraries=services`;
     script.addEventListener("load", () => {
       kakao.maps.load(initMap);
     }); //헤드태그에 추가
@@ -244,12 +228,13 @@ a {
 .writer {
   cursor: pointer;
 }
+
 .myFavorite-global {
   /* display: grid; */
   /* grid-template-rows: 1fr 1fr; */
   /* row-gap: 100px; */
   display: flex;
-  margin-top: 150px;
+  margin-top: 100px;
   gap: 20px;
 }
 
@@ -257,12 +242,20 @@ a {
 .myFavoriteBoard-container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  border: 2px solid black;
   border-radius: 20px;
   height: 40rem;
-  width: 100%;
+  width: 40rem;
+  background-color: white;
+  opacity: 0.93;
+  position: relative;
+  overflow: hidden;
+  padding-top: 4rem;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.myFavoriteBoard-container{
+  overflow: scroll;
 }
 
 .myFavoriteBoard-table {
@@ -305,5 +298,26 @@ a {
 
 .show {
   display: none;
+}
+.window-cap{
+  background-color: rgb(51, 51, 51);
+  width: 100%;
+  position: absolute;
+  height: 4rem;
+  top: 0;
+  left: 0;
+  color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-favList{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
