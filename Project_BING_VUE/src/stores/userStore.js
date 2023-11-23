@@ -167,6 +167,18 @@ export const useUserStore = defineStore("user", () => {
       .catch((err) => console.log(err));
   };
 
+  // 팔로잉하기
+  const doFollow = async (follow, email) => {
+    console.log(follow, email);
+    const response = await axios
+      .post(`${REST_FOLLOW_API}/`, follow, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .catch((err) => console.log(err));
+    getFollowerList(email);
+    getFollowingList(email);
+  };
+
   // 세션에서 유저 이메일 가져오기
   const getUserEmail = () => {
     if (!sessionStorage.getItem("access-token")) return;
@@ -217,5 +229,6 @@ export const useUserStore = defineStore("user", () => {
     getOtherUser,
     getOtherUserByEmail,
     selectedUser,
+    doFollow,
   };
 });

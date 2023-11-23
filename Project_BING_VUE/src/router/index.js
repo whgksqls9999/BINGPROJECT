@@ -14,7 +14,6 @@ import UserWithdraw from "@/components/account/WithdrawForm.vue";
 import ReplyDetail from "@/components/board/ReplyDetail.vue";
 import { useBoardStore } from "@/stores/boardStore";
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -32,35 +31,28 @@ const router = createRouter({
       path: "/board/:community_id",
       name: "board",
       component: BoardView,
-      // children: [
-        //   {
-          //     path: ":board_id",
-          //     name: "boardDetail",
-          //     component: BoardDetail,
-          //   },
-          // ],
-        },
-        {
-          path: "/board/:community_id/:board_id",
-          name: "boardDetail",
-          component: BoardDetail,
-        },
-        {
-          path: "/board/:community_id/:board_id/modify",
-          name: "boardModify",
-          component: BoardModify,
-        },
-        {
-          path: "/board/:community_id/write",
-          name: "boardWrite",
-          component: BoardWrite,
-          beforeEnter: (to, from) => {
-            if (loginCheck()) return true;
-            return false;
-          },
-        },
-        {
-          path: "/board/:board_id/reply/:reply_id",
+    },
+    {
+      path: "/board/:community_id/:board_id",
+      name: "boardDetail",
+      component: BoardDetail,
+    },
+    {
+      path: "/board/:community_id/:board_id/modify",
+      name: "boardModify",
+      component: BoardModify,
+    },
+    {
+      path: "/board/:community_id/write",
+      name: "boardWrite",
+      component: BoardWrite,
+      beforeEnter: (to, from) => {
+        if (loginCheck()) return true;
+        return false;
+      },
+    },
+    {
+      path: "/board/:board_id/reply/:reply_id",
       name: "replyDetail",
       component: ReplyDetail,
     },
@@ -74,7 +66,7 @@ const router = createRouter({
       },
       children: [
         {
-          path: '',
+          path: "",
           name: "myInfo",
           component: MyInfo,
         },
@@ -98,13 +90,8 @@ const router = createRouter({
           name: "withdraw",
           component: UserWithdraw,
         },
-        // {
-          //   path: "modifyform",
-          //   name: "modifyform",
-          //   component: ModifyForm,
-          // },
-        ],
-      },
+      ],
+    },
   ],
 });
 
