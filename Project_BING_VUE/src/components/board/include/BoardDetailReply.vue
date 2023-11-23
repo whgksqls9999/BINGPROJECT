@@ -7,10 +7,10 @@
     <td>{{ reply.reg_date }}</td>
     <div class="reply-button-item" v-if="isReplyOwner">
       <button class="button1" @click="modifyButton" v-if="!isModify">
-        수정
+        EDIT
       </button>
-      <button class="button1" @click="modifyReply" v-else>등록</button>
-      <button class="button2" @click="removeReply(reply)">삭제</button>
+      <button class="button1" @click="modifyReply" v-else>SUB</button>
+      <button class="button2" @click="removeReply(reply)">DEL</button>
     </div>
     <div v-else></div>
   </tr>

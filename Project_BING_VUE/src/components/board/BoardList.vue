@@ -32,7 +32,6 @@ const props = defineProps({
   display: flex;
   justify-content: center;
   text-align: center;
-
   padding: 10px;
 }
 
