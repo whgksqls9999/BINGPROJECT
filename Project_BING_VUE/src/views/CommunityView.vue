@@ -36,6 +36,10 @@ const fadeout = ref("false");
 </script>
 
 <style scoped>
+a{
+  text-decoration: none;
+  color: transparent;
+}
 .communitymain-title {
   position: absolute;
   text-align: center;
