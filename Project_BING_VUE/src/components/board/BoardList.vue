@@ -23,6 +23,7 @@ import BoardListItem from "@/components/board/BoardListItem.vue";
 
 const props = defineProps({
   boardList: Array,
+  // default: () => [],
 });
 </script>
 
@@ -34,6 +35,7 @@ const props = defineProps({
 
   padding: 10px;
 }
+
 table {
   padding: 10px;
   columns: #f5f5f5;
@@ -43,11 +45,9 @@ table {
   border-collapse: collapse;
 }
 
-th{
+th {
   padding: 10px;
-background-color: gray;
+  background-color: gray;
   color: #f5f5f5;
 }
-
-
 </style>

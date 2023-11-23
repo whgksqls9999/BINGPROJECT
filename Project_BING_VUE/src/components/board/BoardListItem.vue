@@ -25,7 +25,7 @@ const props = defineProps({
 
 <style scoped>
 tr{
-  color: #f5f5f5;
+  /* color: #f5f5f5; */
 }
 
 td{
@@ -33,6 +33,7 @@ td{
 }
 a {
   text-decoration: none;
-  color: #f5f5f5;
+  color: black;
+  /* color: #f5f5f5; */
 }
 </style>

@@ -19,7 +19,7 @@
       <div class="board-detail-container">
         <div class="board-detail-inform">
           <!-- <h4>: {{ boardOne.writer }}</h4> -->
-          <h4>작성자 : {{ boardOne.writer }}</h4>
+          <h4>작성자 : {{ boardOne.writer}}</h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
           <h4>작성일 : {{ boardOne.reg_date }}</h4>
           <h4>좋아요 수 : {{ boardOne.fav_cnt }}</h4>
@@ -303,23 +303,31 @@ onMounted(async () => {
 
 <style scoped>
 .board-detail {
-  min-height: 110vh;
-  margin-top: 120px;
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
   text-align: center;
-  height: 1000px;
+  height: 110vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
 }
 
 .board-detail-global {
-  border: 3px solid black;
+  /* background: linear-gradient(-7deg, rgba(180, 202, 221, .7), rgba(0, 0, 0, .7)); */
+  background-color: whitesmoke;
+  /* border: 3px solid black; */
   border-radius: 20px;
   padding: 10px 20px;
-  width: 70%;
-  margin: auto;
-  min-height: 90vh;
+  width: 60%;
+  height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
 }
 
 .board-detail-container {
-  border: 1px solid #ccc;
+  /* background-color: white; */
+  /* border: 1px solid #ccc; */
+  border-radius: 20px;
+  /* border-style: none; */
   padding: 20px;
   margin-top: 20px;
 }
@@ -331,21 +339,24 @@ onMounted(async () => {
 }
 
 .board-detail-content {
+  /* background-color: white; */
   font-size: 1.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid rgb(168, 165, 165);
+  /* border-style: none; */
   border-radius: 30px;
   width: 100%;
   height: 30vh;
   margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
 
 .board-detail-inform {
   border: 2px solid rgb(146, 142, 142);
   border-radius: 10px;
-  padding: 10px;
+  padding: 7px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-around;
@@ -359,12 +370,12 @@ button {
   border-style: none;
   border-radius: 20px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: 0.3s ease, color 0.3s ease;
 }
 
 .nav-button {
-  background-color: rgba(173, 202, 219, 0.7);
-  color: white;
+  background-color: rgba(0,0,0, 0.7);
+  color:white;
   font-weight: bold;
   padding: 8px 16px;
   margin-right: 5px;
@@ -372,7 +383,7 @@ button {
 }
 
 .nav-button:hover {
-  background-color: #cfddd5;
+  background-color: black;
 }
 
 .action-button {
@@ -424,6 +435,7 @@ table {
   border-collapse: collapse;
   border-radius: 5px;
   overflow: hidden;
+
 }
 
 th {
@@ -434,7 +446,7 @@ thead {
   font-size: 15px;
   font-weight: bold;
   color: #fff;
-  background-color: rgba(173, 202, 219, 0.7);
+  background-color: rgba(0,0,0, 0.7);
 }
 
 td,
@@ -557,15 +569,15 @@ input {
   margin: 8px;
   font-size: 16px;
   font-weight: 600;
-  background-color: rgba(173, 202, 219, 0.7);
+  background-color: rgba(0,0,0, 0.7);
   width: 12%;
   color: #ffffff;
   height: 35px;
 }
 
 .comment-input button:hover {
-  background-color: white;
-  color: black;
+  background-color: black;
+
 }
 
 .fav-cancel-button:hover,

@@ -1,7 +1,7 @@
 <template>
   <div class="board-view-global">
     <div class="board-view-community-title">
-      <h1>let's MELT <span>{{ idParam ==1 ? 'FREEDIVING' : (idParam == 2 ? 'SKINSCUBA' : '') }}</span> COMMUNITY</h1>
+      <h1>let's MELT <span>{{ idParam == 1 ? 'FREEDIVING' : (idParam == 2 ? 'SKINSCUBA' : '') }}</span> COMMUNITY</h1>
     </div>
     <div class="board-view-container">
       <div class="board-view-top">
@@ -9,8 +9,8 @@
       </div>
       <div class="board-view-middle">
         <div class="board-view-left">
-        <RouterLink class="category-button free" :to="{name:'board', params:{community_id:1}}">FREEDIVING</RouterLink>
-        <RouterLink class="category-button skin" :to="{name:'board', params:{community_id:2}}">SKINSCUBA</RouterLink>
+          <RouterLink class="category-button free" :to="{ name: 'board', params: { community_id: 1 } }">FREEDIVING</RouterLink>
+          <RouterLink class="category-button skin" :to="{ name: 'board', params: { community_id: 2 } }">SKINSCUBA</RouterLink>
         </div>
         <div class="board-view-center">
           <BoardList :board-list="commBoardList" />
@@ -18,12 +18,8 @@
       </div>
     </div>
     <br>
-    <br>
     <div class="board-view-right">
-      <RouterLink
-        :to="{ name: 'boardWrite', params: { community_id: idParam } }"
-        :comm_id="idParam"
-      >
+      <RouterLink :to="{ name: 'boardWrite', params: { community_id: idParam } }" :comm_id="idParam">
         <div class="write-icon">
           <font-awesome-icon :icon="['fas', 'pen-to-square']" />
         </div>
@@ -72,7 +68,7 @@ const community = computed(() => {
 });
 
 //라우터링크 누를때마다 리스트 갱신
-watch(()=>{
+watch(() => {
   boardStore.getCommBoardList(idParam.value)
 })
 onMounted(() => {
@@ -83,21 +79,22 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
-.board-view-community-title span{
-  background: linear-gradient(0deg, rgba(173,202,219,1) 0%, rgba(255,255,255,0) 41%);
+.board-view-community-title span {
+  background: linear-gradient(0deg, rgba(173, 202, 219, 1) 0%, rgba(255, 255, 255, 0) 41%);
 }
+
 .board-view-global {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
 }
 
-.board-view-community-title{
+.board-view-community-title {
   color: #f5f5f5;
   text-align: center;
   margin-top: 110px;
 }
+
 .board-view-container {
 
   margin-top: 70px;
@@ -146,27 +143,31 @@ onMounted(() => {
   transition: all 0.3s ease;
 }
 
-.category-button.free{
+.category-button.free {
   box-shadow: 0px 5px 0px 0px #4c4e4e;
 }
 
-.category-button.skin{
+.category-button.skin {
   box-shadow: 0px 5px 0px 0px #4c4e4e;
 }
-.category-button:hover{
+
+.category-button:hover {
 
   margin-top: 10px;
   margin-bottom: 3px;
 
 }
 
-.category-button.free:hover{
+.category-button.free:hover {
   box-shadow: 0px 0px 0px 0px #4c4e4e;
 }
-.category-button.skin:hover{
+
+.category-button.skin:hover {
   box-shadow: 0px 0px 0px 0px #4c4e4e;
 }
+
 .board-view-center {
+  background-color: white;
   flex-grow: 1;
   padding: 10px;
 }
@@ -174,7 +175,7 @@ onMounted(() => {
 .board-view-right {
   width: 100%;
   margin-left: 80%;
-  background-color: #333;
+  background-color: transparent;
   color: black;
   text-align: center;
   display: flex;
@@ -186,10 +187,12 @@ onMounted(() => {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #f5f5f5;
+  background-color: transparent;
+  color: black;
   cursor: pointer;
 }
-.board-view-right a{
+
+.board-view-right a {
   text-decoration: none;
   color: white;
   font-size: 30px;
@@ -197,6 +200,7 @@ onMounted(() => {
   text-align: center;
 
 }
+
 a {
   text-decoration: none;
   color: black;
@@ -204,5 +208,4 @@ a {
   width: 100%;
   text-align: center;
 }
-
 </style>

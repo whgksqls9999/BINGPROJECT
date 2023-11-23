@@ -35,7 +35,7 @@ onMounted(() => {
 const fadeout = ref("false");
 </script>
 
-<style scoped>
+<style scoped> 
 a{
   text-decoration: none;
   color: transparent;
