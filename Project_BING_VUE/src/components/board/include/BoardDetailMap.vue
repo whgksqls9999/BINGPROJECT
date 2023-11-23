@@ -173,7 +173,7 @@ onMounted(async () => {
 
   console.log("게시글에서 받아온 보드아이디", boardOne.value.board_id);
   // 장소 정보 가져오기
-  await locationStore.doGetLocation(boardStore.boardOne.location_id);
+  await locationStore.doGetLocation(boardOne.value.location_id);
 
   // 유저 로그인 체크
   userStore.doLoginCheck();
@@ -241,7 +241,8 @@ onMounted(async () => {
 }
 
 .fav-cancel-location-btn {
-  color: rgb(255, 51, 51);
+  background-color: rgb(255, 51, 51);
+  color: white;
 }
 
 .fav-location-btn:hover {
@@ -249,7 +250,7 @@ onMounted(async () => {
   color: white;
 }
 .fav-cancel-location-btn:hover {
-  background-color: rgb(255, 51, 51);
-  color: white;
+  background-color: white;
+  color: rgb(255, 51, 51);
 }
 </style>
