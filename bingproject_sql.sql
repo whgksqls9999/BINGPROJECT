@@ -9,13 +9,14 @@ CREATE TABLE user (
     name VARCHAR(300) NOT NULL,
     gender VARCHAR(30) NOT NULL,
     nickname VARCHAR(300) NOT NULL UNIQUE,
-    withdraw_text VARCHAR(1000) NOT NULL
+    withdraw_text VARCHAR(1000) NOT NULL,
+    img INT(10) NOT NULL
 );
 -- User 데이터
-INSERT INTO user (email,pw,name,gender,nickname,withdraw_text)
-VALUES ('ssafy', '1234!!!!', '김싸피', '남', '닉네임', '안녕히계세요 여러분 저는 사회의 굴레 벗어나고 어쩌구'),
-('ssafy2','1234','이싸피','남','닉네임2','안녕히계세요'),
-('ssafy3','1234','이싸피','남','닉네임3','빠잉'); 
+INSERT INTO user (email,pw,name,gender,nickname,withdraw_text, img)
+VALUES ('ssafy', '1234!!!!', '김싸피', '남', '닉네임', '안녕히계세요 여러분 저는 사회의 굴레 벗어나고 어쩌구',1),
+('ssafy2','1234','이싸피','남','닉네임2','안녕히계세요',2),
+('ssafy3','1234','이싸피','남','닉네임3','빠잉',3); 
 SELECT * FROM user;
 
 CREATE TABLE location (

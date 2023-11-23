@@ -37,16 +37,16 @@ export const useUserStore = defineStore("user", () => {
   //   });
   // };
 
-//유저 목록 가져오기 RegistForm에서 await 설정해놔서 여기도 async 해주기
+  //유저 목록 가져오기 RegistForm에서 await 설정해놔서 여기도 async 해주기
   const users = ref([]);
-const getAllUsers = async () => {
-  try {
-    const response = await axios.get(`${REST_USER_API}/`);
-    users.value = response.data;
-  } catch (error) {
-    console.error('Error while fetching user list:', error);
-  }
-};
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get(`${REST_USER_API}/`);
+      users.value = response.data;
+    } catch (error) {
+      console.error("Error while fetching user list:", error);
+    }
+  };
 
   // header 출력 폼 결정
   const showForm = ref("");
@@ -87,7 +87,6 @@ const getAllUsers = async () => {
     alert("로그아웃 되었습니다.");
     router.push({ name: "main" });
   };
-
 
   // 회원가입 요청 - 하는중,,
   const registUser = (user) => {
