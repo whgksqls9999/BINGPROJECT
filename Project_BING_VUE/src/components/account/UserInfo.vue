@@ -2,10 +2,18 @@
   <div class="userinfo-container">
     <div class="userinfo-box">
       <div class="userinfo-box-top">
-        <div class="userinfo-box-img"></div>
+        <div class="userinfo-box-img">
+          <img src="@/assets/군싹.jpeg" width="100" alt="" />
+        </div>
         <div class="userinfo-box-info">
           <div>{{ selectedUser.nickname }}</div>
           <div>{{ selectedUser.email }}</div>
+          <div v-if="selfCheck">
+            <button v-if="isFollowed == ''" @click="doFollow">
+              팔로우하기
+            </button>
+            <button v-else @click="doFollowCancel">팔로우취소</button>
+          </div>
         </div>
       </div>
       <div class="userinfo-box-bottom">
@@ -20,6 +28,7 @@
           {{ followingList.length }}
         </div>
       </div>
+      <button class="userinfo-close-btn" @click="doClose">닫기</button>
     </div>
   </div>
 </template>
@@ -27,14 +36,31 @@
 <script setup>
 import { useUserStore } from "@/stores/userStore.js";
 import { useFavStore } from "@/stores/favStore.js";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 
 // router, store
 const favStore = useFavStore();
 const userStore = useUserStore();
 
+// #팔로우 하기
+const doFollow = async () => {
+  const follow = {
+    follow_from: loginUser.value.email,
+    follow_to: selectedUser.value.email,
+  };
+
+  await userStore.doFollow(follow, selectedUser.value.email);
+  init();
+};
+
+// #팔로우 취소하기
+const doFollowCancel = async () => {
+  await userStore.doFollowCancel(isFollowed.value, selectedUser.value.email);
+  init();
+};
+
 // #init
-const props = defineProps({
+let props = defineProps({
   selected: String,
 });
 
@@ -43,6 +69,8 @@ const loginUser = computed(() => userStore.loginUser);
 const selectedUser = computed(() => userStore.selectedUser);
 const followingList = computed(() => userStore.followingList);
 const followerList = computed(() => userStore.followerList);
+const isFollowed = ref("");
+const selfCheck = ref(false);
 
 const init = async () => {
   // 로그인 체크
@@ -52,42 +80,92 @@ const init = async () => {
     await userStore.getUserEmail();
   }
   // 선택된 유저의 정보 가져오기
-  await userStore.getOtherUser("닉네임");
+  // await userStore.getOtherUser("props.");
+  // if (props.selected == "") {
+  // } else {
+  // }
+
+  if (props.selected != "") {
+    await userStore.getOtherUser(props.selected);
+  }
 
   // 선택된 유저의 팔로우 목록 불러오기
-  await favStore.getFollowerList(selectedUser.value.email);
-  await favStore.getFollowingList(selectedUser.value.email);
+  await userStore.getFollowerList(selectedUser.value.email);
+  await userStore.getFollowingList(selectedUser.value.email);
+
+  const check = ref(false);
+  if (isLogin) {
+    if (followerList.value != "") {
+      followerList.value.forEach((element) => {
+        if (element.follow_from == loginUser.value.email) {
+          check.value = true;
+          isFollowed.value = element.follow_id;
+        }
+      });
+    }
+  }
+  if (!check.value) {
+    isFollowed.value = "";
+  }
+  if (!isLogin.value || selectedUser.value.email == loginUser.value.email) {
+    selfCheck.value = true;
+  }
 };
 
-onMounted(() => {
+const emit = defineEmits(["closeWindow"]);
+const doClose = () => {
+  emit("closeWindow");
+};
+
+watch(() => {
   init();
+  console.log(props.selected);
 });
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
 .userinfo-container {
   position: fixed;
   width: 100%;
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 3;
 }
 
 .userinfo-box {
   position: absolute;
   width: 15rem;
-  height: 7rem;
+  height: 10rem;
   top: 15rem;
   left: 35rem;
   background-color: white;
   border: 2px solid #ccc;
+  padding: 1rem;
 }
 
-.userinfo-box-bottom {
+.userinfo-box-top {
   display: flex;
+}
+
+.userinfo-box-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+.userinfo-box-top img {
+  border-radius: 50%;
+}
+.userinfo-box-bottom {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.userinfo-close-btn {
 }
 </style>

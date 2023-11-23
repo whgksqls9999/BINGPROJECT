@@ -19,7 +19,9 @@
       <div class="board-detail-container">
         <div class="board-detail-inform">
           <!-- <h4>: {{ boardOne.writer }}</h4> -->
-          <h4>작성자 : {{ boardOne.writer }}</h4>
+          <h4 @click="doInfoPopup(boardOne.writer)">
+            작성자 : {{ boardOne.writer }}
+          </h4>
           <h4>조회수 : {{ boardOne.view_cnt }}</h4>
           <h4>작성일 : {{ boardOne.reg_date }}</h4>
           <h4>좋아요 수 : {{ boardOne.fav_cnt }}</h4>
@@ -102,6 +104,11 @@
       </div>
     </div>
   </div>
+  <UserInfo
+    :selected="isPopup"
+    :class="{ show: isPopup == '' }"
+    @close-window="doClose"
+  />
 </template>
 
 <script setup>
@@ -114,6 +121,8 @@ import { useFavStore } from "@/stores/favStore.js";
 import { useCommonStore } from "@/stores/commonStore";
 import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
+import UserInfo from "../account/UserInfo.vue";
+
 // Store
 const commonStore = useCommonStore();
 
@@ -321,6 +330,14 @@ onMounted(async () => {
   console.log("해당 보드의 로케이션 아이디", boardOne.value.location_id);
 });
 
+// 작성자 정보 확인하기
+const isPopup = ref("");
+const doInfoPopup = (writername) => {
+  isPopup.value = writername;
+};
+const doClose = () => {
+  isPopup.value = "";
+};
 // onUpdated(() => {
 //   replyStore.getBoardReplyList(idParam.value);
 // });
@@ -611,6 +628,10 @@ input {
   padding: 8px 16px;
   margin-right: 5px;
   cursor: pointer;
+}
+
+.show {
+  display: none;
 }
 </style>
 <!-- .comment-container {

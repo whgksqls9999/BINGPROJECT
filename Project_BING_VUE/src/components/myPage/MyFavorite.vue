@@ -54,13 +54,20 @@
                 >{{ favboard.title }}</RouterLink
               >
             </td>
-            <td>{{ favboard.writername }}</td>
+            <td @click="doInfoPopup(favboard.writername)" class="writer">
+              {{ favboard.writername }}
+            </td>
             <td>{{ favboard.reg_date }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <UserInfo
+    :selected="isPopup"
+    :class="{ show: isPopup == '' }"
+    @close-window="doClose"
+  />
 </template>
 
 <script setup>
@@ -71,6 +78,7 @@ import { useBoardStore } from "@/stores/boardStore.js";
 import { useFavStore } from "@/stores/favStore.js";
 import { useRoute } from "vue-router";
 import MyFavLocationItem from "@/components/myPage/include/MyFavLocationItem.vue";
+import UserInfo from "../account/UserInfo.vue";
 
 // route, store
 const route = useRoute();
@@ -200,6 +208,15 @@ const placesSearchCB = (data, status, pagination) => {
   }
 };
 
+// 작성자 정보 확인하기
+const isPopup = ref("");
+const doInfoPopup = (writername) => {
+  isPopup.value = writername;
+};
+const doClose = () => {
+  isPopup.value = "";
+};
+
 onMounted(async () => {
   // // 장소 정보 가져오기
   // await locationStore.doGetLocation(props.location);
@@ -222,6 +239,10 @@ onMounted(async () => {
 a {
   text-decoration: none;
   color: black;
+}
+
+.writer {
+  cursor: pointer;
 }
 .myFavorite-global {
   /* display: grid; */
@@ -280,5 +301,9 @@ a {
   width: 35rem;
   height: 11rem;
   overflow-y: scroll;
+}
+
+.show {
+  display: none;
 }
 </style>

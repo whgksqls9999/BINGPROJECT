@@ -67,7 +67,8 @@
                   :to="{
                     name: 'boardDetail',
                     params: {
-                      community_id:reply.community_id, board_id:reply.board_id
+                      community_id: reply.community_id,
+                      board_id: reply.board_id,
                     },
                   }"
                   >{{ reply.content }}</RouterLink
@@ -90,6 +91,7 @@ import { useUserStore } from "@/stores/userStore";
 import { useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore";
 import { useCommonStore } from "@/stores/commonStore";
+import UserInfo from "../account/UserInfo.vue";
 
 // store, route
 const boardStore = useBoardStore();
