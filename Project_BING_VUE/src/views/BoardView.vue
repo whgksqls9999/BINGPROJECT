@@ -76,7 +76,6 @@ const idParam = route.params.community_id;
 // );
 
 // 검색
-const searchedBoardList = computed(() => boardStore.searchedBoardList);
 const key = ref("title");
 const word = ref("");
 const doSearch = () => {
