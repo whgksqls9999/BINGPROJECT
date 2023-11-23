@@ -35,8 +35,8 @@ onMounted(() => {
 const fadeout = ref("false");
 </script>
 
-<style scoped> 
-a{
+<style scoped>
+a {
   text-decoration: none;
   color: transparent;
 }
@@ -65,7 +65,7 @@ h2 {
   background-position: center;
   display: flex;
   padding-top: 20px;
-  height: 100vh;
+  height: 120vh;
 }
 
 .link {

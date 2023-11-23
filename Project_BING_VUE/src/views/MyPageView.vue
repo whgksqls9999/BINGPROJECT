@@ -53,7 +53,7 @@ const nicknameParam = route.params.nickname;
   background-image: url("@/assets/tutle.png");
   background-position: center;
   background-size: cover;
-  height: 100vh;
+  height: 120vh;
 }
 .myrouter-container {
   /* margin-left: 160px; */

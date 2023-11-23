@@ -3,15 +3,16 @@
   <div class="myboard-global">
     <!--게시글-->
     <div class="myboard-title">
+      <div class="myboard-container-title">
+        <h2>my post</h2>
+        <br />
+      </div>
       <div class="myboard-container">
-        <div class="myboard-container-title">
-          <h2>✍ {{ user.nickname }}님의 게시글 목록</h2>
-          <br />
-        </div>
         <h3 v-if="myBoards.length == 0">작성한 게시글 목록이 없습니다.</h3>
         <table class="myboard-table" v-else>
           <thead>
             <tr>
+              <th>커뮤니티</th>
               <th>번호</th>
               <th>제목</th>
               <th>조회수</th>
@@ -20,6 +21,9 @@
           </thead>
           <tbody v-for="board in myBoards" :key="board.num">
             <tr>
+              <td>
+                {{ board.community_id == 1 ? "freediving" : "skinscuba" }}
+              </td>
               <td>{{ board.num }}</td>
               <!-- <td>{{ board.title }}</td> -->
               <td>
@@ -48,11 +52,11 @@
     </div>
     <!--댓글-->
     <div class="myreply-title">
+      <div class="myreply-container-title">
+        <h2>reply</h2>
+        <br />
+      </div>
       <div class="myreply-container">
-        <div class="myreply-container-title">
-          <h2>📋 {{ user.nickname }}님의 댓글 목록</h2>
-          <br />
-        </div>
         <h3 v-if="myReplys.length == 0">작성한 댓글 목록이 없습니다.</h3>
         <table class="myreply-table" v-else>
           <thead>
@@ -137,10 +141,12 @@ a {
   color: black;
 }
 .myboard-global {
-  margin-top: 40px;
+  width: 60%;
+  margin-top: 70px;
   display: grid;
   grid-template-rows: 1fr 1fr;
   row-gap: 50px;
+  height: 120vh;
 }
 h2 {
   font-family: Orbit;
@@ -150,20 +156,30 @@ h2 {
   width: 100%;
   background-color: rgba(245, 245, 245, 0.8);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   padding: 7px;
-  border-radius: 20px;
+  border-bottom-left-radius: 20px;
   overflow-y: scroll;
   max-height: 400px;
+}
+
+.myreply-container-title,
+.myboard-container-title {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-top: 10px;
+  padding-left: 20px;
+  color: whitesmoke;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
 .myboard-table,
 .myreply-table {
   color: rgb(63, 60, 60);
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 500;
   text-align: center;
-  border-spacing: 1.3rem;
+  border-spacing: 3rem;
+  width: 100%;
 }
 </style>

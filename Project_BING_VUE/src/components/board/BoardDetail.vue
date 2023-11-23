@@ -249,7 +249,6 @@ const prePage = async () => {
   await boardStore.getBoard(preBoard.board_id);
   await replyStore.getBoardReplyList(preBoard.board_id);
   await onMountCheckBoard();
-
 };
 
 const nextPage = async () => {
@@ -333,7 +332,6 @@ onMounted(async () => {
   isWriter.value = user.value.nickname == boardOne.value.writer;
 
   commonStore.toggleFooterFixed(true);
-
 });
 
 // 작성자 정보 확인하기
@@ -355,7 +353,7 @@ const doClose = () => {
   display: flex;
   justify-content: center;
   text-align: center;
-  height: 110vh;
+  height: 130vh;
   background-image: url("@/assets/프리다이빙.png");
   background-position: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -397,7 +395,7 @@ const doClose = () => {
   border-radius: 20px;
   /* border-style: none; */
   padding: 20px;
-  margin-top: 130px;
+  margin-top: 110px;
 }
 
 .board-detail-location {
