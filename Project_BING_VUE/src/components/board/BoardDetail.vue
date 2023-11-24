@@ -131,7 +131,7 @@ import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
 import UserInfo from "../account/UserInfo.vue";
 
 watch(async () => {
-  await boardStore.getBoard(idParam.value);
+  await boardStore.getBoard(boardOne.value.board_id);
 });
 
 // Store
@@ -253,9 +253,7 @@ const prePage = async () => {
     },
   });
 
-  async () => {
-    await boardStore.updateViewCnt(preBoard.board_id);
-  };
+  await boardStore.updateViewCnt(preBoard.board_id);
 
   await boardStore.getBoard(preBoard.board_id);
   await replyStore.getBoardReplyList(preBoard.board_id);
@@ -272,9 +270,7 @@ const nextPage = async () => {
 
   const nextBoardIndex = boardOne.value.num;
   const nextBoard = commBoardList.value[nextBoardIndex];
-  async () => {
-    await boardStore.updateViewCnt(nextBoard.board_id);
-  };
+  await boardStore.updateViewCnt(nextBoard.board_id);
 
   if (!nextBoard) {
     alert("다음 게시글이 없습니다.");
