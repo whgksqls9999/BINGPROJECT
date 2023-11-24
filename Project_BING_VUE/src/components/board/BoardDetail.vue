@@ -391,7 +391,8 @@ const doClose = () => {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   width: 100%;
-  height: 13%;
+  /* height: 13%; */
+  height: 135px;
   top: 0;
   left: 0;
   overflow: hidden;

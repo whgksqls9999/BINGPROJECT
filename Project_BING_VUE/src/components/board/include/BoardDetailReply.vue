@@ -46,7 +46,8 @@ const modifyCotnet = ref("");
 const removeReply = async (reply) => {
   await replyStore.removeReply(reply.reply_id);
   await replyStore.getBoardReplyList(reply.board_id);
-  isModify.value = !isModify.value;
+  // isModify.value = !isModify.value;
+  isModify.value = false;
 };
 
 //댓글 수정하기
