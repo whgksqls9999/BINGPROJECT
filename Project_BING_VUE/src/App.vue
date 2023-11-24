@@ -25,7 +25,6 @@ import TheHeader from "@/components/commons/TheHeader.vue";
 import TheFooter from "./components/commons/TheFooter.vue";
 import TheLoading from "./components/commons/TheLoading.vue";
 import { useCommonStore } from "@/stores/commonStore";
-import UserInfo from "./components/account/UserInfo.vue";
 
 // store
 const commonStore = useCommonStore();
@@ -47,6 +46,7 @@ const doLoadingEnd = () => {
 <style scoped>
 * {
   font-family: Poppins, "Noto Sans KR", sans-serif;
+  overflow-x: hidden;
 }
 
 .unfixed {

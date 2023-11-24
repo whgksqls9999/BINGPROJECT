@@ -4,7 +4,12 @@
     <td>
       <RouterLink
         :to="{ name: 'boardDetail', params: { board_id: board.board_id } }"
-        @Click="async () => {await boardStore.updateViewCnt(board.board_id)}">{{ board.title }}</RouterLink
+        @Click="
+          async () => {
+            await boardStore.updateViewCnt(board.board_id);
+          }
+        "
+        >{{ board.title }}</RouterLink
       >
     </td>
     <td>{{ board.writer }}</td>
@@ -15,7 +20,9 @@
 </template>
 
 <script setup>
-import { useBoardStore } from '@/stores/boardStore';
+import UserInfo from "../account/UserInfo.vue";
+import { useBoardStore } from "@/stores/boardStore";
+import { ref } from "vue";
 const boardStore = useBoardStore();
 
 const props = defineProps({
@@ -24,11 +31,11 @@ const props = defineProps({
 </script>
 
 <style scoped>
-tr{
+tr {
   /* color: #f5f5f5; */
 }
 
-td{
+td {
   padding: 10px;
 }
 a {
