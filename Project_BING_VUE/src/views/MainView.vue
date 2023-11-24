@@ -74,7 +74,6 @@ onMounted(() => {
       end: "0% 20%",
       scrub: 5,
       opacity: 0,
-      markers: true,
     },
     opacity: 1,
     x: 20,
@@ -87,7 +86,6 @@ onMounted(() => {
       end: "0% 20%",
       scrub: 3,
       opacity: 0,
-      markers: true,
       width: 400,
     },
     opacity: 1,
@@ -102,7 +100,6 @@ onMounted(() => {
       end: "0% 20%",
       scrub: 6,
       opacity: 0,
-      markers: true,
       width: 400,
     },
     opacity: 1,
@@ -115,7 +112,6 @@ onMounted(() => {
       start: "100% 60%",
       end: "0% 20%",
       scrub: 1,
-      markers: true,
     },
     opacity: 1,
   });
@@ -126,7 +122,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 0,
-      markers: true,
     },
     y: -50,
   });
@@ -137,7 +132,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 0,
-      markers: true,
     },
     y: -50,
     opacity: 1,
@@ -149,7 +143,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 3,
-      markers: true,
     },
     opacity: 0,
   });
@@ -160,7 +153,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 3,
-      markers: true,
     },
     opacity: 1,
   });
@@ -171,7 +163,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 5,
-      markers: true,
     },
     opacity: 1,
   });
@@ -182,7 +173,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 1,
-      markers: true,
     },
     opacity: 1,
   });
@@ -193,7 +183,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 8,
-      markers: true,
     },
     opacity: 1,
   });
@@ -204,7 +193,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 1,
-      markers: true,
     },
     y: 10,
     opacity: 1,
@@ -216,7 +204,6 @@ onMounted(() => {
       start: "100% 80%",
       end: "0% 20%",
       scrub: 1,
-      markers: true,
     },
     opacity: 0,
   });
@@ -227,7 +214,6 @@ onMounted(() => {
       start: "100% 60%",
       end: "0% 20%",
       scrub: 3,
-      markers: true,
     },
     opacity: 0,
   });
@@ -238,7 +224,6 @@ onMounted(() => {
       start: "100% 30%",
       end: "0% 20%",
       scrub: 3,
-      markers: true,
     },
     opacity: 1,
   });
@@ -249,7 +234,6 @@ onMounted(() => {
       start: "100% 30%",
       end: "0% 20%",
       scrub: 3,
-      markers: true,
     },
     opacity: 1,
   });
@@ -260,7 +244,6 @@ onMounted(() => {
       start: "100% 30%",
       end: "0% 20%",
       scrub: 6,
-      markers: true,
     },
     opacity: 0,
   });
@@ -457,6 +440,6 @@ onMounted(() => {
   top: 10000px;
   width: 100%;
   height: 30px;
-  background-color: black;
+  /* background-color: black; */
 }
 </style>
