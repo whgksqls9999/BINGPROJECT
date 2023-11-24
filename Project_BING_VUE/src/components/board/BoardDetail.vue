@@ -1,6 +1,9 @@
 <template>
-  <div class="board-detail" :class="{extend:boardOne.header == '장소추천'}">
-    <div class="board-detail-global" :class="{extends:boardOne.header == '장소추천'}">
+  <div class="board-detail" :class="{ extend: boardOne.header == '장소추천' }">
+    <div
+      class="board-detail-global"
+      :class="{ extends: boardOne.header == '장소추천' }"
+    >
       <div class="board-padding-remove">
         <div class="board-detail-category">
           <h3>
@@ -680,10 +683,10 @@ input {
   display: none;
 }
 
-.extend{
+.extend {
   height: 150vh;
 }
-.extends{
+.extends {
   height: 130vh;
 }
 </style>
@@ -691,3 +694,4 @@ input {
   max-height: 200px; /* 댓글 입력 컨테이너의 최대 높이 설정 */
   overflow-y: auto; /* 세로 스크롤을 추가하여 내용이 넘칠 경우 스크롤이 생성되도록 설정 */
 } -->
+<!-- sdsdf -->
