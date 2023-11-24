@@ -130,10 +130,6 @@ import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
 import UserInfo from "../account/UserInfo.vue";
 
-watch(async () => {
-  await boardStore.getBoard(boardOne.value.board_id);
-});
-
 // Store
 const commonStore = useCommonStore();
 
@@ -342,6 +338,11 @@ onMounted(async () => {
   isWriter.value = user.value.nickname == boardOne.value.writer;
 
   commonStore.toggleFooterFixed(true);
+});
+
+// 갱신
+watch(async () => {
+  await boardStore.getBoard(idParam.value);
 });
 
 // 작성자 정보 확인하기

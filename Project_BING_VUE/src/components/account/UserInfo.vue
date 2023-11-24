@@ -101,6 +101,9 @@ const init = async () => {
   await userStore.getFollowerList(selectedUser.value.email);
   await userStore.getFollowingList(selectedUser.value.email);
 
+  console.log(selectedUser.value.name);
+  console.log(loginUser.value.email);
+
   const check = ref(false);
   if (isLogin) {
     if (followerList.value != "") {
@@ -202,9 +205,11 @@ watch(() => {
 }
 
 @keyframes move {
-  from, to{
+  from,
+  to {
     transform: translateY(0);
-  } 50%{
+  }
+  50% {
     transform: translateY(3px);
   }
 }
