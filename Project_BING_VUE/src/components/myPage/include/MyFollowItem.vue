@@ -51,6 +51,7 @@ const props = defineProps({
 
 .my-follow-item-container {
   display: flex;
+  /* justify-content: center; */
   padding: 10px;
   gap: 15px;
   align-items: center;
@@ -64,9 +65,9 @@ const props = defineProps({
 }
 
 .my-follow-item-cancel {
-  background-color: white;
-  border: 1px solid rgb(236, 117, 137);
-  color: rgb(236, 117, 137);
+  background-color: whites;
+  border: 1px solid rgb(216, 67, 67);
+  color: rgb(216, 67, 67);
   padding: 1.8px;
   border-radius: 0.2rem;
   width: 3.4rem;
@@ -74,8 +75,8 @@ const props = defineProps({
 }
 
 .my-follow-item-cancel:hover {
-  color: white;
-  background-color: rgb(236, 117, 137);
+  color: whitesmoke;
+  background-color: rgb(216, 67, 67);
 }
 img {
   border-radius: 50%;

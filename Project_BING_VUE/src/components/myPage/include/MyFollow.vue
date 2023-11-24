@@ -87,19 +87,19 @@ onMounted(() => {});
 }
 .my-follow-container {
   position: absolute;
-  top: 0rem;
-  left: 50px;
+  top: -2rem;
+  left: 25%;
   width: 400px;
   height: 33rem;
-  background-color: white;
-  border: 2px solid #dbdbdb;
+  background-color: rgba(0,0,0,0.8);
+  border: 1px solid #dbdbdb;
   padding: 0.3rem;
   border-radius: 0.5rem;
   z-index: 3;
 }
 
 .my-follow-box-title {
-  border-bottom: 2px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
   padding-left: 5px;
   display: flex;
   justify-content: space-between;
@@ -112,19 +112,19 @@ onMounted(() => {});
 }
 
 .my-follow-box-close-btn {
-  background-color: white;
+  /* background-color: white; */
   /* border: 1px solid rgb(236, 117, 137);
   border-radius: 0.4rem; */
   padding: 4px;
-  color: rgb(236, 117, 137);
+  color: rgb(216, 67, 67);
   font-size: 24px;
 }
 
 .my-follow-box-close-btn:hover {
-  color: rgb(231, 87, 111);
+  color:rgb(216, 67, 67);
 }
 
 .my-follow-box-close-btn:active {
-  color: rgb(236, 117, 137);
+  color: rgb(216, 67, 67);
 }
 </style>

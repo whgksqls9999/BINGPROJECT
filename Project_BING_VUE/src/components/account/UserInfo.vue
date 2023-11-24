@@ -198,7 +198,7 @@ watch(() => {
   left: 7.5rem;
   top: 13rem;
   animation: fadein 0.6s ease;
-  animation: move 4s infinite ease;
+  animation: move 2s infinite ease;
 }
 
 @keyframes move {
@@ -216,7 +216,7 @@ watch(() => {
   border-radius: 0.3rem;
   border: none;
   font-size: 15px;
-  color: pink;
+  color: rgb(216, 67, 67);
   transition: all 0.3s;
   padding: 0.4 0.5rem;
   left: 3.4rem;
@@ -227,13 +227,13 @@ watch(() => {
 .follow-cancel-btn,
 .follow-cancel-btn:active {
   color: white;
-  background-color: pink;
+  background-color: rgb(216, 67, 67);
 }
 
 .follow-cancel-btn:active,
 .follow-btn,
 .follow-btn:active {
-  color: pink;
+  color: rgb(216, 67, 67);
   background-color: white;
 }
 </style>

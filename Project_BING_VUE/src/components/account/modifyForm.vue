@@ -2,7 +2,7 @@
   <div class="modifyInfo-global">
     <div class="modifyInfo-container">
       <div class="modifyInfo-title">
-        <h2>{{ user.nickname }}님의 정보 수정</h2>
+        <h2>u p d a t e i n f o r m a t i o n</h2>
       </div>
       <div class="modifyInfo_detail">
         <div class="modifyInfo-img">
@@ -10,31 +10,31 @@
         </div>
         <div class="modifyInfo-detail-items">
           <div>
-            <label for="" id="modifyId"><strong>아이디 : </strong></label>
+            <label for="" id="modifyId"><strong>ID : </strong></label>
             <input type="text" v-model="user.email" readonly />
           </div>
           <div>
-            <label for=""><strong>비밀번호 : </strong></label>
+            <label for=""><strong>PASSWORD : </strong></label>
             <input type="password" v-model="pw" class="user-pw" />
           </div>
           <div>
-            <label for=""><strong>비밀번호 확인 : </strong></label>
+            <label for=""><strong>PW CHECK : </strong></label>
             <input type="password" v-model="pwCheck" class="user-pwCheck" />
           </div>
           <div>
-            <label for=""><strong>이름 : </strong></label>
+            <label for=""><strong>NAME : </strong></label>
             <input type="text" v-model="name" class="user-name" />
           </div>
           <div>
-            <label for=""><strong>성별 : </strong></label>
+            <label for=""><strong>GENDER : </strong></label>
             <input type="text" v-model="gender" class="user-gender" />
           </div>
           <div>
-            <label for=""><strong>닉네임 : </strong></label>
+            <label for=""><strong>NICKNAME : </strong></label>
             <input type="text" v-model="nickname" class="user-nickname" />
           </div>
           <div class="textareazone">
-            <label for=""><strong>탈퇴 문구 : </strong></label>
+            <label for=""><strong>WITHDRAW TEXT : </strong></label>
             <textarea v-model="withdraw_text" class="user-withdraw-text box1"></textarea>
           </div>
         </div>
@@ -149,27 +149,30 @@ const passwordConfirm = () => {
 
 <style scoped>
 input {
+  color:whitesmoke;
   padding: 8px;
   border-radius: 7px;
   border: none;
   font-size: 18px;
   width: 60%;
-
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .modifyInfo-global {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 130px;
-
+  margin-top: 70px;
+  width: 100%;
+  height: 100vh;
 }
 
 .modifyInfo-container {
-  border: 3px solid #dbdbdb;
+  border: 2px solid #dbdbdb;
+  color: whitesmoke;
   border-radius: 8px;
-  width: 500px;
-  background-color: white;
+  width: 60%;
+  background-color: rgba(0, 0, 0, 0.7);
   position: relative;
 }
 
@@ -209,7 +212,8 @@ input {
 
 .modifyInfo-button-series {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20%;
   padding: 15px;
   margin: 10px auto;
 }
@@ -218,9 +222,12 @@ input {
 .modifyInfo-no button {
   text-decoration: none;
   padding: 10px;
-  border: 1px solid #dbdbdb;
   border-radius: 5px;
+  border-style: none;
   color: #262626;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .modifyInfo-yes button:hover {
@@ -234,6 +241,7 @@ input {
 }
 
 textarea {
+  color: whitesmoke;
   font-family: "Noto Sans KR";
   border-style: none;
   resize: none;
@@ -241,6 +249,7 @@ textarea {
   height: 80px;
   width: 70%;
   overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .textareazone {

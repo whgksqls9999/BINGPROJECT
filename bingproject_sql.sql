@@ -9,7 +9,8 @@ CREATE TABLE user (
     name VARCHAR(300) NOT NULL,
     gender VARCHAR(30) NOT NULL,
     nickname VARCHAR(300) NOT NULL UNIQUE,
-    withdraw_text VARCHAR(1000) NOT NULL
+    withdraw_text VARCHAR(1000) NOT NULL,
+    img_num INT(10) NOT NULL
 );
 -- User 데이터
 INSERT INTO user (email,pw,name,gender,nickname,withdraw_text)
