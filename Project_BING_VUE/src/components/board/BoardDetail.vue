@@ -130,10 +130,6 @@ import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
 import UserInfo from "../account/UserInfo.vue";
 
-watch(async () => {
-  await boardStore.getBoard(boardOne.value.board_id);
-});
-
 // Store
 const commonStore = useCommonStore();
 
@@ -344,6 +340,11 @@ onMounted(async () => {
   commonStore.toggleFooterFixed(true);
 });
 
+// 갱신
+watch(async () => {
+  await boardStore.getBoard(idParam.value);
+});
+
 // 작성자 정보 확인하기
 const isPopup = ref("");
 const doInfoPopup = (writername) => {
@@ -391,7 +392,8 @@ const doClose = () => {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   width: 100%;
-  height: 13%;
+  /* height: 13%; */
+  height: 135px;
   top: 0;
   left: 0;
   overflow: hidden;
