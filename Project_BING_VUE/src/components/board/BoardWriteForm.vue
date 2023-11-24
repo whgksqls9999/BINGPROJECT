@@ -16,7 +16,9 @@
         <textarea type="text" v-model="content" />
         <div class="location-select" @click="doSelectLocation">
           <!-- <div v-if="!location" class="map-image"></div> -->
-          <div v-if="!location" class="map-image"><font-awesome-icon :icon="['fas', 'map-location-dot']" /></div>
+          <div v-if="!location" class="map-image">
+            <font-awesome-icon :icon="['fas', 'map-location-dot']" />
+          </div>
           <div v-else>
             <fieldset>
               <legend>장소명</legend>
@@ -29,16 +31,16 @@
               </div>
             </fieldset>
             <!-- <div> -->
-              <button
-                @click.stop="
-                  () => {
-                    location = '';
-                  }
-                "
-                class="location-delete"
-              >
-                장소 삭제
-              </button>
+            <button
+              @click.stop="
+                () => {
+                  location = '';
+                }
+              "
+              class="location-delete"
+            >
+              장소 삭제
+            </button>
             <!-- </div> -->
           </div>
         </div>
@@ -220,8 +222,7 @@ input,
 textarea {
   border-radius: 10px;
   border: 2px solid rgb(146, 142, 142);
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  box-shadow: 0 1px 0.2rem grey;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 100%;
   padding: 0.3rem;
   padding-top: 1.3rem;
@@ -286,10 +287,11 @@ textarea {
 .location-select {
   border-radius: 0.5rem;
   border: 2px solid rgb(146, 142, 142);
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 40%;
   padding: 0.4rem;
   margin-left: 1rem;
+  background-color: white;
 }
 
 .form-footer {
@@ -311,7 +313,7 @@ textarea {
   display: flex;
   overflow: hidden;
   align-items: center;
-  background-color: rgba(51,51,51);
+  background-color: rgba(51, 51, 51);
   color: white;
   /* cursor: pointer; */
 }
@@ -344,7 +346,7 @@ textarea {
   color: #ccc;
 }
 
-.categories button:hover{
+.categories button:hover {
   color: white;
   font-weight: bold;
 }
@@ -367,17 +369,16 @@ fieldset {
   height: 100%;
   transition: opacity 0.3s;
   opacity: 0.6;
-  color: rgba(51,51,51);
+  color: rgba(51, 51, 51);
   font-size: 8rem;
   text-align: center;
   cursor: pointer;
   overflow: hidden;
-
 }
 
 .map-image:hover {
   opacity: 1;
-  color: rgba(51,51,51);
+  color: rgba(51, 51, 51);
 }
 
 .map-image:active {
@@ -386,7 +387,7 @@ fieldset {
 
 .location-delete {
   margin-top: 5px;
-  background-color: rgb(51,51,51);
+  background-color: rgb(51, 51, 51);
   color: #ccc;
   border-radius: 5px;
   padding: 2px;
@@ -397,7 +398,7 @@ fieldset {
 }
 
 .submit-btn {
-  background-color: rgba(51,51,51);
+  background-color: rgba(51, 51, 51);
   border: none;
   border-radius: 0.5rem;
   width: 4rem;
@@ -411,10 +412,12 @@ fieldset {
   animation: glow 1s infinite ease;
 }
 
-@keyframes glow{
-  from, to {
+@keyframes glow {
+  from,
+  to {
     box-shadow: 0 1px 0.2rem grey;
-  } 50% {
+  }
+  50% {
     box-shadow: 0 1px 0.5rem grey;
   }
 }

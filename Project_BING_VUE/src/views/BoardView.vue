@@ -245,7 +245,6 @@ onMounted(() => {
   align-items: center;
   justify-content: flex-end;
   gap: 12rem;
-  /* justify-content: ; */
 }
 
 .write-icon {
