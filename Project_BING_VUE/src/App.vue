@@ -46,7 +46,6 @@ const doLoadingEnd = () => {
 <style scoped>
 * {
   font-family: Poppins, "Noto Sans KR", sans-serif;
-  overflow-x: hidden;
 }
 
 .unfixed {
