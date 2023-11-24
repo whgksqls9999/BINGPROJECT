@@ -56,8 +56,9 @@ onMounted(() => {
   overflow: hidden;
   position: relative;
   box-shadow: 0 0 10px black;
-  opacity: 0.9;
+  /* opacity: 0.8; */
   z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .title {
