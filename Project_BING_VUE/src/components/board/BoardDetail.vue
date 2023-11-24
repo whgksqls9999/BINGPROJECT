@@ -689,9 +689,12 @@ input {
 .extends {
   height: 130vh;
 }
+.board-detail-reply-container {
+  height: 23rem;
+  overflow-y: scroll;
+}
 </style>
 <!-- .comment-container {
   max-height: 200px; /* 댓글 입력 컨테이너의 최대 높이 설정 */
   overflow-y: auto; /* 세로 스크롤을 추가하여 내용이 넘칠 경우 스크롤이 생성되도록 설정 */
 } -->
-<!-- sdsdf -->
