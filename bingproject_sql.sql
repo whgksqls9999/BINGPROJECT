@@ -9,8 +9,7 @@ CREATE TABLE user (
     name VARCHAR(300) NOT NULL,
     gender VARCHAR(30) NOT NULL,
     nickname VARCHAR(300) NOT NULL UNIQUE,
-    withdraw_text VARCHAR(1000) NOT NULL,
-    img_num INT(10) NOT NULL
+    withdraw_text VARCHAR(1000) NOT NULL
 );
 -- User 데이터
 INSERT INTO user (email,pw,name,gender,nickname,withdraw_text)
@@ -65,12 +64,12 @@ VALUES (1, 1,'자유','제목1','닉네임','내용1'),
 (1, 2,'자유','제목2','닉네임','내용2'),
 (1, 3,'자유','제목3','닉네임','내용3'),
 (2, 1,'자유','제목4','닉네임2','내용4'),
-(2, 2,'자유','제목5','닉네임','내용5'),
-(1, 4,'자유','제목3','닉네임','내용3'),
-(1, 5,'자유','제목3','닉네임','내용3'),
-(1, 6,'자유','제목3','닉네임','내용3'),
-(1, 7,'자유','제목3','닉네임','내용3'),
-(1, 8,'자유','제목3','닉네임','내용3'),
+(2, 2,'자유','제목5','닉네임2','내용5'),
+(1, 4,'자유','제목3','닉네임2','내용3'),
+(1, 5,'자유','제목3','닉네임2','내용3'),
+(1, 6,'자유','제목3','닉네임2','내용3'),
+(1, 7,'자유','제목3','닉네임2','내용3'),
+(1, 8,'자유','제목3','닉네임2','내용3'),
 (1, 9,'자유','제목3','닉네임','내용3'),
 (1, 10,'자유','제목3','닉네임','내용3'),
 (1, 11,'자유','제목3','닉네임','내용3'),
@@ -94,10 +93,6 @@ CREATE TABLE favorite_board (
   	FOREIGN KEY (community_id) REFERENCES board(community_id) ON DELETE CASCADE ON UPDATE CASCADE
 
 );
-INSERT INTO favorite_board
-VALUES (1,1,1,'닉네임'),
-(2,2,1,'닉네임2'),
-(3,2,2,'닉네임2');
 SELECT * FROM
 favorite_board;
 
