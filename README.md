@@ -77,3 +77,8 @@
     - 작성 게시물 목록![16_내가 쓴 게시물](https://github.com/BINGPROJECTS/BINGPROJECT/assets/85666312/bf3be353-b579-421e-a699-f5dd12ba0a53)
 
     - 찜 정보 목록![17_내가 찜한 게시물](https://github.com/BINGPROJECTS/BINGPROJECT/assets/85666312/80d5f080-d53a-4f6c-9331-c250ca1e424d)
+ 
+    - 타 유저 정보 확인![18_타 유저 정보 확인](https://github.com/BINGPROJECTS/BINGPROJECT/assets/85666312/b3d46869-e326-4d13-9dd5-46a1d765171d)
+    - 
+    - 내 팔로우 확인![19_내 팔로우정보](https://github.com/BINGPROJECTS/BINGPROJECT/assets/85666312/3bc26614-80d3-4d2e-a683-9be076ec12cd)
+
