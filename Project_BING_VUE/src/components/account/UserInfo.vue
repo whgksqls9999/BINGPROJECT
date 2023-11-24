@@ -8,7 +8,7 @@
         <div class="userinfo-box-info">
           <div>{{ selectedUser.nickname }}</div>
           <div>{{ selectedUser.email }}</div>
-          <div v-if="selfCheck">
+          <div v-if="!selfCheck">
             <button
               v-if="isFollowed == ''"
               @click="doFollow"
@@ -81,6 +81,7 @@ const isFollowed = ref("");
 const selfCheck = ref(false);
 
 const init = async () => {
+  selfCheck.value = false;
   // 로그인 체크
   await userStore.doLoginCheck();
   if (isLogin.value) {
@@ -101,7 +102,7 @@ const init = async () => {
   await userStore.getFollowerList(selectedUser.value.email);
   await userStore.getFollowingList(selectedUser.value.email);
 
-  console.log(selectedUser.value.name);
+  console.log(selectedUser.value.email);
   console.log(loginUser.value.email);
 
   const check = ref(false);
@@ -121,6 +122,9 @@ const init = async () => {
   if (!isLogin.value || selectedUser.value.email == loginUser.value.email) {
     selfCheck.value = true;
   }
+
+  console.log(selfCheck.value);
+  console.log(isFollowed.value);
 };
 
 const emit = defineEmits(["closeWindow"]);
