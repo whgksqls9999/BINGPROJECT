@@ -120,7 +120,7 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, onUpdated, ref } from "vue";
+import { computed, onMounted, watch, ref } from "vue";
 import { useReplyStore } from "@/stores/replyStore.js";
 import { useUserStore } from "@/stores/userStore.js";
 import { useBoardStore } from "@/stores/boardStore";
@@ -129,6 +129,10 @@ import { useCommonStore } from "@/stores/commonStore";
 import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
 import UserInfo from "../account/UserInfo.vue";
+
+watch(async () => {
+  await boardStore.getBoard(idParam.value);
+});
 
 // Store
 const commonStore = useCommonStore();

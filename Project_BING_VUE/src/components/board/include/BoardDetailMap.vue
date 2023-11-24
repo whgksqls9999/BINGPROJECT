@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, onBeforeMount } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 import { useLocationStore } from "@/stores/locationStore.js";
 import { useBoardStore } from "@/stores/boardStore.js";
 import { useUserStore } from "@/stores/userStore.js";
@@ -203,6 +203,12 @@ onMounted(async () => {
   }
 
   console.log("불러와진 장소의 아이디", location.value.location_id);
+});
+
+watch(async () => {
+  await boardStore.getBoard(idParam.value);
+  await locationStore.doGetLocation(boardOne.value.location_id);
+  initMap();
 });
 </script>
 
