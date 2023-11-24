@@ -120,7 +120,7 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, onUpdated, ref } from "vue";
+import { computed, onMounted, watch, ref } from "vue";
 import { useReplyStore } from "@/stores/replyStore.js";
 import { useUserStore } from "@/stores/userStore.js";
 import { useBoardStore } from "@/stores/boardStore";
@@ -129,6 +129,10 @@ import { useCommonStore } from "@/stores/commonStore";
 import BoardDetailMap from "@/components/board/include/BoardDetailMap.vue";
 import BoardDetailReply from "@/components/board/include/BoardDetailReply.vue";
 import UserInfo from "../account/UserInfo.vue";
+
+watch(async () => {
+  await boardStore.getBoard(boardOne.value.board_id);
+});
 
 // Store
 const commonStore = useCommonStore();
@@ -249,6 +253,8 @@ const prePage = async () => {
     },
   });
 
+  await boardStore.updateViewCnt(preBoard.board_id);
+
   await boardStore.getBoard(preBoard.board_id);
   await replyStore.getBoardReplyList(preBoard.board_id);
   await onMountCheckBoard();
@@ -264,6 +270,7 @@ const nextPage = async () => {
 
   const nextBoardIndex = boardOne.value.num;
   const nextBoard = commBoardList.value[nextBoardIndex];
+  await boardStore.updateViewCnt(nextBoard.board_id);
 
   if (!nextBoard) {
     alert("다음 게시글이 없습니다.");
@@ -689,9 +696,12 @@ input {
 .extends {
   height: 130vh;
 }
+.board-detail-reply-container {
+  height: 23rem;
+  overflow-y: scroll;
+}
 </style>
 <!-- .comment-container {
   max-height: 200px; /* 댓글 입력 컨테이너의 최대 높이 설정 */
   overflow-y: auto; /* 세로 스크롤을 추가하여 내용이 넘칠 경우 스크롤이 생성되도록 설정 */
 } -->
-<!-- sdsdf -->
