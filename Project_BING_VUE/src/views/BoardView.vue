@@ -33,6 +33,25 @@
     </div>
     <br />
     <div class="board-view-right">
+      <div class="board-view-search">
+        <select v-model="key">
+          <option value="title">제목</option>
+          <option value="writer">닉네임</option>
+        </select>
+        <input type="text" v-model="word" @keyup.enter="doSearch" />
+        <button @click="doSearch">
+          <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+        </button>
+        <!-- <button
+          @click="
+            () => {
+              commBoardList.sort((a, b) => b.num - a.num);
+            }
+          "
+        >
+          번호 내림차순 정렬
+        </button> -->
+      </div>
       <RouterLink
         :to="{ name: 'boardWrite', params: { community_id: idParam } }"
         :comm_id="idParam"
@@ -80,7 +99,7 @@ const doSearch = () => {
   let searchCondition = {
     key: key.value,
     word: word.value,
-    community_id: idParam,
+    community_id: idParam.value,
   };
 
   boardStore.searchBoard(searchCondition);
@@ -113,6 +132,9 @@ onMounted(() => {
   background-size: cover;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.5);
+}
+.board-view-search {
+  display: flex;
 }
 .board-view-community-title span {
   background: linear-gradient(
@@ -215,13 +237,14 @@ onMounted(() => {
 
 .board-view-right {
   width: 100%;
-  margin-left: 80%;
+  margin-left: 40%;
   background-color: transparent;
   color: black;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 12rem;
 }
 
 .write-icon {

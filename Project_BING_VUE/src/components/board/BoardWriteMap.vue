@@ -4,10 +4,14 @@
       <div class="map-cap">Select Place</div>
       <div id="map"></div>
       <div class="map-form">
-        <input type="text" placeholder="찾고자 하는 장소를 입력해주세요." v-model="keyword" @keyup.enter="search" />
+        <input
+          type="text"
+          placeholder="찾고자 하는 장소를 입력해주세요."
+          v-model="keyword"
+          @keyup.enter="search"
+        />
         <div class="btns">
-          <button @click="search" class="search-btn"> 검색
-          </button>
+          <button @click="search" class="search-btn">검색</button>
           <button @click="doCloseWindow">닫기</button>
         </div>
       </div>
@@ -132,8 +136,9 @@ onMounted(() => {
     initMap();
   } else {
     const script = document.createElement("script"); // autoload=false 스크립트를 동적으로 로드하기 위해서 사용
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
-      }&libraries=services`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
+      import.meta.env.VITE_KAKAO_API_KEY
+    }&libraries=services`;
     script.addEventListener("load", () => {
       kakao.maps.load(initMap);
     }); //헤드태그에 추가
@@ -163,12 +168,12 @@ onMounted(() => {
   width: 30rem;
   height: 38rem;
   /* margin-top: -20rem; */
-  animation: fadein 1s;
+  animation: fadein 0.4s;
   box-shadow: 0 1px 0.2rem grey;
   overflow: hidden;
 }
 
-.map-cap{
+.map-cap {
   display: flex;
   background-color: rgba(51, 51, 51, 1);
   width: 100%;
@@ -189,7 +194,6 @@ onMounted(() => {
     opacity: 1;
     transform: translateY(0);
   }
-
 }
 
 button {
@@ -199,10 +203,9 @@ button {
   margin: 0 5px;
 }
 
-button:hover{
-  background-color: rgba(40,40,40);
+button:hover {
+  background-color: rgba(40, 40, 40);
 }
-
 
 #map {
   width: 400px;

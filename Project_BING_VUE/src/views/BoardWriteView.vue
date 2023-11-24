@@ -2,7 +2,7 @@
   <div class="write-view-container">
     <div class="write-form-container">
       <div class="write-form-cap">
-        <div>{{ comm_id == 1 ? 'FREEDIVING' : 'SKINSCUBA' }}</div>
+        <div>{{ comm_id == 1 ? "FREEDIVING" : "SKINSCUBA" }}</div>
         <div class="title">Post Registration</div>
       </div>
       <BoardWriteForm />
@@ -14,7 +14,7 @@
 import BoardWriteForm from "../components/board/BoardWriteForm.vue";
 import { useCommonStore } from "../stores/commonStore";
 import { onMounted } from "vue";
-import { useRoute } from 'vue-router';
+import { useRoute } from "vue-router";
 // Store
 const commonStore = useCommonStore();
 
@@ -36,21 +36,29 @@ onMounted(() => {
 }
 
 .write-view-container {
-  margin-top: 140px;
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
+  background-image: url("@/assets/커뮤니티배경.png");
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .write-form-container {
+  margin-top: 100px;
   width: 50%;
   padding: 1rem;
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
   box-shadow: 0 0 10px black;
-  opacity: 0.9;
+  /* opacity: 0.8; */
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .title {
@@ -60,7 +68,7 @@ onMounted(() => {
   animation: fadein 1s;
   width: 100%;
 }
-.write-form-cap{
+.write-form-cap {
   position: absolute;
   background-color: rgba(51, 51, 51);
   margin-bottom: 5rem;
