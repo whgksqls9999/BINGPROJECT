@@ -283,6 +283,7 @@ onMounted(() => {
 .body {
   height: 11300px;
   background: linear-gradient(-7deg, rgb(180, 202, 221), rgb(0, 0, 0));
+  /* overflow-x: hidden; */
 }
 .p1 {
   position: sticky;
@@ -290,7 +291,8 @@ onMounted(() => {
   font-weight: bold;
   margin-top: 800px;
   top: 50px;
-  margin-left: 100px;
+  /* margin-left: 100px; */
+  left: 100px;
 }
 .p1-e1 {
   font-size: 200px;
@@ -307,8 +309,6 @@ onMounted(() => {
   font-size: 60px;
   margin-left: 760px;
   opacity: 0;
-}
-.p1-e4 {
 }
 .p2 {
   color: white;
@@ -328,7 +328,6 @@ onMounted(() => {
 .p4 {
   position: fixed;
   position: relative;
-  left: 1200;
   top: 400;
   opacity: 1;
   height: 50px;
