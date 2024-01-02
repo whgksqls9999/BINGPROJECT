@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bing.community.model.dao.FavoriteBoardDao">
+	<!-- 사용자 게시글 찜 목록 가져오기 -->
+	<!-- <select id="pickUserBoard" parameterType="String"
+		resultType="FavoriteBoard">
+		SELECT * FROM favorite_board
+		WHERE user_email =
+		#{user_email}
+	</select> -->
+    <select id="pickUserBoard" parameterType="String"
+        resultType="FavoriteBoard">
+        <!-- SELECT * FROM
+        board A
+        WHERE A.board_id IN (SELECT board_id FROM FAVORITE_BOARD WHERE #{writername}=writername) -->
+        SELECT * FROM favorite_board fb
+        INNER JOIN board b
+        ON fb.board_id = b.board_id
+        WHERE fb.writername = #{writername}
+    </select>
+    
+    <!-- 게시글 찜 등록하기 -->
+    <insert id="insertFavoriteBoard" parameterType="FavoriteBoard">
+        INSERT INTO
+        favorite_board(favorite_boardId, board_id, writername, community_id)
+        VALUES(#{favorite_boardId},#{board_id},#{writername}, #{community_id})
+    </insert>
+
+	<!-- 게시글 찜 삭제하기 -->
+	<delete id="deleteFavoriteBoard" parameterType="int">
+		DELETE FROM
+		favorite_board
+		WHERE favorite_boardId = #{favorite_boardId}
+	</delete>
+</mapper>

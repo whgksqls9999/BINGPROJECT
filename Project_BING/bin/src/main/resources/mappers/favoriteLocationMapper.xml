@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bing.community.model.dao.FavoriteLocationDao">
+	<!-- 사용자 장소 찜 목록 가져오기 -->
+	<select id="pickUserLocation" parameterType="String" resultType="FavoriteLocation">
+		SELECT * FROM favorite_location fl
+		INNER JOIN location l
+		ON fl.location_id = l.location_id
+		WHERE fl.writername = #{writername}
+	</select>
+	
+	<!-- 장소 찜 등록하기 -->
+	<insert id="insertFavoriteLocation" parameterType="FavoriteLocation">
+		INSERT INTO favorite_location(favorite_locationId, location_id, writername)
+		VALUES(#{favorite_locationId},#{location_id},#{writername})
+	</insert>
+	
+	<!-- 장소 찜 삭제하기 -->
+	<delete id="deleteFavoriteLocation" parameterType="int">
+		DELETE FROM favorite_location
+		WHERE favorite_locationId = #{favorite_locationId}
+	</delete>
+</mapper>

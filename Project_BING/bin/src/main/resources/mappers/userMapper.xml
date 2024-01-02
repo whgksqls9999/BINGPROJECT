@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bing.community.model.dao.UserDao">
+
+	<!-- 모든 유저 조회 -->
+	<select id="selectAll" resultType="User">
+		SELECT * FROM user
+	</select>
+
+	<!-- 닉네임으로 유저 조회 -->
+	<select id="selectOneByNickname" resultType="User" parameterType="string">
+		SELECT *
+		FROM user
+		WHERE nickname = #{nickname}
+	</select>
+	
+	<!-- 이메일로 유저 조회 -->
+	<select id="selectOneByEmail" resultType="User" parameterType="string">
+		SELECT *
+		FROM user
+		WHERE email = #{email}
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO user(email, pw, name, gender, nickname, withdraw_text)
+		VALUES(#{email}, #{pw}, #{name}, #{gender},
+		#{nickname}, #{withdraw_text})
+	</insert>
+
+	<!-- 회원 정보 수정 -->
+	<update id="updateUser" parameterType="User">
+		UPDATE user
+		SET pw = #{pw},
+		name = #{name}, gender = #{gender}, nickname = #{nickname},
+		withdraw_text = #{withdraw_text}
+		WHERE email = #{email}
+	</update>
+
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteUser" parameterType="string">
+		DELETE FROM user
+		WHERE email = #{email}
+	</delete>
+</mapper>
