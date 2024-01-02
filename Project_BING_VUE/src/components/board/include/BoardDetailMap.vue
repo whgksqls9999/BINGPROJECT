@@ -54,7 +54,7 @@ const idParam = computed(() => route.params.board_id);
 // 이미 찜한 장소인지 체크
 const isFavoredLocation = computed(() => favStore.isFavoredLocation);
 
-const doFavLocation = async () => {
+const doFavLocation = () => {
   let favLocation = {
     favorite_locationId: 0,
     writername: user.value.nickname,
@@ -63,32 +63,21 @@ const doFavLocation = async () => {
 
   favStore.doFavLocation(favLocation, user.value.nickname);
   location.value.fav_cnt++;
-  await locationStore.updateLocation(location.value);
+  locationStore.updateLocation(location.value)
   locationStore.doGetLocation(location.value.location_id);
 };
 
-const doFavLocationCancel = async () => {
+const doFavLocationCancel = () => {
   favStore.doFavLocationCancel(
     isFavoredLocation.value,
     user.value.nickname,
     location.location_id
   );
   location.value.fav_cnt--;
-  await locationStore.updateLocation(location.value);
+  locationStore.updateLocation(location.value)
   locationStore.doGetLocation(location.value.location_id);
 };
-// const doFavBoard = async () => {
-//   let favBoard = {
-//     favorite_boardId: 0,
-//     board_id: idParam.value,
-//     writername: user.value.nickname,
-//   };
 
-//   favStore.doFavBoard(favBoard, user.value.nickname);
-//   boardOne.value.fav_cnt++;
-//   await boardStore.updateBoard(boardOne.value);
-//   boardStore.getBoard(idParam.value);
-// };
 // location_id를 props로 가져오기
 const props = defineProps({
   location: Number,
@@ -167,27 +156,30 @@ const placesSearchCB = (data, status, pagination) => {
   }
 };
 
-onMounted(async () => {
-  // 게시글 정보 갱신하기
-  await boardStore.getBoard(idParam.value);
-
-  console.log("게시글에서 받아온 보드아이디", boardOne.value.board_id);
-  // 장소 정보 가져오기
-  await locationStore.doGetLocation(boardOne.value.location_id);
-
-  // 유저 로그인 체크
+onMounted(() => {
+  boardStore.getBoard(idParam.value)
+    .then(() => {
+      locationStore.doGetLocation(boardOne.value.location_id)
+        .then(() => {
+          makeMap();
+      })
+  })
   userStore.doLoginCheck();
 
   //로그인 상태일 때
   if (isLogin.value) {
-    await userStore.getUserEmail(); // 토큰 가져오기
-    await userStore.getUserByEmail(loginUser.value.email); // 정보 가져오기
-    await favStore.doFavLocationCheck(
-      user.value.nickname,
-      location.value.location_id
-    ); // 이미 찜한 장소인지 체크하기
+    userStore.getUserEmail()
+    userStore.getUserByEmail(loginUser.value.email)
+      .then(() => {
+        favStore.doFavLocationCheck(
+          user.value.nickname,
+          location.value.location_id
+      ); // 이미 찜한 장소인지 체크하기
+    })
   }
+});
 
+function makeMap() {
   // 지도 생성하기
   if (window.kakao && window.kakao.maps) {
     initMap();
@@ -201,14 +193,14 @@ onMounted(async () => {
     }); //헤드태그에 추가
     document.head.appendChild(script);
   }
+}
 
-  console.log("불러와진 장소의 아이디", location.value.location_id);
-});
-
-watch(async () => {
-  await boardStore.getBoard(idParam.value);
-  await locationStore.doGetLocation(boardOne.value.location_id);
-  initMap();
+watch(() => idParam.value, () => {
+  boardStore.getBoard(idParam.value)
+    .then(() => {
+      locationStore.doGetLocation(boardOne.value.location_id);
+      initMap();
+  })
 });
 </script>
 

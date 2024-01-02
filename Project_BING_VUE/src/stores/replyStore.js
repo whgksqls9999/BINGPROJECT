@@ -59,19 +59,19 @@ export const useReplyStore = defineStore("reply", () => {
   };
 
   //댓글 수정하기
-  const updateReply = async (reply) =>{
+  const updateReply = async (reply) => {
     await axios
-    .put(`${REST_REPLY_API}/${reply.reply_id}`,reply,{
-headers : {"Content-Type" : "application/json"},
-    })
-    .then((response)=>{
-      console.log(response)
-      getBoardReplyList(reply.board_id)
-    }).catch((err)=>{
-      console.log(err)
-    })
-
-  }
+      .put(`${REST_REPLY_API}/${reply.reply_id}`, reply, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response);
+        getBoardReplyList(reply.board_id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return {
     boardReplyList,

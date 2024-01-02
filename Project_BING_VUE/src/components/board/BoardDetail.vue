@@ -257,8 +257,6 @@ const prePage = async () => {
 };
 
 const nextPage = async () => {
-  console.log(boardOne.value.num);
-  console.log("ddd", commBoardList.value);
   if (boardOne.value.num === commBoardList.value.length) {
     alert("다음 게시글이 없습니다.");
     return;
@@ -266,7 +264,7 @@ const nextPage = async () => {
 
   const nextBoardIndex = boardOne.value.num;
   const nextBoard = commBoardList.value[nextBoardIndex];
-  await boardStore.updateViewCnt(nextBoard.board_id);
+  await boardStore.updateViewCnt(nextBoard.board_id); 
 
   if (!nextBoard) {
     alert("다음 게시글이 없습니다.");

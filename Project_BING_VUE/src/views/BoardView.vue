@@ -3,9 +3,7 @@
     <div class="board-view-community-title">
       <h1>
         let's MELT
-        <span>{{
-          idParam == 1 ? "FREEDIVING" : idParam == 2 ? "SKINSCUBA" : ""
-        }}</span>
+        <span>{{ idParam == 1 ? "FREEDIVING" : idParam == 2 ? "SKINSCUBA" : "" }}</span>
         COMMUNITY
       </h1>
     </div>
@@ -15,16 +13,12 @@
       </div>
       <div class="board-view-middle">
         <div class="board-view-left">
-          <RouterLink
-            class="category-button free"
-            :to="{ name: 'board', params: { community_id: 1 } }"
-            >FREEDIVING</RouterLink
-          >
-          <RouterLink
-            class="category-button skin"
-            :to="{ name: 'board', params: { community_id: 2 } }"
-            >SKINSCUBA</RouterLink
-          >
+          <RouterLink class="category-button free" :to="{ name: 'board', params: { community_id: 1 } }">
+            FREEDIVING
+          </RouterLink>
+          <RouterLink class="category-button skin" :to="{ name: 'board', params: { community_id: 2 } }">
+            SKINSCUBA
+          </RouterLink>
         </div>
         <div class="board-view-center">
           <BoardList :board-list="commBoardList" />
@@ -42,20 +36,8 @@
         <button @click="doSearch">
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
         </button>
-        <!-- <button
-          @click="
-            () => {
-              commBoardList.sort((a, b) => b.num - a.num);
-            }
-          "
-        >
-          번호 내림차순 정렬
-        </button> -->
       </div>
-      <RouterLink
-        :to="{ name: 'boardWrite', params: { community_id: idParam } }"
-        :comm_id="idParam"
-      >
+      <RouterLink :to="{ name: 'boardWrite', params: { community_id: idParam } }" :comm_id="idParam">
         <div class="write-icon">
           <font-awesome-icon :icon="['fas', 'pen-to-square']" />
         </div>
@@ -65,38 +47,34 @@
 </template>
 
 <script setup>
-import { RouterView, RouterLink, useRoute } from "vue-router";
+import { onMounted, computed, ref, watch } from "vue";
+import { RouterLink, useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore.js";
 import { useCommonStore } from "../stores/commonStore";
-import { onMounted, computed, ref } from "vue";
 import BoardList from "@/components/board/BoardList.vue";
-import { watch } from "vue";
-
-// Store
-const commonStore = useCommonStore();
-const boardStore = useBoardStore();
 
 // 헤더 fixed toggle
 onMounted(() => {
   commonStore.toggleHeaderFixed(false);
   commonStore.toggleFooterFixed(true);
+  boardStore.getCommBoardList(idParam.value);
+  boardStore.getCommunity(idParam.value);
+  boardStore.getCommunityList();
 });
+
+// Store
+const commonStore = useCommonStore();
+const boardStore = useBoardStore();
 
 // community_id 받아오기
 const route = useRoute();
 const idParam = computed(() => route.params.community_id);
 
-// // 내 커뮤니티가 아닌 다른 커뮤니티 가져오기
-// const communityList = computed(() => boardStore.communityList);
-// const elseCommunityList = communityList.value.filter(
-//   (element) => element.community_id != idParam
-// );
-
 // 검색
 const key = ref("title");
 const word = ref("");
 const doSearch = () => {
-  let searchCondition = {
+  const searchCondition = {
     key: key.value,
     word: word.value,
     community_id: idParam.value,
@@ -106,23 +84,18 @@ const doSearch = () => {
 };
 
 // 게시글 리스트 받아오기
-const commBoardList = computed(() => {
-  return boardStore.commBoardList;
-});
+const commBoardList = computed(() => 
+  boardStore.commBoardList
+);
 
 // 커뮤니티 정보 받아오기
-const community = computed(() => {
-  return boardStore.community;
-});
+const community = computed(() => 
+  boardStore.community
+);
 
 //라우터링크 누를때마다 리스트 갱신
-watch(() => {
+watch(() => idParam.value, () => {
   boardStore.getCommBoardList(idParam.value);
-});
-onMounted(() => {
-  boardStore.getCommBoardList(idParam.value);
-  boardStore.getCommunity(idParam.value);
-  boardStore.getCommunityList();
 });
 </script>
 
@@ -133,15 +106,15 @@ onMounted(() => {
   background-position: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .board-view-search {
   display: flex;
 }
+
 .board-view-community-title span {
-  background: linear-gradient(
-    0deg,
-    rgba(173, 202, 219, 1) 0%,
-    rgba(255, 255, 255, 0) 41%
-  );
+  background: linear-gradient(0deg,
+      rgba(173, 202, 219, 1) 0%,
+      rgba(255, 255, 255, 0) 41%);
 }
 
 .board-view-global {

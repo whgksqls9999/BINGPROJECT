@@ -38,11 +38,6 @@ export const useBoardStore = defineStore("board", () => {
       method: "GET",
     }).then((response) => {
       commBoardList.value = response.data;
-      // sessionStorage.setItem(
-      // btoa("commBoardList"),
-      // btoa(JSON.stringify(commBoardList.value))
-      // );
-      console.log(commBoardList);
     });
   };
 
@@ -53,7 +48,6 @@ export const useBoardStore = defineStore("board", () => {
       method: "GET",
     }).then((response) => {
       boardAll.value = response.data;
-      console.log(boardAll.value);
     });
   };
 

@@ -84,7 +84,6 @@ onMounted(() => {
 
 const passwordConfirm = () => {
   if (!pwConfirm.value) {
-    // console.log("ADSFSAF");
     alert("비밀번호가 일치하지 않습니다.");
     return true;
   }
@@ -136,9 +135,6 @@ const registUser = async () => {
   }
 
   await userStore.getAllUsers();
-  console.log(email.value);
-  console.log(users.value);
-  console.log(userStore.users);
   if (users.value.length > 0) {
     const userAlready = users.value.some((user) => user.email === email.value);
     const nicknameAlready = users.value.some(

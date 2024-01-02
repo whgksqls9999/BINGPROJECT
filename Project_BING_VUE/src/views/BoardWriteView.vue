@@ -17,7 +17,6 @@ import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 // Store
 const commonStore = useCommonStore();
-
 const route = useRoute();
 const comm_id = route.params.community_id;
 

@@ -91,13 +91,12 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from "vue";
+import { onMounted, computed } from "vue";
 import { useMyPageStore } from "@/stores/myPageStore.js";
 import { useUserStore } from "@/stores/userStore";
 import { useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/boardStore";
 import { useCommonStore } from "@/stores/commonStore";
-import UserInfo from "../account/UserInfo.vue";
 
 // store, route
 const boardStore = useBoardStore();
@@ -110,27 +109,22 @@ const emailParam = route.params.email;
 const store = useMyPageStore();
 
 // 내 글 목록
-const myBoards = computed(() => {
-  return store.myBoards;
-});
+const myBoards = computed(() => store.myBoards);
 
 // 내 댓글 목록
-const myReplys = computed(() => {
-  return store.myReplys;
-});
+const myReplys = computed(() => store.myReplys);
 
 // 내 정보
 const user = computed(() => userStore.user);
 
 // 내 닉네임
-const nickname = computed(() => {
-  return userStore.user.nickname;
-});
+const nickname = computed(() => userStore.user.nickname);
 
-onMounted(async () => {
-  await userStore.getUserByEmail(emailParam);
-  store.getMyBoards(user.value.nickname);
-  store.getMyReplys(user.value.nickname);
+onMounted(() => {
+  userStore.getUserByEmail(emailParam).then(() => {
+    store.getMyBoards(user.value.nickname);
+    store.getMyReplys(user.value.nickname);
+  })
   commonStore.toggleHeaderFixed(false);
 });
 </script>

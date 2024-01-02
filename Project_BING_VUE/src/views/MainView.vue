@@ -1,14 +1,11 @@
 <template>
   <div class="body">
-    <h2>Section One Text Block Reveal</h2>
-    <h3>Text</h3>
+    <div>&nbsp;</div>
     <div class="p1">
       <div class="p1-e1">해빙</div>
       <div class="p1-e2"></div>
       <div class="p1-e3">解氷</div>
       <div class="p1-e4"></div>
-      <!-- 얼음이 녹아 풀리는 것 -->
-      <!--  -->
     </div>
     <div class="p2">
       <div class="p2-e2"></div>
@@ -57,15 +54,11 @@
 
 <script setup>
 import { useCommonStore } from "@/stores/commonStore.js";
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 onMounted(() => {
-  window.addEventListener("click", (e) => {
-    console.log(e.offsetY);
-  });
-
   gsap.to(".p1-e1", {
     scrollTrigger: {
       trigger: ".p1-e1",
@@ -248,31 +241,13 @@ onMounted(() => {
     opacity: 0,
   });
 });
-// let options = {
-//   root: document.querySelector('#scrollArea'),
-//   rootMargin: '0px',
-//   threshold: 1.0
-// }
-// let observer = new IntersectionObserver(() => {
-//   console.log('detected');
-// }, options)
-// let target = document.querySelector('.first');
-// observer.observe(target);
-// console.log(observer);
-// observer.observe(target_1);
-// const isVisible = ref(false);
-// observer.stop
-// # init
+
 // 헤더 fixed toggle
 const commonStore = useCommonStore();
 onMounted(() => {
   commonStore.toggleHeaderFixed(true);
   commonStore.toggleFooterFixed(false);
 });
-// onBeforeRouteLeave(() => {
-//   commonStore.toggleHeaderFixed(false);
-// });
-// ## init
 </script>
 
 <style scoped>
@@ -291,7 +266,6 @@ onMounted(() => {
   font-weight: bold;
   margin-top: 800px;
   top: 50px;
-  /* margin-left: 100px; */
   left: 100px;
 }
 .p1-e1 {

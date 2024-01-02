@@ -26,9 +26,9 @@ const userStore = useUserStore();
 const user = computed(() => userStore.user);
 
 // 팔로우 취소
-const doFollowCancel = async () => {
-  await userStore.doFollowCancel(props.person.follow_id, user.value.email);
-  doRenewFollowList();
+const doFollowCancel = () => {
+  userStore.doFollowCancel(props.person.follow_id, user.value.email)
+  .then(() => doRenewFollowList())
 };
 
 const emit = defineEmits(['renewFollow']);
