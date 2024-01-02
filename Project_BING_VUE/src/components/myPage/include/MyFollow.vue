@@ -22,13 +22,11 @@
 
 <script setup>
 import { useUserStore } from "@/stores/userStore.js";
-import { useFavStore } from "@/stores/favStore.js";
 import MyFollowItem from "./MyFollowItem.vue";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, ref } from "vue";
 
 // store, emit
 const userStore = useUserStore();
-const favStore = useFavStore();
 const emit = defineEmits(["closeWindow"]);
 
 const props = defineProps({
@@ -37,16 +35,16 @@ const props = defineProps({
   type: String,
 });
 
-const followingList = computed(() => {
-  return userStore.followingList;
-});
+const followingList = computed(() => userStore.followingList);
 const followerList = computed(() => userStore.followerList);
 const followList = ref(props.toggle);
 
 // 팔로우 취소 후 목록 갱신
-const renewFollow = async () => {
-  await userStore.getFollowingList(props.email);
-  followList.value = followingList.value;
+const renewFollow = () => {
+  userStore.getFollowingList(props.email)
+    .then(() => {
+      followList.value = followingList.value;
+  })
 };
 
 // 팔로우 목록 창 닫기
@@ -59,13 +57,6 @@ if (props.type == "Follower") {
 } else if (props.type == "Following") {
   followList.value = followingList.value;
 }
-
-onMounted(() => {});
-
-// onMounted(() => {
-//   userStore.getFollowingList(props.email);
-//   userStore.getFollowerList(props.email);
-// })
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
     <div class="userinfo-box">
       <div class="userinfo-box-top">
         <div class="userinfo-box-img">
-          <img src="@/assets/군싹.jpeg" width="100" alt="" />
+          <img src="@/assets/user.png" width="100" alt="" />
         </div>
         <div class="userinfo-box-info">
           <div>{{ selectedUser.nickname }}</div>
@@ -88,11 +88,6 @@ const init = async () => {
     // 세션에서 이메일 가져오기
     await userStore.getUserEmail();
   }
-  // 선택된 유저의 정보 가져오기
-  // await userStore.getOtherUser("props.");
-  // if (props.selected == "") {
-  // } else {
-  // }
 
   if (props.selected != "") {
     await userStore.getOtherUser(props.selected);
@@ -101,9 +96,6 @@ const init = async () => {
   // 선택된 유저의 팔로우 목록 불러오기
   await userStore.getFollowerList(selectedUser.value.email);
   await userStore.getFollowingList(selectedUser.value.email);
-
-  console.log(selectedUser.value.email);
-  console.log(loginUser.value.email);
 
   const check = ref(false);
   if (isLogin) {
@@ -123,8 +115,6 @@ const init = async () => {
     selfCheck.value = true;
   }
 
-  console.log(selfCheck.value);
-  console.log(isFollowed.value);
 };
 
 const emit = defineEmits(["closeWindow"]);
@@ -134,7 +124,6 @@ const doClose = () => {
 
 watch(() => {
   init();
-  console.log(props.selected);
 });
 </script>
 

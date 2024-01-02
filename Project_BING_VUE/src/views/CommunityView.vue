@@ -31,8 +31,6 @@ onMounted(() => {
   commonStore.toggleHeaderFixed(false);
   commonStore.toggleFooterFixed(false);
 });
-
-const fadeout = ref("false");
 </script>
 
 <style scoped>

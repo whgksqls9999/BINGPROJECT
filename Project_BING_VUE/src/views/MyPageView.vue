@@ -21,8 +21,6 @@
 </template>
 
 <script setup>
-import MyBoards from "@/components/myPage/MyBoards.vue";
-import { useMyPageStore } from "@/stores/myPageStore.js";
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useCommonStore } from "@/stores/commonStore.js";
@@ -39,8 +37,6 @@ onMounted(() => {
 });
 
 const route = useRoute();
-const isNavOpen = ref(false);
-const nicknameParam = route.params.nickname;
 </script>
 
 <style scoped>

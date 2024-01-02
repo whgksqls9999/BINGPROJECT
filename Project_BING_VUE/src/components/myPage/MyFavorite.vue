@@ -100,16 +100,24 @@ const markerPosition = ref([]);
 // 카카오 지도에 출력하기 위한 마커들
 const markerList = ref([]);
 
-onMounted(async () => {
-  await userStore.getUserByEmail(emailParam);
-  await favStore.getFavLocationList(user.value.nickname);
-  await favStore.getFavBoardList(user.value.nickname);
+onMounted( () => {
+  userStore.getUserByEmail(emailParam)
+    .then(() => {
+      favStore.getFavBoardList(user.value.nickname); 
+      favStore.getFavLocationList(user.value.nickname)
+        .then(() => {
+          makeMap();
+      })
+  })
+});
 
+///////////////////////////// 밑으로 지도
+// 지도 생성하기
+function makeMap() {
   markerPosition.value = favLocationList.value.map((location) => [
     location.latitude,
     location.longitude,
   ]);
-  // 지도 생성하기
   if (window.kakao && window.kakao.maps) {
     initMap();
   } else {
@@ -121,9 +129,9 @@ onMounted(async () => {
     }); //헤드태그에 추가
     document.head.appendChild(script);
   }
-});
+}
 
-///////////////////////////// 밑으로 지도
+
 let map = null;
 let infowindow = null;
 const initMap = () => {

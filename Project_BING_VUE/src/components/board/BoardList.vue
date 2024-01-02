@@ -23,7 +23,6 @@ import BoardListItem from "@/components/board/BoardListItem.vue";
 
 const props = defineProps({
   boardList: Array,
-  // default: () => [],
 });
 </script>
 

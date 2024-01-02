@@ -54,9 +54,7 @@ onMounted(() => {
       },
     })
     .then((response) => {
-      console.log("API Response:", response);
       const responseData = response.data?.response?.body?.items?.item;
-      console.log("API Data:", responseData);
       if (responseData) {
         responseData.forEach((item) => {
           if (item.category === "TMP") {

@@ -6,7 +6,7 @@
       </div>
       <div class="myInfo-detail">
         <div class="myInfo-img">
-          <img src="@/assets/군싹.jpeg" />
+          <img src="@/assets/user.png" />
           <div class="myInfo-follow">
             <table>
               <thead>
@@ -61,6 +61,12 @@ import { useUserStore } from "@/stores/userStore.js";
 import { computed, onMounted, ref } from "vue";
 import MyFollow from "./include/MyFollow.vue";
 
+onMounted(() => {
+  userStore.getUserByEmail(emailParam);
+  userStore.getFollowerList(emailParam);
+  userStore.getFollowingList(emailParam);
+});
+
 // 유저 닉네임 받아오기
 const route = useRoute();
 const emailParam = route.params.email;
@@ -78,16 +84,20 @@ const followListToggle = ref("");
 const followType = ref("");
 
 // 팔로워 리스트 열기
-const doOpenFollowerList = async () => {
-  await userStore.getFollowingList(emailParam);
-  followListToggle.value = followerList.value;
-  followType.value = "Follower";
-};
+const doOpenFollowerList = () => {
+  userStore.getFollowingList(emailParam)
+    .then(() => {
+      followListToggle.value = followerList.value;
+    })
+    followType.value = "Follower";
+  };
 
 // 팔로잉 리스트 열기
-const doOpenFollowingList = async () => {
-  await userStore.getFollowerList(emailParam);
-  followListToggle.value = followingList.value;
+const doOpenFollowingList = () => {
+  userStore.getFollowerList(emailParam)
+    .then(() => {
+      followListToggle.value = followingList.value;
+  })
   followType.value = "Following";
 };
 
@@ -96,23 +106,6 @@ const doCloseFollowList = () => {
   followListToggle.value = "";
 };
 
-// // 팔로워 목록 갱신
-// const doRenewFollower = async () =>  {
-//   await userStore.getFollowerList(emailParam);
-//   followListToggle.value = followerList.value;
-// }
-
-// 팔로잉 목록 갱신
-const doRenewFollowing = async () => {
-  await userStore.getFollowingList(emailParam);
-  followListToggle.value = followingList.value;
-};
-
-onMounted(() => {
-  userStore.getUserByEmail(emailParam);
-  userStore.getFollowerList(emailParam);
-  userStore.getFollowingList(emailParam);
-});
 </script>
 <style scoped>
 .myInfo-global {
